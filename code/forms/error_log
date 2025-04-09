@@ -1,0 +1,2 @@
+[03-Dec-2024 15:51:39 America/Bogota] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/forms/showitem.php on line 61
+[03-Dec-2024 15:51:39 America/Bogota] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/forms/showitem.php on line 88

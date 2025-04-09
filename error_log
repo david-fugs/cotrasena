@@ -1,0 +1,4 @@
+[03-Dec-2024 13:27:49 America/New_York] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'ciaf'@'localhost' (using password: YES) in /home/cotrasena/público_html/creditos.cotrasenapereira.com/conexion.php on line 3
+[03-Dec-2024 13:27:49 America/New_York] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home/cotrasena/público_html/creditos.cotrasenapereira.com/conexion.php on line 4
+[03-Dec-2024 13:35:26 America/New_York] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'cotrasena_creditos'@'localhost' (using password: YES) in /home/cotrasena/público_html/creditos.cotrasenapereira.com/conexion.php on line 3
+[03-Dec-2024 13:35:26 America/New_York] PHP Warning:  mysqli::set_charset(): Couldn't fetch mysqli in /home/cotrasena/público_html/creditos.cotrasenapereira.com/conexion.php on line 4

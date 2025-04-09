@@ -1,0 +1,27 @@
+[10-Dec-2024 11:16:05 America/New_York] PHP Warning:  include(conexion.php): failed to open stream: No such file or directory in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 15
+[10-Dec-2024 11:16:05 America/New_York] PHP Warning:  include(conexion.php): failed to open stream: No such file or directory in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 15
+[10-Dec-2024 11:16:05 America/New_York] PHP Warning:  include(): Failed opening 'conexion.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 15
+[10-Dec-2024 11:16:05 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php:24
+Stack trace:
+#0 {main}
+  thrown in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 24
+[10-Dec-2024 11:16:09 America/New_York] PHP Warning:  include(conexion.php): failed to open stream: No such file or directory in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 15
+[10-Dec-2024 11:16:09 America/New_York] PHP Warning:  include(conexion.php): failed to open stream: No such file or directory in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 15
+[10-Dec-2024 11:16:09 America/New_York] PHP Warning:  include(): Failed opening 'conexion.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 15
+[10-Dec-2024 11:16:09 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php:24
+Stack trace:
+#0 {main}
+  thrown in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 24
+[10-Dec-2024 11:16:42 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php:24
+Stack trace:
+#0 {main}
+  thrown in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 24
+[10-Dec-2024 11:17:44 America/New_York] PHP Notice:  Undefined variable: conn in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 28
+[10-Dec-2024 11:17:44 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 28
+[10-Dec-2024 11:18:20 America/New_York] PHP Notice:  Undefined index: correo in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 54
+[10-Dec-2024 11:24:30 America/New_York] PHP Notice:  Undefined variable: row in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 83
+[10-Dec-2024 11:24:30 America/New_York] PHP Notice:  Undefined variable: row in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 87
+[10-Dec-2024 11:24:30 America/New_York] PHP Notice:  Undefined variable: row in /home/cotrasena/público_html/creditos.cotrasenapereira.com/code/asoc/solicitar.php on line 91
