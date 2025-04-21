@@ -54,7 +54,6 @@
           <!-- duplicate or remove this li tag if you want to add or remove navlink with submenu -->
           <!-- start -->
           <hr style="border: 1px solid #F3840D; border-radius: 5px;">
-          <strong>Formatos-></strong>
           <li class="item">
             <div href="#" class="nav_link submenu_item">
               <span class="navlink_icon">
@@ -67,8 +66,9 @@
             </div>
 
             <ul class="menu_items submenu">
-              <a href="code/forms/additem.php" class="nav_link sublink">Ingresar Producto</a>
-              <a href="code/forms/showitem.php" class="nav_link sublink">Sub Menú Consultar</a>
+              <a href="code/asoc/solicitar.php" class="nav_link sublink">Ingresar Solicitud</a>
+              <a href="code/asoc/seeSolicitud.php" class="nav_link sublink">Ver Solicitudes</a>
+
             </ul>
           </li>
 

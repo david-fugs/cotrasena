@@ -87,7 +87,7 @@
         <h1><b><i class="fa-regular fa-credit-card"></i> SOLICITUD DE CREDITO</b></h1>
         <p><i><b><font size=3 color=#c68615>*Datos obligatorios</i></b></font></p>
     
-        <form action='edititem1.php' method="POST">
+        <form action='agregarSolicitud.php' method="POST">
             <!-- Información del asociado -->
             <div class="form-group">
                 <h3>DATOS PERSONALES</h3>
@@ -104,12 +104,12 @@
                     <div class="col-12 col-sm-2">
                         <label for="cedula_aso">* CÉDULA No.</label>
                         <input type='text' name='cedula_aso' class='form-control' id="cedula_aso" 
-                               value='<?php echo $datos_usuario['cedula_aso'] ?? ''; ?>' readonly />
+                               value='<?php echo $datos_usuario['cedula_aso'] ?? ''; ?>'  />
                     </div>
                     <div class="col-12 col-sm-4">
                         <label for="nombre_aso">NOMBRE ASOCIADO</label>
                         <input type='text' name='nombre_aso' id="nombre_aso" class='form-control' 
-                               value='<?php echo $datos_usuario['nombre_aso'] ?? ''; ?>' readonly />
+                               value='<?php echo $datos_usuario['nombre_aso'] ?? ''; ?>'  />
                     </div>
                     <div class="col-12 col-sm-4">
                         <label for="direccion_aso">DIRECCIÓN</label>
@@ -124,7 +124,7 @@
                     <div class="col-12 col-sm-3">
                         <label for="fecha_exp_doc_aso">* FECHA EXPEDICION</label>
                         <input type="date" name="fecha_exp_doc_aso" class="form-control" id="fecha_exp_doc_aso" required
-                            value='<?php echo $datos_usuario['fecha_exp_doc_aso'] ?? ''; ?>' readonly/>
+                            value='<?php echo $datos_usuario['fecha_exp_doc_aso'] ?? ''; ?>' />
                     </div>
                     <div class="col-12 col-sm-3">
                         <label for="pais_exp_cedula_aso">* PAIS EXPEDICION</label>
@@ -146,7 +146,7 @@
                     <div class="col-12 col-sm-3">
                         <label for="fecha_nacimiento_aso">* FECHA NACIMIENTO</label>
                         <input type="date" name="fecha_nacimiento_aso" class="form-control" id="fecha_nacimiento_aso" required 
-                            value='<?php echo $datos_usuario['fecha_nacimiento_aso'] ?? ''; ?>' readonly/>
+                            value='<?php echo $datos_usuario['fecha_nacimiento_aso'] ?? ''; ?>' />
                     </div>
                     <div class="col-12 col-sm-3">
                         <label for="pais_naci_aso">* PAIS NACIMIENTO</label>
@@ -276,7 +276,7 @@
                     <div class="col-12 col-sm-3">
                         <label for="fecha_sol">* FECHA</label>
                         <input type="text" name="fecha_sol" class="form-control" id="fecha_sol" 
-                               value="<?php echo date('Y-m-d H:i:s'); ?>" readonly />
+                               value="<?php echo date('Y-m-d H:i:s'); ?>"  />
                     </div>
                     <div class="col-12 col-sm-2">
                         <label for="tipo_deudor_aso">* TIPO DEUDOR</label>
@@ -344,11 +344,11 @@
                     </div>
                     <div class="col-12 col-sm-2">
                         <label for="nit_emp_labo_sol">* NIT EMPRESA</label>
-                        <input type='number' name='nit_emp_labo_sol' id="nit_emp_labo_sol" class='form-control' required/>
+                        <input type='text' name='nit_emp_labo_sol' id="nit_emp_labo_sol" class='form-control' required/>
                     </div>
                     <div class="col-12 col-sm-2">
                         <label for="act_emp_labo_sol">* ACTIVIDAD EMPRESA</label>
-                        <input type='number' name='act_emp_labo_sol' id="act_emp_labo_sol" class='form-control' required/> 
+                        <input type='text' name='act_emp_labo_sol' id="act_emp_labo_sol" class='form-control' required/> 
                     </div>
                 </div>
             </div>
@@ -680,7 +680,7 @@
                     </div>
                     <div class="col-12 col-sm-3">
                         <label for="conyu_exp_sol">CIUDAD DE EXPEDICION</label>
-                        <input type="number" name="conyu_exp_sol" class="form-control" id="conyu_exp_sol" />
+                        <input type="text" name="conyu_exp_sol" class="form-control" id="conyu_exp_sol" />
                     </div>
                 </div>
             </div> 
