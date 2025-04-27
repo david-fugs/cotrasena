@@ -51,23 +51,10 @@ function deleteMember($id_solicitud)
 ?>
 
 <body>
-    <style>
-        .fila {
-            text-align: center;
-            vertical-align: middle;
-        }
-
-        th {
-            text-align: center;
-            /* Centra horizontalmente el texto */
-            vertical-align: middle;
-            /* Centra verticalmente el texto */
-        }
-    </style>
     <div style="margin-top: 20px;">
         <img src='../../img/img2.jpg' width="360" height="170" class="responsive">
         <h1 style="color: #13603e; text-shadow: #FFFFFF 0.1em 0.1em 0.2em; font-size: 40px; text-align: center;"><b>
-                SOLICITUDES </b></h1>
+                     SOLICITUDES APROBADAS </b></h1>
 
     </div>
     <div class="flex">
@@ -92,10 +79,7 @@ function deleteMember($id_solicitud)
     <!-- Tabla de Ventas -->
     <div class="container mt-5">
         <div class="position-relative mb-3">
-            <h2 class="text-center">Solicitudes Registradas</h2>
-            <button type="button" class="btn btn-success position-absolute top-0 end-0" onclick="window.location.href='solicitar.php'">
-                Agregar Solciitud
-            </button>
+            <h2 class="text-center">Solicitudes Aprobadas Registradas</h2>
         </div>
         <table class="table table-striped" id="salesTable">
             <thead>
@@ -104,70 +88,46 @@ function deleteMember($id_solicitud)
                     <th>Nombres</th>
                     <th>Monto Solicitado</th>
                     <th>Linea Credito</th>
-                    <th>Observacion</th>
                     <th>Fecha Solicitud</th>
-                    <?php
+                    <?php 
                     if ($_SESSION['tipo_usu'] == '1' || $_SESSION['tipo_usu'] == '3') { ?>
                         <th>Aprobar Solicitud</th>
                     <?php } ?>
-                    <th>Agregar Observacion</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
-                <?php include "getSolicitud.php"; ?>
+                <?php include "getRequest.php"; ?>
             </tbody>
         </table>
     </div>
 
-    <!-- MODAL OBSERVACION -->
-    <div class="modal fade" id="modalObservacion" tabindex="-1" aria-labelledby="modalObservacionLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-4 shadow-sm">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title" id="modalObservacionLabel">Agregar una Observacion</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="observationSolicitud.php" method="POST">
-                    <div class="modal-body px-4 py-3">
-                        <div class="mb-3">
-                            <label for="observacion_solicitud" class="form-label">Observacion</label>
-                            <input type="text" class="form-control" id="observacion_solicitud" name="observacion_solicitud">
-                        </div>
-                        <input type="hidden" name="id_solicitud" id="id_solicitud" value="">
-
-                    </div>
-
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" id="guardarCambios">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <br /><a href="../../access.php"><img src='../../img/atras.png' width="72" height="72" title="back" /></a><br>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const modalObservacion = document.getElementById("modalObservacion");
+        const modalEdicion = document.getElementById("modalEdicion");
 
-        modalObservacion.addEventListener("shown.bs.modal", function(event) {
+        modalEdicion.addEventListener("shown.bs.modal", function(event) {
             const button = event.relatedTarget;
 
             // Datos generales
-            document.getElementById("id_solicitud").value = button.getAttribute("data-id_solicitud");
-        });
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const modalObservacion = document.getElementById("modalObservacion");
-        modalObservacion.addEventListener("shown.bs.modal", function(event) {
-            const button = event.relatedTarget;
-            // Datos generales
-            document.getElementById("id_solicitud").value = button.getAttribute("data-id_solicitud");
+            document.getElementById("edit-cedula").value = button.getAttribute("data-cedula");
+            document.getElementById("edit-nombre").value = button.getAttribute("data-nombre");
+            document.getElementById("edit-apellido").value = button.getAttribute("data-apellidos");
+            document.getElementById("edit-telefono").value = button.getAttribute("data-telefono");
+            document.getElementById("edit-referencia").value = button.getAttribute("data-referencia");
+            document.getElementById("cedula_original").value = button.getAttribute("data-cedula");
+            document.getElementById("edit-genero").value = button.getAttribute("data-genero");
+            // Programas
+            const idsProgramas = button.getAttribute("data-ids-programas");
+            const idsArray = idsProgramas.split(",").map(id => id.trim());
+            const checkboxes = modalEdicion.querySelectorAll('input[name="programa[]"]');
+            checkboxes.forEach(cb => {
+                cb.checked = idsArray.includes(cb.value);
+            });
         });
     });
 </script>

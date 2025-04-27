@@ -130,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $refer_cel_2_sol = $_POST['refer_cel_2_sol'];
     $refer_tel_2_sol = $_POST['refer_tel_2_sol'];
     $id_solicitud = $_POST['id_solicitud'];
+    $fecha_edit_sol = date("Y-m-d H:i:s");
 
     // Construir query
     $query = "UPDATE solicitudes SET 
@@ -249,7 +250,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     refer_tel_1_sol = '$refer_tel_1_sol',
     refer_nombre_2_sol = '$refer_nombre_2_sol',
     refer_cel_2_sol = '$refer_cel_2_sol',
-    refer_tel_2_sol = '$refer_tel_2_sol'
+    refer_tel_2_sol = '$refer_tel_2_sol',
+    fecha_edit_solicitud = '$fecha_edit_sol'
 WHERE id_solicitud = '$id_solicitud'";
 
     if ($mysqli->query($query)) {

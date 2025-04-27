@@ -7,24 +7,25 @@ $where = "WHERE estado_solicitud = 1";
 // Filtro por cédula
 if (!empty($_GET['cedula_persona'])) {
     $cedula = $mysqli->real_escape_string($_GET['cedula_persona']);
-    $where .= " AND cedula_aso = '$cedula'";
+    $where .= " AND s.cedula_aso = '$cedula'";
 }
 
 // Filtro por nombre
 if (!empty($_GET['nombre'])) {
     $nombre = $mysqli->real_escape_string($_GET['nombre']);
-    $where .= " AND nombres_aso LIKE '%$nombre%'";
+    $where .= " AND s.nombres_aso LIKE '%$nombre%'";
 }
 
 // Filtro por programa
 if (!empty($_GET['credito'])) {
     $credito = $mysqli->real_escape_string($_GET['credito']);
-    $where .= " AND linea_cred_aso = '$credito'";
+    $where .= " AND s.linea_cred_aso = '$credito'";
 }
 
 // Consulta SQL para obtener los datos
 $query = "
-SELECT * FROM solicitudes
+SELECT * FROM solicitudes as s
+LEFT JOIN aprobaciones as a ON s.id_solicitud = a.id_solicitud
 $where 
 ";
 $result = $mysqli->query($query);
@@ -61,27 +62,16 @@ if ($result->num_rows > 0) {
         echo '<td  class="fila" style="background-color:' . $color . ';">' . $row['nombre_aso'] . '</td>';
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['monto_sol'] . '</td>';
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['linea_cred_aso'] . '</td>';
-        echo '<td class="fila" style="background-color:' . $color . ';">' . $row['observacion_solicitud'] . '</td>';
         echo '<td  class="fila"style="background-color:' . $color . ';">' . $row['fecha_alta_solicitud'] . '</td>';
         if ($_SESSION['tipo_usu'] == 1  ||  $_SESSION['tipo_usu'] == 3) {
             echo '<td class="fila" style="background-color:' . $color . ';" data-label="Estado" style="margin-left:35px;">
-                <a href="updateEstadoSolicitud.php?id_solicitud=' . $row['id_solicitud'] . '&estado_solicitud=2" class="btn " style="margin-left:35px;" onclick="return confirm(\'¿Estás seguro de aprobar esta Solicitud?\')">
+                <a href="updateEstadoSolicitud.php?id_solicitud=' . $row['id_solicitud'] . '&estado_solicitud=2" class="btn " style="margin-left:35px;" onclick="return confirm(\'¿Estás seguro de cambiar el estado?\')">
                         <i class="fas fa-rotate-right fa-lg"></i> 
                     </a>
                   </td>';
         }
-        echo '
-            <td data-label="Editar" style="background-color:' . $color . ';" class="fila" >
-                <button type="button" class="btn-edit" 
-                    data-bs-toggle="modal" data-bs-target="#modalObservacion"
-                     data-id_solicitud="' .  $row['id_solicitud']  . '"
-                    style="background-color:transparent; border:none;">
-                    <i class="fa-solid fa-note-sticky fa-lg"></i>
-                </button>     
-            </td> ';
-
         echo '<td class="fila" style="background-color:' . $color . ';" data-label="Editar">
-        <a href="editSolicitud.php?id_solicitud=' . $row['id_solicitud'] . '" class="btn btn-sm">
+        <a href="../asoc/editSolicitud.php?id_solicitud=' . $row['id_solicitud'] . '" class="btn btn-sm">
             <i class="fa-sharp fa-solid fa-pen-to-square fa-lg"></i>
         </a>
       </td>';

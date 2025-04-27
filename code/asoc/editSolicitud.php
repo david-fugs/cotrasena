@@ -62,7 +62,7 @@ $mysqli->close();
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="margin-bottom: 50px;">
         <center>
             <img src='../../img/img3.png' class="responsive">
         </center>
@@ -836,7 +836,7 @@ $mysqli->close();
             <input type="hidden" name="id_solicitud" value="<?= $datos_solicitud['id_solicitud'] ?? ''; ?>" />
             <button type="submit" class="btn btn-primary">Actualizar Solicitud</button>
         </form>
-    </div>
+    </div >
 </body>
 
 </html>
