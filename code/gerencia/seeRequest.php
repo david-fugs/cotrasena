@@ -56,18 +56,11 @@ function deleteMember($id_solicitud)
             text-align: center;
             vertical-align: middle;
         }
-
-        th {
-            text-align: center;
-            /* Centra horizontalmente el texto */
-            vertical-align: middle;
-            /* Centra verticalmente el texto */
-        }
     </style>
     <div style="margin-top: 20px;">
         <img src='../../img/img2.jpg' width="360" height="170" class="responsive">
         <h1 style="color: #13603e; text-shadow: #FFFFFF 0.1em 0.1em 0.2em; font-size: 40px; text-align: center;"><b>
-                SOLICITUDES </b></h1>
+                SOLICITUDES GERENCIA </b></h1>
 
     </div>
     <div class="flex">
@@ -92,36 +85,28 @@ function deleteMember($id_solicitud)
     <!-- Tabla de Ventas -->
     <div class="container mt-5">
         <div class="position-relative mb-3">
-            <h2 class="text-center">Solicitudes Registradas</h2>
-            <button type="button" class="btn btn-success position-absolute top-0 end-0" onclick="window.location.href='solicitar.php'">
-                Agregar Solciitud
-            </button>
+            <h2 class="text-center">Solicitudes Aprobadas Gerencia Registradas</h2>
         </div>
         <table class="table table-striped" id="salesTable">
             <thead>
                 <tr>
-                    <th></th>
                     <th>Cedula</th>
                     <th>Nombres</th>
                     <th>Monto Solicitado</th>
                     <th>Linea Credito</th>
                     <th>Observacion</th>
                     <th>Fecha Solicitud</th>
-                    <?php
-                    if ($_SESSION['tipo_usu'] == '1' || $_SESSION['tipo_usu'] == '3') { ?>
-                        <th>Aprobar Solicitud</th>
-                    <?php } ?>
                     <th>Agregar Observacion</th>
+                    <th>Enviar a Gerencia</th>
+                    <th>Devolver Solicitud</th>
                     <th>Edit</th>
-                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
-                <?php include "getSolicitud.php"; ?>
+                <?php include "getRequest.php"; ?>
             </tbody>
         </table>
     </div>
-
     <!-- MODAL OBSERVACION -->
     <div class="modal fade" id="modalObservacion" tabindex="-1" aria-labelledby="modalObservacionLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -130,13 +115,13 @@ function deleteMember($id_solicitud)
                     <h5 class="modal-title" id="modalObservacionLabel">Agregar una Observacion</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="observationSolicitud.php" method="POST">
+                <form action="observationAprobacion.php" method="POST">
                     <div class="modal-body px-4 py-3">
                         <div class="mb-3">
-                            <label for="observacion_solicitud" class="form-label">Observacion</label>
-                            <input type="text" class="form-control" id="observacion_solicitud" name="observacion_solicitud">
+                            <label for="observacion_Aprobacion" class="form-label">Observacion</label>
+                            <input type="text" class="form-control" id="observacion_Aprobacion" name="observacion_aprobacion">
                         </div>
-                        <input type="hidden" name="id_solicitud" id="id_solicitud" value="">
+                        <input type="hidden" name="id_aprobacion" id="id_aprobacion" value="">
 
                     </div>
 
@@ -148,24 +133,27 @@ function deleteMember($id_solicitud)
             </div>
         </div>
     </div>
-    <!-- MODAL DEVOLUCION -->
-    <div class="modal fade" id="modalDevolucion" tabindex="-1" aria-labelledby="modalDevolucionLabel" aria-hidden="true">
+    <!-- MODAL DEVOLVER SOLICITUD-->
+    <div class="modal fade" id="modalDevolverSolicitud" tabindex="-1" aria-labelledby="modalDevolverSolicitudLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content rounded-4 shadow-sm">
                 <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title" id="modalDevolucionLabel">Observacion de la devolucion</h5>
+                    <h5 class="modal-title" id="modalDevolverSolicitudLabel">Agrega una Observacion</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body px-4 py-3">
-                    <div class="mb-3">
-                        <label for="observacion_devolucion" class="form-label">Observacion Devolucion</label>
-                        <input type="text" class="form-control" id="observacion_devolucion" name="observacion_devolucion" readonly>
+                <form action="devolverAprobacion.php" method="POST">
+                    <div class="modal-body px-4 py-3">
+                        <div class="mb-3">
+                            <label for="observacion_Aprobacion" class="form-label">Observacion</label>
+                            <input type="text" class="form-control" id="observacion_Aprobacion" name="observacion_aprobacion">
+                        </div>
+                        <input type="hidden" name="id_aprobacion" id="id_aprobacion2" value="">
                     </div>
-                    <input type="hidden" name="id_solicitud" id="id_solicitud" value="">
-                </div>
-                <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="guardarCambios">Guardar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -176,36 +164,25 @@ function deleteMember($id_solicitud)
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const modalObservacion = document.getElementById("modalObservacion");
-
-        modalObservacion.addEventListener("shown.bs.modal", function(event) {
-            const button = event.relatedTarget;
-
-            // Datos generales
-            document.getElementById("id_solicitud").value = button.getAttribute("data-id_solicitud");
-        });
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const modalObservacion = document.getElementById("modalObservacion");
         modalObservacion.addEventListener("shown.bs.modal", function(event) {
             const button = event.relatedTarget;
             // Datos generales
-            document.getElementById("id_solicitud").value = button.getAttribute("data-id_solicitud");
+            document.getElementById("id_aprobacion").value = button.getAttribute("data-id_aprobacion");
         });
+
+
     });
 
     document.addEventListener("DOMContentLoaded", function() {
-        const modalDevolucion = document.getElementById("modalDevolucion");
+        const modalDevolverSolicitud = document.getElementById("modalDevolverSolicitud");
 
-        modalDevolucion.addEventListener('show.bs.modal', function(event) {
+        modalDevolverSolicitud.addEventListener('show.bs.modal', function(event) {
             const button = event.relatedTarget;
-
-            const id_solicitud = button.getAttribute('data-id_solicitud');
-            const observacion_devolucion = button.getAttribute('data-observacion_devolucion');
-            console.log(id_solicitud, observacion_devolucion)
-            document.getElementById('id_solicitud').value = id_solicitud;
-            document.getElementById('observacion_devolucion').value = observacion_devolucion;
+            const id_aprobacion = button.getAttribute('data-id_aprobacion');
+            console.log(id_aprobacion)
+            document.getElementById('id_aprobacion2').value = id_aprobacion;
         });
+
     });
 </script>
 

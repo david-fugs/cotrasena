@@ -247,18 +247,20 @@ $tipo_usu     = $_SESSION['tipo_usu'];
           <li class="item">
             <div href="#" class="nav_link submenu_item">
               <span class="navlink_icon">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <!--<i class="bx bx-home-alt"></i>-->
+              <i class="fa-solid fa-arrow-trend-up"></i>
               </span>
 
-              <span class="navlink">Informes</span>
+              <span class="navlink">Solicitudes Gerencia</span>
               <i class="bx bx-chevron-right arrow-left"></i>
             </div>
 
             <ul class="menu_items submenu">
-              <a href="code/forms/menuReport.php" class="nav_link sublink">Generar Informes</a>
+              <a href="code/gerencia/seeRequest.php" class="nav_link sublink">Ver Solicitudes Gerencia</a>
+
             </ul>
           </li>
+
+
 
           <hr style="border: 1px solid #F3840D; border-radius: 5px;">
           <!-- duplicate this li tag if you want to add or remove  navlink with submenu -->
