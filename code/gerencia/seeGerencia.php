@@ -90,20 +90,19 @@ function deleteMember($id_solicitud)
         <table class="table table-striped" id="salesTable">
             <thead>
                 <tr>
-                    <th>Cedula</th>
-                    <th>Nombres</th>
-                    <th>Monto Solicitado</th>
-                    <th>Linea Credito</th>
-                    <th>Observacion</th>
-                    <th>Fecha Solicitud</th>
-                    <th>Agregar Observacion</th>
-                    <th>Enviar a Gerencia</th>
-                    <th>Devolver Solicitud</th>
-                    <th>Edit</th>
+                    <th class="fila" >Cedula</th>
+                    <th class="fila">Nombres</th>
+                    <th class="fila">Monto Solicitado</th>
+                    <th class="fila">Linea Credito</th>
+                    <th class="fila">Observacion</th>
+                    <th class="fila" >Fecha Gerencia</th>
+                    <th class="fila">Agregar Observacion</th>
+                    <th class="fila">Devolver Solicitud</th>
+                    <th class="fila">Edit</th>
                 </tr>
             </thead>
             <tbody>
-                <?php include "getRequest.php"; ?>
+                <?php include "getGerencia.php"; ?>
             </tbody>
         </table>
     </div>
@@ -115,13 +114,13 @@ function deleteMember($id_solicitud)
                     <h5 class="modal-title" id="modalObservacionLabel">Agregar una Observacion</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="observationAprobacion.php" method="POST">
+                <form action="observationGerencia.php" method="POST">
                     <div class="modal-body px-4 py-3">
                         <div class="mb-3">
-                            <label for="observacion_Aprobacion" class="form-label">Observacion</label>
-                            <input type="text" class="form-control" id="observacion_Aprobacion" name="observacion_aprobacion">
+                            <label for="observacion_gerencia" class="form-label">Observacion</label>
+                            <input type="text" class="form-control" id="observacion_gerencia" name="observacion_gerencia">
                         </div>
-                        <input type="hidden" name="id_aprobacion" id="id_aprobacion" value="">
+                        <input type="hidden" name="id_gerencia" id="id_gerencia" value="">
 
                     </div>
 
@@ -141,13 +140,13 @@ function deleteMember($id_solicitud)
                     <h5 class="modal-title" id="modalDevolverSolicitudLabel">Agrega una Observacion</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="devolverAprobacion.php" method="POST">
+                <form action="devolverGerencia.php" method="POST">
                     <div class="modal-body px-4 py-3">
                         <div class="mb-3">
-                            <label for="observacion_Aprobacion" class="form-label">Observacion</label>
-                            <input type="text" class="form-control" id="observacion_Aprobacion" name="observacion_aprobacion">
+                            <label for="observacion_gerencia" class="form-label">Observacion</label>
+                            <input type="text" class="form-control" id="observacion_gerencia" name="observacion_gerencia">
                         </div>
-                        <input type="hidden" name="id_aprobacion" id="id_aprobacion2" value="">
+                        <input type="hidden" name="id_gerencia" id="id_gerencia2" value="">
                     </div>
                     <div class="modal-footer bg-light">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -167,7 +166,7 @@ function deleteMember($id_solicitud)
         modalObservacion.addEventListener("shown.bs.modal", function(event) {
             const button = event.relatedTarget;
             // Datos generales
-            document.getElementById("id_aprobacion").value = button.getAttribute("data-id_aprobacion");
+            document.getElementById("id_gerencia").value = button.getAttribute("data-id_gerencia");
         });
 
 
@@ -178,9 +177,8 @@ function deleteMember($id_solicitud)
 
         modalDevolverSolicitud.addEventListener('show.bs.modal', function(event) {
             const button = event.relatedTarget;
-            const id_aprobacion = button.getAttribute('data-id_aprobacion');
-            console.log(id_aprobacion)
-            document.getElementById('id_aprobacion2').value = id_aprobacion;
+            const id_gerencia = button.getAttribute('data-id_gerencia');
+            document.getElementById('id_gerencia2').value = id_gerencia;
         });
 
     });

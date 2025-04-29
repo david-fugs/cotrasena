@@ -255,7 +255,7 @@ $tipo_usu     = $_SESSION['tipo_usu'];
             </div>
 
             <ul class="menu_items submenu">
-              <a href="code/gerencia/seeRequest.php" class="nav_link sublink">Ver Solicitudes Gerencia</a>
+              <a href="code/gerencia/seeGerencia.php" class="nav_link sublink">Ver Solicitudes Gerencia</a>
 
             </ul>
           </li>

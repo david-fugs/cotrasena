@@ -1,7 +1,7 @@
 <?php
 include("../../conexion.php");
 
-$where = "WHERE estado_solicitud = 2";
+$where = "WHERE estado_solicitud = 3";
 
 
 // Filtro por cédula
@@ -23,11 +23,13 @@ if (!empty($_GET['credito'])) {
 }
 
 // Consulta SQL para obtener los datos
-$query = "
-SELECT * FROM solicitudes as s
-LEFT JOIN aprobaciones as a ON s.id_solicitud = a.id_solicitud
-$where 
-ORDER BY fecha_aprobacion DESC
+$query = " SELECT g.id_gerencia,g.observacion_gerencia,
+s.cedula_aso,s.nombre_aso,s.id_solicitud,s.fecha_devolucion,s.fecha_alta_solicitud,s.monto_sol,s.linea_cred_aso,s.observacion_solicitud,s.fecha_devolucion,g.fecha_gerencia FROM solicitudes as s 
+LEFT JOIN gerencia as g ON s.id_solicitud = g.id_solicitud
+$where
+ORDER BY 
+    CASE WHEN g.fecha_observacion_gerencia IS NOT NULL THEN 0 ELSE 1 END,
+    g.fecha_gerencia DESC 
 ";
 $result = $mysqli->query($query);
 $data = [];
@@ -56,35 +58,30 @@ if ($result->num_rows > 0) {
 
 
         //dependiendo de la fecha de solicitud, se asigna un color
-        $color = getColor(getDiasDesdeSolicitud($row['fecha_aprobacion']));
+        $color = getColor(getDiasDesdeSolicitud($row['fecha_gerencia']));
 
         echo "<tr>";
         echo '<td class="fila"  style="background-color:' . $color . ';">' . $row['cedula_aso'] . '</td>';
         echo '<td  class="fila" style="background-color:' . $color . ';">' . $row['nombre_aso'] . '</td>';
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['monto_sol'] . '</td>';
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['linea_cred_aso'] . '</td>';
-        echo '<td class="fila" style="background-color:' . $color . ';">' . $row['observacion_aprobacion'] . '</td>';
-        echo '<td  class="fila"style="background-color:' . $color . ';">' . $row['fecha_aprobacion'] . '</td>';
+        echo '<td class="fila" style="background-color:' . $color . ';">' . $row['observacion_gerencia'] . '</td>';
+        echo '<td  class="fila"style="background-color:' . $color . ';">' . $row['fecha_gerencia'] . '</td>';
         echo '
         <td data-label="Editar" style="background-color:' . $color . ';" class="fila" >
             <button type="button" class="btn-edit" 
                 data-bs-toggle="modal" data-bs-target="#modalObservacion"
-                 data-id_aprobacion="' .  $row['id_aprobacion']  . '"
-                style="background-color:transparent; margin-left:45px; border:none;">
+                 data-id_gerencia="' .  $row['id_gerencia']  . '"
+                 data-id_solicitud="' .  $row['id_solicitud']  . '"
+                style="background-color:transparent;  border:none;">
                 <i class="fa-solid fa-note-sticky fa-lg"></i>
             </button>     
         </td> ';
-
-        echo '<td class="fila" style="background-color:' . $color . ';" data-label="Estado" style="">
-                <a href="../asoc/updateEstadoSolicitud.php?id_solicitud=' . $row['id_solicitud'] . '&estado_solicitud=3" class="btn " style="" onclick="return confirm(\'¿Estás seguro de Enviar a Gerencia?\')">
-                        <i class="fas fa-rotate-right fa-lg"></i> 
-                    </a>
-                  </td>';
-
         echo '<td data-label="Editar" style="background-color:' . $color . ';" class="fila" >
                 <button type="button" class="btn-edit" 
                         data-bs-toggle="modal" data-bs-target="#modalDevolverSolicitud"
-                        data-id_aprobacion="' .  $row['id_aprobacion']  . '"
+                        data-id_gerencia="' .  $row['id_gerencia']  . '"
+                        data-id_solicitud="' .  $row['id_solicitud']  . '"
                         style="background-color:transparent; margin-top:3px; border:none;">
                         <i class="fas fa-rotate-left fa-lg"></i>
                     </button>     
