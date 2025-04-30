@@ -29,6 +29,37 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         } 
                     
                     </script>";
+                } else if ($estado_solicitud == 3) {
+                    // Si la actualización fue exitosa, crear en la tabla gerencia
+                    $sql_insert_gerencia = "INSERT INTO gerencia (id_solicitud, fecha_gerencia) VALUES ('$id_solicitud', NOW())";
+                    if ($mysqli->query($sql_insert_gerencia)) {
+                        echo "<script>
+                            alert('Solicitud actualizada y gerencia registrada correctamente.');
+                            if($estado_solicitud == 1) {
+                                window.location.href = '../aprovedRequest/seeRequest.php';
+                            } 
+                                if($estado_solicitud == 2) {
+                                window.location.href = 'seeSolicitud.php';
+                            } 
+                                if($estado_solicitud == 3) {
+                                window.location.href = '../aprovedRequest/seeRequest.php';
+                            } 
+                        
+                        </script>";
+                    } else {
+                        echo "<script>
+                            alert('Solicitud actualizada, pero error al registrar la gerencia: " . $mysqli->error . "');
+                             if($estado_solicitud == 1) {
+                                window.location.href = '../aprovedRequest/seeRequest.phpseeSolicitud.php';
+                            } 
+                                if($estado_solicitud == 2) {
+                                window.location.href = 'seeSolicitud.php';
+                            } 
+                                if($estado_solicitud == 3) {
+                                window.location.href = '../aprovedRequest/seeRequest.php';
+                            } 
+                        </script>";
+                    }
                 } else {
                     echo "<script>
                         alert('Solicitud actualizada, pero error al registrar la aprobación: " . $mysqli->error . "');

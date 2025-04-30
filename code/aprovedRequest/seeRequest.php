@@ -90,6 +90,7 @@ function deleteMember($id_solicitud)
         <table class="table table-striped" id="salesTable">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Cedula</th>
                     <th>Nombres</th>
                     <th>Monto Solicitado</th>
@@ -158,6 +159,29 @@ function deleteMember($id_solicitud)
         </div>
     </div>
 
+    <!-- MODAL DEVOLUCION -->
+    <div class="modal fade" id="modalDevolucion" tabindex="-1" aria-labelledby="modalDevolucionLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-4 shadow-sm">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="modalDevolucionLabel">Observacion de la devolucion</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4 py-3">
+                    <div class="mb-3">
+                        <label for="observacion_devolucion" class="form-label">Observacion Devolucion de Gerencia</label>
+                        <input type="text" class="form-control" id="observacion_devolucion" name="observacion_devolucion" readonly>
+                    </div>
+                    <input type="hidden" name="id_solicitud" id="id_solicitud" value="">
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <br /><a href="../../access.php"><img src='../../img/atras.png' width="72" height="72" title="back" /></a><br>
 </body>
@@ -183,6 +207,21 @@ function deleteMember($id_solicitud)
             document.getElementById('id_aprobacion2').value = id_aprobacion;
         });
 
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const modalDevolucion = document.getElementById("modalDevolucion");
+
+        modalDevolucion.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+
+            const id_solicitud = button.getAttribute('data-id_solicitud');
+            const observacion_devolucion = button.getAttribute('data-observacion_devolucion_gerencia');
+            console.log(id_solicitud, observacion_devolucion)
+            document.getElementById('id_solicitud').value = id_solicitud;
+            document.getElementById('observacion_devolucion').value = observacion_devolucion;
+        });
     });
 </script>
 

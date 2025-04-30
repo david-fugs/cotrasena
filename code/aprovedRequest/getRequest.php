@@ -24,10 +24,13 @@ if (!empty($_GET['credito'])) {
 
 // Consulta SQL para obtener los datos
 $query = "
-SELECT * FROM solicitudes as s
+SELECT s.*,a.*,d.observacion_devolucion_gerencia FROM solicitudes as s
 LEFT JOIN aprobaciones as a ON s.id_solicitud = a.id_solicitud
+LEFT JOIN devolucion_gerencia as d ON s.id_solicitud = d.id_solicitud
 $where 
-ORDER BY fecha_aprobacion DESC
+ORDER BY 
+  (d.observacion_devolucion_gerencia IS NULL OR d.observacion_devolucion_gerencia = '') ASC,
+  fecha_aprobacion DESC
 ";
 $result = $mysqli->query($query);
 $data = [];
@@ -53,12 +56,28 @@ if ($result->num_rows > 0) {
     $color = "green";
     while ($row = $result->fetch_assoc()) {
         //dependiendo del estado de la solicitud se asigna la fecha
-
-
-        //dependiendo de la fecha de solicitud, se asigna un color
-        $color = getColor(getDiasDesdeSolicitud($row['fecha_aprobacion']));
-
+        if ($row['fecha_devolucion_gerencia'] != null) {
+            $color = getColor(getDiasDesdeSolicitud($row['fecha_devolucion_gerencia']));
+        } else {
+            $color = getColor(getDiasDesdeSolicitud($row['fecha_aprobacion']));
+        }
+        
         echo "<tr>";
+        if ($row['fecha_devolucion_gerencia'] != null) {
+            echo '
+            <td data-label="Editar" style="background-color:' . $color . ';" class="fila" >
+                <button type="button" class="btn-edit" 
+                    data-bs-toggle="modal" data-bs-target="#modalDevolucion"
+                    data-id_solicitud="' .  $row['id_solicitud']  . '"
+                     data-observacion_devolucion_gerencia="' . htmlspecialchars($row['observacion_devolucion_gerencia']) . '"
+                    style="background-color:transparent; border:none;">
+                    <i class="fa-solid fa-triangle-exclamation fa-lg"></i>            
+                </button>     
+            </td> ';
+        } else {
+            echo '<td class="fila" style="background-color:' . $color . ';">' .  '</td>';
+        }
+
         echo '<td class="fila"  style="background-color:' . $color . ';">' . $row['cedula_aso'] . '</td>';
         echo '<td  class="fila" style="background-color:' . $color . ';">' . $row['nombre_aso'] . '</td>';
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['monto_sol'] . '</td>';

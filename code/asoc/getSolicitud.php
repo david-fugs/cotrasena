@@ -54,9 +54,9 @@ function getColor($dias)
 if ($result->num_rows > 0) {
     $color = "green";
     while ($row = $result->fetch_assoc()) {
-        
 
-        if($row['fecha_devolucion'] != null) {
+
+        if ($row['fecha_devolucion'] != null) {
             $color = getColor(getDiasDesdeSolicitud($row['fecha_devolucion']));
         } else {
             $color = getColor(getDiasDesdeSolicitud($row['fecha_alta_solicitud']));
@@ -82,8 +82,8 @@ if ($result->num_rows > 0) {
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['linea_cred_aso'] . '</td>';
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['observacion_solicitud'] . '</td>';
         echo '<td  class="fila"style="background-color:' . $color . ';">' . $row['fecha_alta_solicitud'] . '</td>';
-            echo '<td class="fila" style="background-color:' . $color . ';" data-label="Estado" style="margin-left:35px;">
-                <a href="updateEstadoSolicitud.php?id_solicitud='.$row['id_solicitud'] . '&estado_solicitud=2" class="btn " style="margin-left:35px;" onclick="return confirm(\'¿Estás seguro de aprobar esta Solicitud?\')">
+        echo '<td class="fila" style="background-color:' . $color . ';" data-label="Estado" style="margin-left:35px;">
+                <a href="updateEstadoSolicitud.php?id_solicitud=' . $row['id_solicitud'] . '&estado_solicitud=2" class="btn " style="margin-left:35px;" onclick="return confirm(\'¿Estás seguro de aprobar esta Solicitud?\')">
                         <i class="fas fa-rotate-right fa-lg"></i> 
                     </a>
                   </td>';
