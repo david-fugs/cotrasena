@@ -178,6 +178,7 @@ function deleteMember($id_solicitud)
         modalDevolverSolicitud.addEventListener('show.bs.modal', function(event) {
             const button = event.relatedTarget;
             const id_gerencia = button.getAttribute('data-id_gerencia');
+            console.log("id_gerenciaaaa", id_gerencia);
             document.getElementById('id_gerencia2').value = id_gerencia;
         });
 
