@@ -89,7 +89,7 @@ if ($result->num_rows > 0) {
             <button type="button" class="btn-edit" 
                 data-bs-toggle="modal" data-bs-target="#modalObservacion"
                  data-id_aprobacion="' .  $row['id_aprobacion']  . '"
-                style="background-color:transparent; margin-left:45px; border:none;">
+                style="background-color:transparent; border:none;">
                 <i class="fa-solid fa-note-sticky fa-lg"></i>
             </button>     
         </td> ';

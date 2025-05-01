@@ -18,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../css/vistas.css">
 
 </head>
 <?php
@@ -51,45 +52,43 @@ function deleteMember($id_solicitud)
 ?>
 
 <body>
-    <style>
-        .fila {
-            text-align: center;
-            vertical-align: middle;
-        }
-    </style>
-    <div style="margin-top: 20px;">
-        <img src='../../img/img2.jpg' width="360" height="170" class="responsive">
-        <h1 style="color: #13603e; text-shadow: #FFFFFF 0.1em 0.1em 0.2em; font-size: 40px; text-align: center;"><b>
-                SOLICITUDES GERENCIA </b></h1>
+    <header class="header">
+        <div class="logo-container">
+            <img src='../../img/img3.png' class="logo" alt="Logo">
+        </div>
+        <h1 class="title">SOLICITUDES GERENCIA</h1>
+    </header>
 
-    </div>
-    <div class="flex">
+    <div class="container">
         <div class="box">
             <form action="seeSolicitud.php" method="get" class="form">
                 <input name="cedula_persona" type="number" placeholder="Cédula"
-                    value="<?= isset($_GET['cedula_persona']) ? htmlspecialchars($_GET['cedula_persona']) : '' ?>">
+                    value="<?= isset($_GET['cedula_persona']) ? htmlspecialchars($_GET['cedula_persona']) : '' ?>" class="search-input">
                 <input name="nombre" type="text" placeholder="Nombre"
-                    value="<?= isset($_GET['nombre']) ? htmlspecialchars($_GET['nombre']) : '' ?>">
-                <select name="credito">
-                    <option value="">Buscar Linea Credito</option>
-                    <option value="LIBRE INVERSION" <?= (isset($_GET['credito']) && $_GET['credito'] == 'LIBRE INVERSION') ? 'selected' : '' ?>>LIBRE INVERSION</option>
-                    <option value="CREDIAPORTES" <?= (isset($_GET['credito']) && $_GET['credito'] == 'CREDIAPORTES') ? 'selected' : '' ?>>CREDIAPORTES</option>
-                    <option value="CREDITO EDUCATIVO " <?= (isset($_GET['credito']) && $_GET['credito'] == 'CREDITO EDUCATIVO ') ? 'selected' : '' ?>>CREDITO EDUCATIVO</option>
-                    <option value="CREDITO ROTATIVO" <?= (isset($_GET['credito']) && $_GET['credito'] == 'CREDITO ROTATIVO') ? 'selected' : '' ?>>CREDITO ROTATIVO</option>
-                    <option value="CREDITO PRIMA" <?= (isset($_GET['credito']) && $_GET['credito'] == 'CREDITO PRIMA') ? 'selected' : '' ?>>CREDITO PRIMA</option>
+                    value="<?= isset($_GET['nombre']) ? htmlspecialchars($_GET['nombre']) : '' ?>" class="search-input">
+                <select name="credito" class="search-input form-select">
+                    <option value="">Buscar línea crédito</option>
+                    <option value="LIBRE INVERSION" <?= (isset($_GET['credito']) && $_GET['credito'] == 'LIBRE INVERSION') ? 'selected' : '' ?>>Libre inversión</option>
+                    <option value="CREDIAPORTES" <?= (isset($_GET['credito']) && $_GET['credito'] == 'CREDIAPORTES') ? 'selected' : '' ?>>Crediaportes</option>
+                    <option value="CREDITO EDUCATIVO" <?= (isset($_GET['credito']) && $_GET['credito'] == 'CREDITO EDUCATIVO') ? 'selected' : '' ?>>Crédito educativo</option>
+                    <option value="CREDITO ROTATIVO" <?= (isset($_GET['credito']) && $_GET['credito'] == 'CREDITO ROTATIVO') ? 'selected' : '' ?>>Crédito rotativo</option>
+                    <option value="CREDITO PRIMA" <?= (isset($_GET['credito']) && $_GET['credito'] == 'CREDITO PRIMA') ? 'selected' : '' ?>>Crédito prima</option>
                 </select>
-                <input value="Buscar" type="submit">
+                <button type="submit" class="search-button">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
             </form>
         </div>
-    </div>
-    <!-- Tabla de Ventas -->
-    <div class="container mt-5">
+
         <div class="position-relative mb-3">
-            <h2 class="text-center">Solicitudes Aprobadas Gerencia Registradas</h2>
+            <h2 class="text-center titulo">Solicitudes Gerencia Registradas</h2>
+           
         </div>
-        <table class="table table-striped" id="salesTable">
-            <thead>
-                <tr>
+
+        <div class="table-responsive">
+            <table class="data-table" id="salesTable">
+                <thead>
+                    <tr>
                     <th class="fila" >Cedula</th>
                     <th class="fila">Nombres</th>
                     <th class="fila">Monto Solicitado</th>
@@ -99,12 +98,13 @@ function deleteMember($id_solicitud)
                     <th class="fila">Agregar Observacion</th>
                     <th class="fila">Devolver Solicitud</th>
                     <th class="fila">Edit</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php include "getGerencia.php"; ?>
-            </tbody>
-        </table>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php include "getGerencia.php"; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
     <!-- MODAL OBSERVACION -->
     <div class="modal fade" id="modalObservacion" tabindex="-1" aria-labelledby="modalObservacionLabel" aria-hidden="true">
