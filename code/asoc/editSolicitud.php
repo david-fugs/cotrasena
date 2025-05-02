@@ -847,7 +847,9 @@ $mysqli->close();
                 </div>
             </div>
             <input type="hidden" name="id_solicitud" value="<?= $datos_solicitud['id_solicitud'] ?? ''; ?>" />
+            <a href="seeSolicitud.php"><img src='../../img/atras.png' width="72" height="72" title="back" style="margin-right: 80px;" /></a>
             <button type="submit" class="btn btn-primary">Actualizar Solicitud</button>
+
         </form>
     </div>
 </body>

@@ -20,40 +20,6 @@ include("../../conexion.php");
 // Inicializar variable para almacenar datos
 $datos_usuario = [];
 
-// Validar si es tipo_usu == 3
-if ($tipo_usu == 3) {
-    // Consulta para combinar tablas usuarios y asociados
-    $query = "
-            SELECT u.*, 
-                   a.cedula_aso, 
-                   a.nombre_aso, 
-                   a.direccion_aso, 
-                   a.tel_aso, 
-                   a.email_aso, 
-                   a.fecha_nacimiento_aso, 
-                   a.estrato_aso, 
-                   a.cel_aso, 
-                   a.fecha_exp_cedula_aso, 
-                   a.fecha_ingreso_aso
-            FROM usuarios u
-            JOIN asociados a ON u.usuario = a.cedula_aso
-            WHERE u.id_usu = ?
-        ";
-
-    $stmt = $mysqli->prepare($query); // Preparar consulta segura
-    $stmt->bind_param("i", $id_usu);  // Asignar parámetro
-    $stmt->execute();                 // Ejecutar consulta
-    $result = $stmt->get_result();    // Obtener resultados
-
-    if ($result->num_rows > 0) {
-        $datos_usuario = $result->fetch_assoc(); // Obtener datos del usuario
-    } else {
-        echo "<p class='text-danger'>No se encontraron datos para este usuario.</p>";
-    }
-
-    $stmt->close(); // Cerrar declaración
-}
-$mysqli->close(); // Cerrar conexión
 ?>
 
 <!DOCTYPE html>
@@ -73,9 +39,9 @@ $mysqli->close(); // Cerrar conexión
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="../../css/formulario.css" rel="stylesheet">
-   
 
 </head>
+
 
 <body>
     <header class="header">
@@ -95,7 +61,7 @@ $mysqli->close(); // Cerrar conexión
                 <div class="row">
                     <div class="col-md-2">
                         <label for="tipo_doc_aso" class="form-label">Tipo documento</label>
-                        <select name="tipo_doc_aso" class="form-select" required>
+                        <select name="tipo_doc_aso" class="form-select" id="tipo_doc_aso" required>
                             <option value="C.C.">C.C.</option>
                             <option value="C.E.">C.E.</option>
                             <option value="PASAPORTE">Pasaporte</option>
@@ -104,18 +70,18 @@ $mysqli->close(); // Cerrar conexión
                     </div>
                     <div class="col-md-2">
                         <label for="cedula_aso" class="form-label">Cédula No.</label>
-                        <input type='text' name='cedula_aso' class='form-control'
-                            value='<?= $datos_usuario['cedula_aso'] ?? '' ?>' required>
+                        <input type='text' name='cedula_aso' class='form-control' id="cedula_aso"
+                            value='' required>
                     </div>
                     <div class="col-md-4">
                         <label for="nombre_aso" class="form-label">Nombre asociado</label>
-                        <input type='text' name='nombre_aso' class='form-control'
-                            value='<?= $datos_usuario['nombre_aso'] ?? '' ?>'>
+                        <input type='text' name='nombre_aso' id="nombre_aso" class='form-control'
+                            value=''>
                     </div>
                     <div class="col-md-4">
                         <label for="direccion_aso" class="form-label">Dirección</label>
-                        <input type='text' name='direccion_aso' class='form-control'
-                            value='<?= $datos_usuario['direccion_aso'] ?? '' ?>'>
+                        <input type='text' name='direccion_aso' class='form-control' id="direccion_aso"
+                            value=''>
                     </div>
                 </div>
 
@@ -124,7 +90,7 @@ $mysqli->close(); // Cerrar conexión
                     <div class="col-md-3">
                         <label for="fecha_exp_doc_aso" class="form-label">Fecha expedición</label>
                         <input type="date" name="fecha_exp_doc_aso" class="form-control" required
-                            value='<?= $datos_usuario['fecha_exp_doc_aso'] ?? '' ?>'>
+                            value=''>
                     </div>
                     <div class="col-md-3">
                         <label for="pais_exp_cedula_aso" class="form-label">País expedición</label>
@@ -175,13 +141,14 @@ $mysqli->close(); // Cerrar conexión
                         <div class="col-12 col-sm-2">
                             <label for="sexo_aso">* SEXO</label>
                             <select name="sexo_aso" class="form-control" id="sexo_aso" required>
+                                <option value=""></option>
                                 <option value="Femenino">FEMENINO</option>
                                 <option value="Masculino">MASCULINO</option>
                             </select>
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="nacionalidad_aso">* NACIONALIDAD</label>
-                            <input type='text' name='nacionalidad_aso' class='form-control' required />
+                            <input type='text' name='nacionalidad_aso' class='form-control' id="nacionalidad_aso" required />
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="estado_civil_aso">* ESTADO CIVIL</label>
@@ -926,6 +893,129 @@ $mysqli->close(); // Cerrar conexión
             fileList.appendChild(fileDiv);
         });
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        const cedulaInput = document.getElementById('cedula_aso');
+        const nombreInput = document.getElementById('nombre_aso');
+        const edadInput = document.getElementById('edad_aso');
+        const direccionInput = document.getElementById('direccion_aso');
+
+        const tipo_doc_aso = document.getElementById('tipo_doc_aso');
+        const edad_aso = document.getElementById('edad_aso');
+        const sexo_aso = document.getElementById('sexo_aso');
+        const nacionalidad_aso = document.getElementById('nacionalidad_aso');
+        const estado_civil_aso = document.getElementById('estado_civil_aso');
+        const per_cargo_aso = document.getElementById('per_cargo_aso');
+        const tip_vivienda_aso = document.getElementById('tip_vivienda_aso');
+        const barrio_aso = document.getElementById('barrio_aso');
+        const ciudad_aso = document.getElementById('ciudad_aso');
+        const departamente_aso = document.getElementById('departamente_aso');
+        const nivel_educa_aso = document.getElementById('nivel_educa_aso');
+        const titulo_obte_aso = document.getElementById('titulo_obte_aso');
+        const titulo_pos_aso = document.getElementById('titulo_pos_aso');
+        const tel_aso = document.getElementById('tel_aso');
+        const email_aso = document.getElementById('email_aso');
+        const cel_aso = document.getElementById('cel_aso');
+        const fecha_nacimiento_aso = document.getElementById('fecha_nacimiento_aso');
+        const ciudad_naci_aso = document.getElementById('ciudad_naci_aso');
+        const dpto_naci_aso = document.getElementById('dpto_naci_aso');
+        const pais_naci_aso = document.getElementById('pais_naci_aso');
+        const estrato_aso = document.getElementById('estrato_aso');
+        const dpto_exp_cedula_aso = document.getElementById('dpto_exp_cedula_aso');
+        const pais_exp_cedula_aso = document.getElementById('pais_exp_cedula_aso');
+        // Escuchar el evento 'blur' cuando el campo pierde el foco
+        cedulaInput.addEventListener('blur', function() {
+            const cedula_aso = cedulaInput.value.trim(); // Obtener la cédula que el usuario está escribiendo
+
+            // Puedes poner un mínimo de caracteres si lo prefieres
+            // Crear una solicitud AJAX
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'getAsociado.php?cedula_aso=' + encodeURIComponent(cedula_aso), true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Procesar la respuesta JSON
+                    const data = JSON.parse(xhr.responseText);
+
+                    if (data.error) {
+                        // Si hubo un error, puedes mostrar un mensaje o dejar los campos vacíos
+                        nombreInput.value = '';
+                        edadInput.value = '';
+                        direccionInput.value = '';
+                        tipo_doc_aso.value = '';
+                        edad_aso.value = '';
+                        sexo_aso.value = '';
+                        nacionalidad_aso.value = '';
+                        estado_civil_aso.value = '';
+                        per_cargo_aso.value = '';
+                        tip_vivienda_aso.value = '';
+                        barrio_aso.value = '';
+                        ciudad_aso.value = '';
+                        departamente_aso.value = '';
+                        nivel_educa_aso.value = '';
+                        titulo_obte_aso.value = '';
+                        titulo_pos_aso.value = '';
+                        tel_aso.value = '';
+                        email_aso.value = '';
+                        cel_aso.value = '';
+                        fecha_nacimiento_aso.value = '';
+                        ciudad_naci_aso.value = '';
+                        dpto_naci_aso.value = '';
+                        pais_naci_aso.value = '';
+                        estrato_aso.value = '';
+                        dpto_exp_cedula_aso.value = '';
+                        pais_exp_cedula_aso.value = '';
+
+                    } else {
+                        console.log(data);
+                        // Si la consulta fue exitosa, mostrar los datos en los campos
+                        nombreInput.value = data.nombre_aso;
+                        edadInput.value = data.edad_aso;
+                        direccionInput.value = data.direccion_aso;
+                        if (data.tipo_doc_aso) {
+                            tipoDocInput.value = data.tipo_doc_aso.trim();
+                        }
+                        edad_aso.value = data.edad_aso;
+
+                        // Verifica el valor de data.sexo_aso y asigna el valor adecuado al select
+                        if (data.sexo_aso === 'M') {
+                            sexo_aso.value = 'Masculino'; // Asigna "Masculino" si el valor es "M"
+                        } else if (data.sexo_aso === 'F') {
+                            sexo_aso.value = 'Femenino'; // Asigna "Femenino" si el valor es "F"
+                        }
+                        nacionalidad_aso.value = data.nacionalidad_aso;
+                        estado_civil_aso.value = data.estado_civil_aso;
+                        per_cargo_aso.value = data.per_cargo_aso;
+                        tip_vivienda_aso.value = data.tip_vivienda_aso;
+                        barrio_aso.value = data.barrio_aso;
+                        ciudad_aso.value = data.ciudad_aso;
+                        departamente_aso.value = data.departamente_aso;
+                        nivel_educa_aso.value = data.nivel_educa_aso;
+                        titulo_obte_aso.value = data.titulo_obte_aso;
+                        titulo_pos_aso.value = data.titulo_pos_aso;
+                        tel_aso.value = data.tel_aso;
+                        email_aso.value = data.email_aso;
+                        cel_aso.value = data.cel_aso;
+                        fecha_nacimiento_aso.value = data.fecha_nacimiento_aso;
+                        ciudad_naci_aso.value = data.ciudad_naci_aso;
+                        dpto_naci_aso.value = data.dpto_naci_aso;
+                        pais_naci_aso.value = data.pais_naci_aso;
+                        estrato_aso.value = data.estrato_aso;
+                        dpto_exp_cedula_aso.value = data.dpto_exp_cedula_aso;
+                        pais_exp_cedula_aso.value = data.pais_exp_cedula_aso;
+
+                    }
+                } else {
+                    alert('Error en la solicitud. Intenta de nuevo.');
+                }
+            };
+
+            xhr.onerror = function() {
+                alert('Hubo un problema con la solicitud AJAX.');
+            };
+
+            xhr.send();
+        });
+    });
 </script>
 
 

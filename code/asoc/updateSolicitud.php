@@ -1,10 +1,6 @@
 <?php
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 if (!isset($_SESSION['id_usu'])) {
     header("Location: ../../index.php");
     exit();
@@ -255,9 +251,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 WHERE id_solicitud = '$id_solicitud'";
 
     if ($mysqli->query($query)) {
-        echo "<pre>";
-        print_r($_FILES);
-        echo "</pre>";
         //cargar archivos
         $uploadDir = __DIR__ . '/documentos/'; // Carpeta 'documentos' en la misma ubicación del script
 
