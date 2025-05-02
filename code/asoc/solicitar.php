@@ -71,147 +71,9 @@ $mysqli->close(); // Cerrar conexión
     <!-- Using Select2 from a CDN-->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <style>
-        :root {
-            --color-primario: #13603e;
-            --color-secundario: #0d4a2d;
-            --color-fondo: #f9f9f9;
-            --color-borde: #ddd;
-            --color-texto: #333;
-            --color-advertencia: #c68615;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--color-fondo);
-            color: var(--color-texto);
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Encabezado estilo anterior */
-        .header {
-            background-color: #f1f3f1;
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .logo-container {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 100%;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo {
-            height: 70px;
-            width: auto;
-            max-height: 100%;
-        }
-
-        .title {
-            margin: 0 auto;
-            font-size: 32px;
-            font-weight: 700;
-            color: #13603e;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .titulo-principal {
-            color: var(--color-primario);
-            font-weight: 700;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .subtitulo {
-            color: var(--color-primario);
-            font-weight: 600;
-            margin: 25px 0 15px;
-            border-bottom: 2px solid var(--color-primario);
-            padding-bottom: 5px;
-        }
-
-        .seccion {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-label {
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .form-control,
-        .form-select {
-            border-radius: 6px;
-            padding: 10px 15px;
-            border: 1px solid var(--color-borde);
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            border-color: var(--color-primario);
-            box-shadow: 0 0 0 2px rgba(19, 96, 62, 0.2);
-        }
-
-        .obligatorio {
-            color: var(--color-advertencia);
-            font-size: 0.9rem;
-            font-style: italic;
-            color: rgb(219, 29, 29)
-        }
-
-        .btn-primary {
-            background-color: var(--color-primario);
-            border: none;
-            padding: 12px 25px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--color-secundario);
-            transform: translateY(-1px);
-        }
-
-        .btn-container {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        /* Responsividad mejorada */
-        @media (max-width: 768px) {
-            .row>div {
-                margin-bottom: 15px;
-            }
-        }
-
-        select {
-            border: #333 solid 1px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../css/formulario.css" rel="stylesheet">
+   
 
 </head>
 
@@ -226,7 +88,7 @@ $mysqli->close(); // Cerrar conexión
         <h2 class="titulo-principal"><i class="fas fa-credit-card me-2"></i>FORMULARIO DE SOLICITUD</h2>
         <p class="obligatorio mb-4"><i class="fas fa-asterisk me-1"></i> Campos obligatorios</p>
 
-        <form action='agregarSolicitud.php' method="POST">
+        <form action="agregarSolicitud.php" method="POST" enctype="multipart/form-data">
             <div class="seccion">
                 <h3 class="subtitulo">DATOS PERSONALES</h3>
 
@@ -415,12 +277,12 @@ $mysqli->close(); // Cerrar conexión
                 <div class="form-group">
                     <h3 class="subtitulo">DATOS DEL CREDITO</h3>
                     <div class="row">
-                        <div class="col-12 col-sm-3">
+                        <div class="col-12 col-sm-2">
                             <label for="fecha_sol">* FECHA</label>
                             <input type="text" name="fecha_sol" class="form-control" id="fecha_sol"
                                 value="<?php echo date('Y-m-d H:i:s'); ?>" />
                         </div>
-                        <div class="col-12 col-sm-2">
+                        <div class="col-12 col-sm-3">
                             <label for="tipo_deudor_aso">* TIPO DEUDOR</label>
                             <select name="tipo_deudor_aso" class="form-control" id="tipo_deudor_aso" required>
                                 <option value="DEUDOR PRINCIPAL">DEUDOR PRINCIPAL</option>
@@ -587,7 +449,7 @@ $mysqli->close(); // Cerrar conexión
                             <label for="cuota_pres_sol">* CUOTA PRESTAMOS</label>
                             <input type="number" name="cuota_pres_sol" class="form-control" id="cuota_pres_sol" required />
                         </div>
-                        <div class="col-12 col-sm-3">
+                        <div class="col-12 col-sm-2">
                             <label for="cuota_tar_cred_sol">* CUOTA TARJETA DE CREDITO</label>
                             <input type="number" name="cuota_tar_cred_sol" id="cuota_tar_cred_sol" class="form-control" required />
                         </div>
@@ -950,80 +812,121 @@ $mysqli->close(); // Cerrar conexión
                         </div>
                     </div>
                 </div>
-            
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-12 col-sm-3">
-                        <label for="fami_nombre_2_sol">* NOMBRE COMPLETO 2</label>
-                        <input type="text" name="fami_nombre_2_sol" class="form-control" id="fami_nombre_2_sol" required />
-                    </div>
-                    <div class="col-12 col-sm-3">
-                        <label for="fami_cel_2_sol">* CELULAR 2</label>
-                        <input type="number" name="fami_cel_2_sol" class="form-control" id="fami_cel_2_sol" required />
-                    </div>
-                    <div class="col-12 col-sm-3">
-                        <label for="fami_tel_2_sol">* TELEFONO FIJO 2</label>
-                        <input type="number" name="fami_tel_2_sol" class="form-control" id="fami_tel_2_sol" required />
-                    </div>
-                    <div class="col-12 col-sm-3">
-                        <label for="fami_parent_2_sol">* PARENTESCO 2</label>
-                        <select name="fami_parent_2_sol" class="form-control" id="fami_parent_2_sol" required>
-                            <option value="MADRE">MADRE</option>
-                            <option value="PADRE">PADRE</option>
-                            <option value="HERMANO">HERMANO (A)</option>
-                            <option value="HIJO">HIJO (A)</option>
-                            <option value="ESPOSO">ESPOSO (A)</option>
-                            <option value="ABUELO">ABUELO (A)</option>
-                            <option value="TIO">TIO (A)</option>
-                            <option value="SOBRINO">SOBRINO (A)</option>
-                            <option value="PRIMO">PRIMO (A)</option>
-                            <option value="SUEGRO">SUEGRO (A)</option>
-                            <option value="CUÑADO">CUÑADO (A)</option>
-                            <option value="YERNO">YERNO</option>
-                            <option value="NUERA">NUERA</option>
-                            <option value="NIETO">NIETO (A)</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <h3>REFERENCIAS PERSONALES</h3>
-                <div class="row">
-                    <div class="col-12 col-sm-4">
-                        <label for="refer_nombre_1_sol">* NOMBRE COMPLETO 1</label>
-                        <input type="text" name="refer_nombre_1_sol" class="form-control" id="refer_nombre_1_sol" required />
-                    </div>
-                    <div class="col-12 col-sm-4">
-                        <label for="refer_cel_1_sol">* CELULAR 1</label>
-                        <input type="number" name="refer_cel_1_sol" class="form-control" id="refer_cel_1_sol" required />
-                    </div>
-                    <div class="col-12 col-sm-4">
-                        <label for="refer_tel_1_sol">* TELEFONO FIJO 1</label>
-                        <input type="number" name="refer_tel_1_sol" class="form-control" id="refer_tel_1_sol" required />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12 col-sm-3">
+                            <label for="fami_nombre_2_sol">* NOMBRE COMPLETO 2</label>
+                            <input type="text" name="fami_nombre_2_sol" class="form-control" id="fami_nombre_2_sol" required />
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <label for="fami_cel_2_sol">* CELULAR 2</label>
+                            <input type="number" name="fami_cel_2_sol" class="form-control" id="fami_cel_2_sol" required />
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <label for="fami_tel_2_sol">* TELEFONO FIJO 2</label>
+                            <input type="number" name="fami_tel_2_sol" class="form-control" id="fami_tel_2_sol" required />
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <label for="fami_parent_2_sol">* PARENTESCO 2</label>
+                            <select name="fami_parent_2_sol" class="form-control" id="fami_parent_2_sol" required>
+                                <option value="MADRE">MADRE</option>
+                                <option value="PADRE">PADRE</option>
+                                <option value="HERMANO">HERMANO (A)</option>
+                                <option value="HIJO">HIJO (A)</option>
+                                <option value="ESPOSO">ESPOSO (A)</option>
+                                <option value="ABUELO">ABUELO (A)</option>
+                                <option value="TIO">TIO (A)</option>
+                                <option value="SOBRINO">SOBRINO (A)</option>
+                                <option value="PRIMO">PRIMO (A)</option>
+                                <option value="SUEGRO">SUEGRO (A)</option>
+                                <option value="CUÑADO">CUÑADO (A)</option>
+                                <option value="YERNO">YERNO</option>
+                                <option value="NUERA">NUERA</option>
+                                <option value="NIETO">NIETO (A)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-12 col-sm-4">
-                        <label for="refer_nombre_2_sol">* NOMBRE COMPLETO 2</label>
-                        <input type="text" name="refer_nombre_2_sol" class="form-control" id="refer_nombre_2_sol" required />
-                    </div>
-                    <div class="col-12 col-sm-4">
-                        <label for="refer_cel_2_sol">* CELULAR 2</label>
-                        <input type="number" name="refer_cel_2_sol" class="form-control" id="refer_cel_2_sol" required />
-                    </div>
-                    <div class="col-12 col-sm-4">
-                        <label for="refer_tel_2_sol">* TELEFONO FIJO 2</label>
-                        <input type="number" name="refer_tel_2_sol" class="form-control" id="refer_tel_2_sol" required />
+                <div class="form-group">
+                    <h3 class="subtitulo">REFERENCIAS PERSONALES</h3>
+                    <div class="row">
+                        <div class="col-12 col-sm-4">
+                            <label for="refer_nombre_1_sol">* NOMBRE COMPLETO 1</label>
+                            <input type="text" name="refer_nombre_1_sol" class="form-control" id="refer_nombre_1_sol" required />
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <label for="refer_cel_1_sol">* CELULAR 1</label>
+                            <input type="number" name="refer_cel_1_sol" class="form-control" id="refer_cel_1_sol" required />
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <label for="refer_tel_1_sol">* TELEFONO FIJO 1</label>
+                            <input type="number" name="refer_tel_1_sol" class="form-control" id="refer_tel_1_sol" required />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12 col-sm-4">
+                            <label for="refer_nombre_2_sol">* NOMBRE COMPLETO 2</label>
+                            <input type="text" name="refer_nombre_2_sol" class="form-control" id="refer_nombre_2_sol" required />
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <label for="refer_cel_2_sol">* CELULAR 2</label>
+                            <input type="number" name="refer_cel_2_sol" class="form-control" id="refer_cel_2_sol" required />
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <label for="refer_tel_2_sol">* TELEFONO FIJO 2</label>
+                            <input type="number" name="refer_tel_2_sol" class="form-control" id="refer_tel_2_sol" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h3 class="subtitulo">SUBIR ARCHIVOS</h3>
+                    <div class="row">
+                        <div class="col-12 col-sm-6 mb-3">
+                            <label for="fileInput" class="form-label fw-bold">* Subir Archivos</label>
+                            <input type="file" name="archivos[]" id="fileInput" class="form-control mb-2" multiple accept=".jpg,.jpeg,.png,.pdf" />
+                            <div id="fileList" class="mb-3"></div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-5">Enviar Solicitud</button>
         </form>
     </div>
 </body>
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+
+    fileInput.addEventListener('change', (event) => {
+        const selectedFiles = Array.from(event.target.files);
+
+        // Mostrar solo los primeros 3 archivos seleccionados
+        if (selectedFiles.length > 3) {
+            alert("Solo puedes subir hasta 3 archivos.");
+            fileInput.value = ''; // Borra la selección si son más de 3
+            fileList.innerHTML = '';
+            return;
+        }
+
+        renderFileList(selectedFiles);
+    });
+
+    function renderFileList(files) {
+        fileList.innerHTML = '';
+        files.forEach((file) => {
+            const fileDiv = document.createElement('div');
+            fileDiv.className = 'alert alert-secondary d-flex justify-content-between align-items-center py-2 px-3 mb-2';
+            fileDiv.innerHTML = `
+            <span><i class="bi bi-file-earmark-text me-2"></i> ${file.name}</span>
+        `;
+            fileList.appendChild(fileDiv);
+        });
+    }
+</script>
+
 
 </html>

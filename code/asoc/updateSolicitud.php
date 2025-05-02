@@ -255,6 +255,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 WHERE id_solicitud = '$id_solicitud'";
 
     if ($mysqli->query($query)) {
+        echo "<pre>";
+        print_r($_FILES);
+        echo "</pre>";
+        //cargar archivos
+        $uploadDir = __DIR__ . '/documentos/'; // Carpeta 'documentos' en la misma ubicación del script
+
+        foreach ($_FILES['archivos']['name'] as $index => $fileName) {
+            if ($_FILES['archivos']['error'][$index] === UPLOAD_ERR_OK) {
+                $tmpName = $_FILES['archivos']['tmp_name'][$index];
+                $originalName = basename($fileName); // Evita rutas no seguras
+
+                // Opcionalmente puedes limpiar el nombre del archivo
+                $originalName = preg_replace('/[^a-zA-Z0-9_\.\-]/', '_', $originalName);
+
+                $newFileName = $cedula_aso . '_' . $originalName;
+                $destination = $uploadDir . $newFileName;
+
+                if (move_uploaded_file($tmpName, $destination)) {
+                    //   echo "Archivo guardado: $newFileName<br>";
+                } else {
+                    // echo "Error al mover: $originalName<br>";
+                }
+            } else {
+                echo "Error al subir archivo: " . $_FILES['archivos']['name'][$index] . "<br>";
+            }
+        }
         echo "<script>
         alert('Update successful');
         window.location.href = 'seeSolicitud.php';

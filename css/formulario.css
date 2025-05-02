@@ -1,0 +1,140 @@
+
+:root {
+    --color-primario: #13603e;
+    --color-secundario: #0d4a2d;
+    --color-fondo: #f9f9f9;
+    --color-borde: #ddd;
+    --color-texto: #333;
+    --color-advertencia: #c68615;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado estilo anterior */
+.header {
+    background-color: #f1f3f1;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.logo-container {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 70px;
+    width: auto;
+    max-height: 100%;
+}
+
+.title {
+    margin: 0 auto;
+    font-size: 32px;
+    font-weight: 700;
+    color: #13603e;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: center;
+    width: 100%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.titulo-principal {
+    color: var(--color-primario);
+    font-weight: 700;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.subtitulo {
+    color: var(--color-primario);
+    font-weight: 600;
+    margin: 25px 0 15px;
+    border-bottom: 2px solid var(--color-primario);
+    padding-bottom: 5px;
+}
+
+.seccion {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 6px;
+    padding: 10px 15px;
+    border: 1px solid var(--color-borde);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 2px rgba(19, 96, 62, 0.2);
+}
+
+.obligatorio {
+    color: var(--color-advertencia);
+    font-size: 0.9rem;
+    font-style: italic;
+    color: rgb(219, 29, 29)
+}
+
+.btn-primary {
+    background-color: var(--color-primario);
+    border: none;
+    padding: 12px 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-secundario);
+    transform: translateY(-1px);
+}
+
+.btn-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Responsividad mejorada */
+@media (max-width: 768px) {
+    .row>div {
+        margin-bottom: 15px;
+    }
+}
+
+select {
+    border: #333 solid 1px;
+}
