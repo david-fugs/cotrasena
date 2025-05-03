@@ -62,7 +62,7 @@ function deleteMember($id_usu)
 
     <div class="container">
         <div class="box">
-            <form action="showUsers.php" method="get" class="form">
+            <form action="showusers.php" method="get" class="form">
                 <input name="nombres" type="text" placeholder="Nombres"
                     value="<?= isset($_GET['nombres']) ? htmlspecialchars($_GET['nombres']) : '' ?>" class="search-input">
                 <input name="usuario" type="text" placeholder="Usuario"
