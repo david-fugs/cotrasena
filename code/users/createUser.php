@@ -15,13 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt = $mysqli->prepare($query);
     $stmt->bind_param("sssi", $nombre, $usuario, $contrasena, $tipo_usu);
     if ($stmt->execute()) {
-        echo "<script>alert('Usuario creado correctamente'); window.location = 'showUsers.php';</script>";
+        echo "<script>alert('Usuario creado correctamente'); window.location = 'showusers.php';</script>";
     } else {
-        echo "<script>alert('Error al crear el usuario'); window.location = 'showUsers.php';</script>";
+        echo "<script>alert('Error al crear el usuario'); window.location = 'showusers.php';</script>";
     }
 
     $stmt->close();
 } else {
-    echo "<script>alert('Error al crear el usuario'); window.location = 'showUsers.php';</script>";
+    echo "<script>alert('Error al crear el usuario'); window.location = 'showusers.php';</script>";
 }
 $mysqli->close();
