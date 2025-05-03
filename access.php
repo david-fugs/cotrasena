@@ -54,8 +54,22 @@ $tipo_usu     = $_SESSION['tipo_usu'];
       <div class="menu_content">
         <ul class="menu_items">
           <div class="menu_title menu_dahsboard"></div>
-          <!-- duplicate or remove this li tag if you want to add or remove navlink with submenu -->
-          <!-- start -->
+          <li class="item">
+            <div href="#" class="nav_link submenu_item">
+              <span class="navlink_icon">
+                <i class="fa-solid fa-user-pen"></i>
+                <!--<i class="bx bx-home-alt"></i>-->
+              </span>
+
+              <span class="navlink">Usuarios</span>
+              <i class="bx bx-chevron-right arrow-left"></i>
+            </div>
+
+            <ul class="menu_items submenu">
+              <a href="code/users/showusers.php" class="nav_link sublink">Permisos</a>
+              <a href="code/users/register.php" class="nav_link sublink">Crear Nuevo</a>
+            </ul>
+          </li>
           <hr style="border: 1px solid #F3840D; border-radius: 5px;">
           <li class="item">
             <div href="#" class="nav_link submenu_item">
@@ -130,8 +144,22 @@ $tipo_usu     = $_SESSION['tipo_usu'];
       <div class="menu_content">
         <ul class="menu_items">
           <div class="menu_title menu_dahsboard"></div>
-          <!-- duplicate or remove this li tag if you want to add or remove navlink with submenu -->
-          <!-- start -->
+          <li class="item">
+            <div href="#" class="nav_link submenu_item">
+              <span class="navlink_icon">
+                <i class="fa-solid fa-user-pen"></i>
+                <!--<i class="bx bx-home-alt"></i>-->
+              </span>
+
+              <span class="navlink">Usuarios</span>
+              <i class="bx bx-chevron-right arrow-left"></i>
+            </div>
+
+            <ul class="menu_items submenu">
+              <a href="code/users/showusers.php" class="nav_link sublink">Permisos</a>
+              <a href="code/users/register.php" class="nav_link sublink">Crear Nuevo</a>
+            </ul>
+          </li>
           <hr style="border: 1px solid #F3840D; border-radius: 5px;">
           <li class="item">
             <div href="#" class="nav_link submenu_item">
@@ -207,8 +235,21 @@ $tipo_usu     = $_SESSION['tipo_usu'];
       <div class="menu_content">
         <ul class="menu_items">
           <div class="menu_title menu_dahsboard"></div>
-          <!-- duplicate or remove this li tag if you want to add or remove navlink with submenu -->
-          <!-- start -->
+          <li class="item">
+            <div href="#" class="nav_link submenu_item">
+              <span class="navlink_icon">
+                <i class="fa-solid fa-user-pen"></i>
+                <!--<i class="bx bx-home-alt"></i>-->
+              </span>
+
+              <span class="navlink">Usuarios</span>
+              <i class="bx bx-chevron-right arrow-left"></i>
+            </div>
+
+            <ul class="menu_items submenu">
+              <a href="code/users/showusers.php" class="nav_link sublink">Ver Usuarios</a>
+            </ul>
+          </li>
           <hr style="border: 1px solid #F3840D; border-radius: 5px;">
           <li class="item">
             <div href="#" class="nav_link submenu_item">
@@ -247,7 +288,7 @@ $tipo_usu     = $_SESSION['tipo_usu'];
           <li class="item">
             <div href="#" class="nav_link submenu_item">
               <span class="navlink_icon">
-              <i class="fa-solid fa-arrow-trend-up"></i>
+                <i class="fa-solid fa-arrow-trend-up"></i>
               </span>
 
               <span class="navlink">Solicitudes Gerencia</span>

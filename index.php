@@ -82,7 +82,6 @@
            		    	<input type="password" class="input" name="password">
             	   </div>
             	</div>
-            	<a href="register.php">Crear Cuenta</a>
             	<input type="submit" class="btn" value="Login">
             </form>
         </div>
