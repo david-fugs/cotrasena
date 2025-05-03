@@ -15,9 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->bind_param("ssii", $nombre, $usuario, $tipo_usu, $id_usu);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Usuario actualizado correctamente'); window.location = 'showUsers.php';</script>";
+        echo "<script>alert('Usuario actualizado correctamente'); window.location = 'showusers.php';</script>";
     } else {
-        echo "<script>alert('Error al actualizar el usuario'); window.location = 'showUsers.php';</script>";
+        echo "<script>alert('Error al actualizar el usuario'); window.location = 'showusers.php';</script>";
     }
 
     $stmt->close();
