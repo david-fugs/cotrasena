@@ -9,7 +9,7 @@ if (isset($_GET['cedula_aso']) && !empty($_GET['cedula_aso'])) {
                      estado_civil_aso, per_cargo_aso, tip_vivienda_aso, barrio_aso, ciudad_aso, departamente_aso, 
                      nivel_educa_aso, titulo_obte_aso, titulo_pos_aso, tel_aso, email_aso, cel_aso, 
                      fecha_nacimiento_aso, ciudad_naci_aso, dpto_naci_aso, pais_naci_aso, estrato_aso, 
-                     dpto_exp_cedula_aso, pais_exp_cedula_aso 
+                     dpto_exp_cedula_aso, pais_exp_cedula_aso ,fecha_exp_cedula_aso,ciudad_exp_cedula_aso
               FROM asociados WHERE cedula_aso = ?";
     
     if ($stmt = $mysqli->prepare($query)) {
@@ -23,7 +23,7 @@ if (isset($_GET['cedula_aso']) && !empty($_GET['cedula_aso'])) {
                                $estado_civil_aso, $per_cargo_aso, $tip_vivienda_aso, $barrio_aso, $ciudad_aso, 
                                $departamente_aso, $nivel_educa_aso, $titulo_obte_aso, $titulo_pos_aso, $tel_aso, 
                                $email_aso, $cel_aso, $fecha_nacimiento_aso, $ciudad_naci_aso, $dpto_naci_aso, 
-                               $pais_naci_aso, $estrato_aso, $dpto_exp_cedula_aso, $pais_exp_cedula_aso);
+                               $pais_naci_aso, $estrato_aso, $dpto_exp_cedula_aso, $pais_exp_cedula_aso,$fecha_exp_cedula_aso,$ciudad_exp_cedula_aso);
             $stmt->fetch();
 
             // Enviar los datos como respuesta JSON
@@ -52,7 +52,9 @@ if (isset($_GET['cedula_aso']) && !empty($_GET['cedula_aso'])) {
                 'pais_naci_aso' => $pais_naci_aso,
                 'estrato_aso' => $estrato_aso,
                 'dpto_exp_cedula_aso' => $dpto_exp_cedula_aso,
-                'pais_exp_cedula_aso' => $pais_exp_cedula_aso
+                'pais_exp_cedula_aso' => $pais_exp_cedula_aso,
+                'fecha_exp_cedula_aso' => $fecha_exp_cedula_aso,
+                'ciudad_exp_cedula_aso' => $ciudad_exp_cedula_aso
             ]);
         } else {
             // Si no se encuentra el asociado
