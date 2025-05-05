@@ -49,188 +49,6 @@ $tipo_usu     = $_SESSION['tipo_usu'];
 
   <!--************************MENÚ ADMINISTRADOR************************-->
   <?php if ($tipo_usu == 1) { ?>
-    <!-- sidebar -->
-    <nav class="sidebar">
-      <div class="menu_content">
-        <ul class="menu_items">
-          <div class="menu_title menu_dahsboard"></div>
-          <li class="item">
-            <div href="#" class="nav_link submenu_item">
-              <span class="navlink_icon">
-                <i class="fa-solid fa-user-pen"></i>
-                <!--<i class="bx bx-home-alt"></i>-->
-              </span>
-
-              <span class="navlink">Usuarios</span>
-              <i class="bx bx-chevron-right arrow-left"></i>
-            </div>
-
-            <ul class="menu_items submenu">
-              <a href="code/users/showusers.php" class="nav_link sublink">Permisos</a>
-              <a href="code/users/register.php" class="nav_link sublink">Crear Nuevo</a>
-            </ul>
-          </li>
-          <hr style="border: 1px solid #F3840D; border-radius: 5px;">
-          <li class="item">
-            <div href="#" class="nav_link submenu_item">
-              <span class="navlink_icon">
-                <i class="fa-regular fa-id-badge"></i>
-                <!--<i class="bx bx-home-alt"></i>-->
-              </span>
-
-              <span class="navlink">Solicitud Crédito</span>
-              <i class="bx bx-chevron-right arrow-left"></i>
-            </div>
-
-            <ul class="menu_items submenu">
-              <a href="code/asoc/solicitar.php" class="nav_link sublink">Ingresar Solicitud</a>
-              <a href="code/asoc/seeSolicitud.php" class="nav_link sublink">Ver Solicitudes</a>
-
-            </ul>
-          </li>
-
-          <li class="item">
-            <div href="#" class="nav_link submenu_item">
-              <span class="navlink_icon">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <!--<i class="bx bx-home-alt"></i>-->
-              </span>
-
-              <span class="navlink">Informes</span>
-              <i class="bx bx-chevron-right arrow-left"></i>
-            </div>
-
-            <ul class="menu_items submenu">
-              <a href="code/forms/menuReport.php" class="nav_link sublink">Generar Informes</a>
-            </ul>
-          </li>
-
-          <hr style="border: 1px solid #F3840D; border-radius: 5px;">
-          <!-- duplicate this li tag if you want to add or remove  navlink with submenu -->
-          <!-- start -->
-          <li class="item">
-            <div href="#" class="nav_link submenu_item">
-              <span class="navlink_icon">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
-              </span>
-              <span class="navlink">Mi Cuenta</span>
-              <i class="bx bx-chevron-right arrow-left"></i>
-            </div>
-
-            <ul class="menu_items submenu">
-              <a href="reset-password.php" class="nav_link sublink">Cambiar Contraseña</a>
-            </ul>
-          </li>
-          <!-- Sidebar Open / Close -->
-          <div class="bottom_content">
-            <div class="bottom expand_sidebar">
-              <span> Expand</span>
-              <i class='bx bx-log-in'></i>
-            </div>
-            <div class="bottom collapse_sidebar">
-              <span> Collapse</span>
-              <i class='bx bx-log-out'></i>
-            </div>
-          </div>
-      </div>
-    </nav>
-  <?php } ?>
-
-
-  <!--************************MENÚ AVALADOR************************-->
-  <?php if ($tipo_usu == 2) { ?>
-    <!-- sidebar -->
-    <nav class="sidebar">
-      <div class="menu_content">
-        <ul class="menu_items">
-          <div class="menu_title menu_dahsboard"></div>
-          <li class="item">
-            <div href="#" class="nav_link submenu_item">
-              <span class="navlink_icon">
-                <i class="fa-solid fa-user-pen"></i>
-                <!--<i class="bx bx-home-alt"></i>-->
-              </span>
-
-              <span class="navlink">Usuarios</span>
-              <i class="bx bx-chevron-right arrow-left"></i>
-            </div>
-
-            <ul class="menu_items submenu">
-              <a href="code/users/showusers.php" class="nav_link sublink">Permisos</a>
-              <a href="code/users/register.php" class="nav_link sublink">Crear Nuevo</a>
-            </ul>
-          </li>
-          <hr style="border: 1px solid #F3840D; border-radius: 5px;">
-          <li class="item">
-            <div href="#" class="nav_link submenu_item">
-              <span class="navlink_icon">
-                <i class="fa-regular fa-id-badge"></i>
-                <!--<i class="bx bx-home-alt"></i>-->
-              </span>
-
-              <span class="navlink">Solicitud Crédito</span>
-              <i class="bx bx-chevron-right arrow-left"></i>
-            </div>
-
-            <ul class="menu_items submenu">
-              <a href="code/asoc/solicitar.php" class="nav_link sublink">Ingresar Solicitud</a>
-              <a href="code/asoc/seeSolicitud.php" class="nav_link sublink">Ver Solicitudes</a>
-
-            </ul>
-          </li>
-
-          <li class="item">
-            <div href="#" class="nav_link submenu_item">
-              <span class="navlink_icon">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <!--<i class="bx bx-home-alt"></i>-->
-              </span>
-
-              <span class="navlink">Informes</span>
-              <i class="bx bx-chevron-right arrow-left"></i>
-            </div>
-
-            <ul class="menu_items submenu">
-              <a href="code/forms/menuReport.php" class="nav_link sublink">Generar Informes</a>
-            </ul>
-          </li>
-
-          <hr style="border: 1px solid #F3840D; border-radius: 5px;">
-          <!-- duplicate this li tag if you want to add or remove  navlink with submenu -->
-          <!-- start -->
-          <li class="item">
-            <div href="#" class="nav_link submenu_item">
-              <span class="navlink_icon">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
-              </span>
-              <span class="navlink">Mi Cuenta</span>
-              <i class="bx bx-chevron-right arrow-left"></i>
-            </div>
-
-            <ul class="menu_items submenu">
-              <a href="reset-password.php" class="nav_link sublink">Cambiar Contraseña</a>
-            </ul>
-          </li>
-          <!-- Sidebar Open / Close -->
-          <div class="bottom_content">
-            <div class="bottom expand_sidebar">
-              <span> Expand</span>
-              <i class='bx bx-log-in'></i>
-            </div>
-            <div class="bottom collapse_sidebar">
-              <span> Collapse</span>
-              <i class='bx bx-log-out'></i>
-            </div>
-          </div>
-      </div>
-    </nav>
-  <?php } ?>
-
-  <!-- JavaScript -->
-
-  <!--************************MENÚ USUARIO************************-->
-  <?php if ($tipo_usu == 3) { ?>
-    <!-- sidebar -->
     <nav class="sidebar">
       <div class="menu_content">
         <ul class="menu_items">
@@ -303,6 +121,119 @@ $tipo_usu     = $_SESSION['tipo_usu'];
 
 
 
+          <hr style="border: 1px solid #F3840D; border-radius: 5px;">
+          <!-- duplicate this li tag if you want to add or remove  navlink with submenu -->
+          <!-- start -->
+          <li class="item">
+            <div href="#" class="nav_link submenu_item">
+              <span class="navlink_icon">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+              </span>
+              <span class="navlink">Mi Cuenta</span>
+              <i class="bx bx-chevron-right arrow-left"></i>
+            </div>
+
+            <ul class="menu_items submenu">
+              <a href="reset-password.php" class="nav_link sublink">Cambiar Contraseña</a>
+            </ul>
+          </li>
+          <!-- Sidebar Open / Close -->
+          <div class="bottom_content">
+            <div class="bottom expand_sidebar">
+              <span> Expand</span>
+              <i class='bx bx-log-in'></i>
+            </div>
+            <div class="bottom collapse_sidebar">
+              <span> Collapse</span>
+              <i class='bx bx-log-out'></i>
+            </div>
+          </div>
+      </div>
+    </nav>
+  <?php } ?>
+
+
+  <!--************************MENÚ ASESOR************************-->
+  <?php if ($tipo_usu == 2) { ?>
+    <!-- sidebar -->
+    <nav class="sidebar">
+      <div class="menu_content">
+        <ul class="menu_items">
+          <div class="menu_title menu_dahsboard"></div>
+          <hr style="border: 1px solid #F3840D; border-radius: 5px;">
+
+          <li class="item">
+            <div href="#" class="nav_link submenu_item">
+              <span class="navlink_icon">
+                <i class="fa-regular fa-id-badge"></i>
+                <!--<i class="bx bx-home-alt"></i>-->
+              </span>
+
+              <span class="navlink">Solicitud Crédito</span>
+              <i class="bx bx-chevron-right arrow-left"></i>
+            </div>
+
+            <ul class="menu_items submenu">
+              <a href="code/asoc/solicitar.php" class="nav_link sublink">Ingresar Solicitud</a>
+              <a href="code/asoc/seeSolicitud.php" class="nav_link sublink">Ver Solicitudes</a>
+
+            </ul>
+          </li>
+          <hr style="border: 1px solid #F3840D; border-radius: 5px;">
+
+          <li class="item">
+            <div href="#" class="nav_link submenu_item">
+              <span class="navlink_icon">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+              </span>
+              <span class="navlink">Mi Cuenta</span>
+              <i class="bx bx-chevron-right arrow-left"></i>
+            </div>
+
+            <ul class="menu_items submenu">
+              <a href="reset-password.php" class="nav_link sublink">Cambiar Contraseña</a>
+            </ul>
+          </li>
+          <!-- Sidebar Open / Close -->
+          <div class="bottom_content">
+            <div class="bottom expand_sidebar">
+              <span> Expand</span>
+              <i class='bx bx-log-in'></i>
+            </div>
+            <div class="bottom collapse_sidebar">
+              <span> Collapse</span>
+              <i class='bx bx-log-out'></i>
+            </div>
+          </div>
+      </div>
+    </nav>
+  <?php } ?>
+
+  <!-- JavaScript -->
+
+  <!--************************MENÚ APROBADOR************************-->
+  <?php if ($tipo_usu == 3) { ?>
+    <!-- sidebar -->
+    <nav class="sidebar">
+      <div class="menu_content">
+        <ul class="menu_items">
+          <div class="menu_title menu_dahsboard"></div>
+
+          <li class="item">
+            <div href="#" class="nav_link submenu_item">
+              <span class="navlink_icon">
+                <i class="fa-solid fa-thumbs-up"></i>
+              </span>
+
+              <span class="navlink">Solicitudes Aprobadas</span>
+              <i class="bx bx-chevron-right arrow-left"></i>
+            </div>
+
+            <ul class="menu_items submenu">
+              <a href="code/aprovedRequest/seeRequest.php" class="nav_link sublink">Ver Solicitudes Aprobadas</a>
+
+            </ul>
+          </li>
           <hr style="border: 1px solid #F3840D; border-radius: 5px;">
           <!-- duplicate this li tag if you want to add or remove  navlink with submenu -->
           <!-- start -->

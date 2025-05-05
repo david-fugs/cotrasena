@@ -38,11 +38,11 @@ function deleteMember($id_usu)
     $stmt->bind_param("s", $id_usu);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Solicitud borrada corecctamente');
-        window.location = 'seeSolicitud.php';</script>";
+        echo "<script>alert('usuario borrada corecctamente');
+        window.location = 'showusers.php';</script>";
     } else {
-        echo "<script>alert('Error borrando la Solicitud');
-        window.location = 'seeSolicitud.php';</script>";
+        echo "<script>alert('Error borrando la usuario');
+        window.location = 'showusers.php';</script>";
     }
 
     $stmt->close();
@@ -70,8 +70,10 @@ function deleteMember($id_usu)
                 <select name="tipo_usu" class="search-input form-select">
                     <option value="">Tipo Usuario</option>
                     <option value="1" <?= (isset($_GET['tipo_usu']) && $_GET['tipo_usu'] == 1) ? 'selected' : '' ?>>Gerencia</option>
-                    <option value="2" <?= (isset($_GET['tipo_usu']) && $_GET['tipo_usu'] == 2) ? 'selected' : '' ?>>Encuestador</option>
+                    <option value="2" <?= (isset($_GET['tipo_usu']) && $_GET['tipo_usu'] == 2) ? 'selected' : '' ?>>Asesor</option>
                     <option value="3" <?= (isset($_GET['tipo_usu']) && $_GET['tipo_usu'] == 3) ? 'selected' : '' ?>>Aprobaciones</option>
+                    <option value="4" <?= (isset($_GET['tipo_usu']) && $_GET['tipo_usu'] == 3) ? 'selected' : '' ?>>Cliente</option>
+
                 </select>
                 <button type="submit" class="search-button">
                     <i class="fas fa-search"></i> Buscar
@@ -129,8 +131,9 @@ function deleteMember($id_usu)
                             <select name="tipo_usu" id="tipo_usu" class="form-select">
                                 <option value="">Seleccione</option>
                                 <option value="1">Gerente</option>
-                                <option value="2">Encuestador</option>
+                                <option value="2">Asesor</option>
                                 <option value="3">Aprobaciones</option>
+                                <option value="4">Cliente</option>
                             </select>
                         </div>
                         <input type="hidden" name="id_usu" id="id_usu" value="">

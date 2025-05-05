@@ -58,8 +58,9 @@ $result = $stmt->get_result();
 // Opciones de tipo usuario
 $opciones = [
     1 => 'Gerente',
-    2 => 'Encuestador',
-    3 => 'Aprobaciones'
+    2 => 'Asesor',
+    3 => 'Aprobaciones',
+    4 => 'Cliente',
 ];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
