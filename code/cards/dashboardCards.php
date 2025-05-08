@@ -131,17 +131,20 @@ echo "<br><br><br><br><br><br><br>";
   <?php
   // Paso 1: Inicializar todos los tipos con cantidad 0
   $actividades = [
-    'solicitudes' => ['titulo' => 'Nueva solicitud ingresada', 'icono' => 'fa-file-circle-plus', 'cantidad' => 0, 'rango' => '0-7 días'],
-    'aprobaciones' => ['titulo' => 'Solicitud aprobada', 'icono' => 'fa-thumbs-up', 'cantidad' => 0, 'rango' => '0-7 días'],
-    'gerencia' => ['titulo' => 'Solicitud enviada a gerencia', 'icono' => 'fa-arrow-trend-up', 'cantidad' => 0, 'rango' => '0-7 días'],
+    'solicitudes' => ['titulo' => 'Nueva solicitud ingresada', 'icono' => 'fa-file-circle-plus', 'rangos' => []],
+    'aprobaciones' => ['titulo' => 'Solicitud aprobada', 'icono' => 'fa-thumbs-up', 'rangos' => []],
+    'gerencia' => ['titulo' => 'Solicitud enviada a gerencia', 'icono' => 'fa-arrow-trend-up', 'rangos' => []],
   ];
+
 
   // Paso 2: Rellenar con los datos reales
   while ($row = $result->fetch_assoc()) {
     $tipo = $row['tipo'];
+    $rango = $row['rango'];
+    $cantidad = (int) $row['cantidad'];
+
     if (isset($actividades[$tipo])) {
-      $actividades[$tipo]['cantidad'] = $row['cantidad'];
-      $actividades[$tipo]['rango'] = $row['rango'];
+      $actividades[$tipo]['rangos'][$rango] = $cantidad;
     }
   }
   ?>
@@ -156,7 +159,13 @@ echo "<br><br><br><br><br><br><br>";
           </div>
           <div class="activity-content">
             <div class="activity-title"><?= $info['titulo'] ?></div>
-            <div class="activity-time">Hace <?= $info['rango'] ?> — <?= $info['cantidad'] ?> solicitud(es)</div>
+            <?php if (!empty($info['rangos'])): ?>
+              <?php foreach ($info['rangos'] as $rango => $cantidad): ?>
+                <div class="activity-time">Hace <?= $rango ?> — <?= $cantidad ?> solicitud(es)</div>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <div class="activity-time">Sin datos recientes</div>
+            <?php endif; ?>
           </div>
         </li>
       <?php endforeach; ?>
