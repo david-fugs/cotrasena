@@ -70,7 +70,7 @@ $datos_usuario = [];
                     </div>
                     <div class="col-md-4">
                         <label for="direccion_aso" class="form-label">Dirección</label>
-                        <input type='text' name='direccion_aso' class='form-control' id="direccion_aso"
+                        <input type='text' name='direccion_aso' class='form-control form-control-dark-focus' id="direccion_aso"
                             value=''>
                     </div>
                 </div>
@@ -103,7 +103,7 @@ $datos_usuario = [];
                     <div class="row mt-3">
                         <div class="col-12 col-sm-3">
                             <label for="fecha_nacimiento_aso">* Fecha Nacimiento</label>
-                            <input type="date" name="fecha_nacimiento_aso" class="form-control" id="fecha_nacimiento_aso" required/>
+                            <input type="date" name="fecha_nacimiento_aso" class="form-control" id="fecha_nacimiento_aso" required />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="pais_naci_aso">* Pais Nacimiento</label>
@@ -141,7 +141,7 @@ $datos_usuario = [];
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="estado_civil_aso">* Estado Civil</label>
-                            <select name="estado_civil_aso" class="form-control" id="estado_civil_aso" required>
+                            <select name="estado_civil_aso" class="form-control form-control-dark-focus" id="estado_civil_aso" required>
                                 <option value="SOLTERO">SOLTERO (A)</option>
                                 <option value="CASADO">CASADO (A)</option>
                                 <option value="UNION LIBRE">UNION LIBRE</option>
@@ -168,19 +168,19 @@ $datos_usuario = [];
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="barrio_aso">* Barrio</label>
-                            <input type='text' name='barrio_aso' id="barrio_aso" class='form-control' required />
+                            <input type='text' name='barrio_aso' id="barrio_aso" class='form-control form-control-dark-focus' required />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="ciudad_aso">* Ciudad</label>
-                            <input type='text' name='ciudad_aso' id="ciudad_aso" class='form-control' required />
+                            <input type='text' name='ciudad_aso' id="ciudad_aso" class='form-control form-control-dark-focus' required />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="departamente_aso">* Departamento</label>
-                            <input type='text' name='departamente_aso' id="departamente_aso" class='form-control' required>
+                            <input type='text' name='departamente_aso' id="departamente_aso" class='form-control form-control-dark-focus' required>
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="estrato_aso">* Estrato</label>
-                            <input type='number' name='estrato_aso' id="estrato_aso" class='form-control' required />
+                            <input type='number' name='estrato_aso' id="estrato_aso" class='form-control form-control-dark-focus' required />
                         </div>
                     </div>
                 </div>
@@ -189,19 +189,19 @@ $datos_usuario = [];
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <label for="email_aso">* Email</label>
-                            <input type='email' name='email_aso' id="email_aso" class='form-control' required />
+                            <input type='email' name='email_aso' id="email_aso" class='form-control form-control-dark-focus' required />
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="tel_aso">* Telefono</label>
-                            <input type='text' name='tel_aso' id="tel_aso" class='form-control' required />
+                            <input type='text' name='tel_aso' id="tel_aso" class='form-control' />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="cel_aso">* Celular</label>
-                            <input type='text' name='cel_aso' id="cel_aso" class='form-control' required />
+                            <input type='text' name='cel_aso' id="cel_aso" class='form-control form-control-dark-focus' required />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="nivel_educa_aso">* Nivel Educativo</label>
-                            <select name="nivel_educa_aso" class="form-control" id="nivel_educa_aso" required>
+                            <select name="nivel_educa_aso" class="form-control form-control-dark-focus" id="nivel_educa_aso" required>
                                 <option value="PRIMARIA">PRIMARIA</option>
                                 <option value="BACHILLER">BACHILLER</option>
                                 <option value="TECNICO">TECNICO (A)</option>
@@ -219,11 +219,11 @@ $datos_usuario = [];
                     <div class="row">
                         <div class="col-12 col-sm-6">
                             <label for="titulo_obte_aso">Titulo Obtenido</label>
-                            <input type='text' name='titulo_obte_aso' id="titulo_obte_aso" class='form-control' />
+                            <input type='text' name='titulo_obte_aso' id="titulo_obte_aso" class='form-control form-control-dark-focus' />
                         </div>
                         <div class="col-12 col-sm-6">
                             <label for="titulo_pos_aso">Titulo en Postgrado</label>
-                            <input type='text' name='titulo_pos_aso' id="titulo_pos_aso" class='form-control' />
+                            <input type='text' name='titulo_pos_aso' id="titulo_pos_aso" class='form-control form-control-dark-focus' />
                         </div>
                     </div>
                 </div>
@@ -343,27 +343,32 @@ $datos_usuario = [];
                             <input type="date" name="fecha_ing_emp_sol" class="form-control" id="fecha_ing_emp_sol" required />
                         </div>
                         <div class="col-12 col-sm-3">
-                            <label for="anti_emp_sol">* ANTIGÜEDAD EN AÑOS</label>
+                            <label for="anti_emp_sol">* Antigüedad en años</label>
                             <input type="number" name="anti_emp_sol" id="anti_emp_sol" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <label for="anti_emp_sol">* Antigüedad en Meses</label>
+                            <input type="number" name="anti_emp_mes_sol" id="anti_emp_emp_sol" class="form-control" required />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="cargo_actual_emp_sol">* Cargo Actual</label>
                             <input type='text' name='cargo_actual_emp_sol' id="cargo_actual_emp_sol" class='form-control' required />
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <label for="area_trabajo_sol">* Área Trabajo</label>
-                            <input type='text' name='area_trabajo_sol' id="area_trabajo_sol" class='form-control' required />
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-3">
+                            <label for="area_trabajo_sol">* Área Trabajo</label>
+                            <input type='text' name='area_trabajo_sol' id="area_trabajo_sol" class='form-control' required />
+                        </div>
+                        <div class="col-12 col-sm-3">
                             <label for="acti_inde_sol">* Actividad como Independiente</label>
                             <input type="text" name="acti_inde_sol" class="form-control" id="acti_inde_sol" required />
                         </div>
-                        <div class="col-12 col-sm-6">
+
+                        <div class="col-12 col-sm-4">
                             <label for="num_emple_emp_sol">* Numero Empleados de su Empresa </label>
                             <input type="number" name="num_emple_emp_sol" id="num_emple_emp_sol" class="form-control" required />
                         </div>
@@ -478,7 +483,7 @@ $datos_usuario = [];
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <label for="tipo_inmu_1_sol">Tipo de Inmueble 1</label>
-                            <select name="tipo_inmu_1_sol" class="form-control" id="tipo_inmu_1_sol">
+                            <select name="tipo_inmu_1_sol" class="form-control form-control-dark-focus" id="tipo_inmu_1_sol">
                                 <option value="LOTE">LOTE</option>
                                 <option value="CASA">CASA</option>
                                 <option value="FINCA">FINCA</option>
@@ -502,7 +507,7 @@ $datos_usuario = [];
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <label for="tipo_inmu_2_sol">TIPO DE INMUEBLE 2</label>
-                            <select name="tipo_inmu_2_sol" class="form-control" id="tipo_inmu_2_sol">
+                            <select name="tipo_inmu_2_sol" class="form-control form-control-dark-focus" id="tipo_inmu_2_sol">
                                 <option value="LOTE">LOTE</option>
                                 <option value="CASA">CASA</option>
                                 <option value="FINCA">FINCA</option>

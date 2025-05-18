@@ -280,9 +280,6 @@ $tipo_usu     = $_SESSION['tipo_usu'];
       font-size: 1.1rem;
     }
 
-    .collapse_sidebar {
-      display: none;
-    }
 
     /* Main Content */
     .main-content {
@@ -564,10 +561,7 @@ $tipo_usu     = $_SESSION['tipo_usu'];
           </li>
           
           <div class="bottom_content">
-            <div class="bottom expand_sidebar">
-              <span>Expandir</span>
-              <i class='bx bx-log-in'></i>
-            </div>
+            
             <div class="bottom collapse_sidebar">
               <span>Contraer</span>
               <i class='bx bx-log-out'></i>
@@ -712,13 +706,6 @@ $tipo_usu     = $_SESSION['tipo_usu'];
         });
       });
 
-      // Expandir/Contraer sidebar
-      expandSidebar.addEventListener('click', () => {
-        sidebar.classList.add('active');
-        mainContent.classList.add('active');
-        expandSidebar.style.display = 'none';
-        collapseSidebar.style.display = 'flex';
-      });
 
       collapseSidebar.addEventListener('click', () => {
         sidebar.classList.remove('active');
