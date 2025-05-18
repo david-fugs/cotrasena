@@ -45,7 +45,7 @@ function getColor($dias)
 {
     if ($dias >= 0 && $dias <= 7) {
         return "#d4edda"; // verde suave
-    } elseif ($dias > 7 && $dias <= 15) {
+    } elseif ($dias > 7 && $dias <= 14) {
         return "#fff3cd"; // amarillo suave
     } else {
         return "#f8d7da"; // rojo suave

@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tipo_deudor_aso = $mysqli->real_escape_string($_POST['tipo_deudor_aso']);
     $monto_sol = $mysqli->real_escape_string($_POST['monto_sol']);
     $plazo_sol = $mysqli->real_escape_string($_POST['plazo_sol']);
+    $otro_plazo_sol = $mysqli->real_escape_string($_POST['otro_plazo_sol']);
     $linea_cred_aso = $mysqli->real_escape_string($_POST['linea_cred_aso']);
     $ocupacion_sol = $mysqli->real_escape_string($_POST['ocupacion_sol']);
     $func_estad_sol = $mysqli->real_escape_string($_POST['func_estad_sol']);
@@ -74,58 +75,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hipotecas_sol = $mysqli->real_escape_string($_POST['hipotecas_sol']);
     $tar_cred_total_sol = $mysqli->real_escape_string($_POST['tar_cred_total_sol']);
     $otros_pasivos_sol = $mysqli->real_escape_string($_POST['otros_pasivos_sol']);
-    $tipo_inmu_1_sol = $_POST['tipo_inmu_1_sol'];
-    $direccion_1_sol = $_POST['direccion_1_sol'];
-    $valor_comer_1_sol = $_POST['valor_comer_1_sol'];
-    $tipo_inmu_2_sol = $_POST['tipo_inmu_2_sol'];
-    $direccion_2_sol = $_POST['direccion_2_sol'];
-    $valor_comer_2_sol = $_POST['valor_comer_2_sol'];
-    $tipo_vehi_1_sol = $_POST['tipo_vehi_1_sol'];
-    $modelo_1_sol = $_POST['modelo_1_sol'];
-    $marca_1_sol = $_POST['marca_1_sol'];
-    $placa_1_sol = $_POST['placa_1_sol'];
-    $valor_1_sol = $_POST['valor_1_sol'];
-    $tipo_vehi_2_sol = $_POST['tipo_vehi_2_sol'];
-    $modelo_2_sol = $_POST['modelo_2_sol'];
-    $marca_2_sol = $_POST['marca_2_sol'];
-    $placa_2_sol = $_POST['placa_2_sol'];
-    $valor_2_sol = $_POST['valor_2_sol'];
-    $ahorros_sol = $_POST['ahorros_sol'];
-    $valor_ahor_sol = $_POST['valor_ahor_sol'];
-    $enseres_sol = $_POST['enseres_sol'];
-    $valor_enser_sol = $_POST['valor_enser_sol'];
-    $conyu_nombre_sol = $_POST['conyu_nombre_sol'];
-    $conyu_cedula_sol = $_POST['conyu_cedula_sol'];
-    $conyu_naci_sol = $_POST['conyu_naci_sol'];
-    $conyu_exp_sol = $_POST['conyu_exp_sol'];
-    $conyu_ciudadn_sol = $_POST['conyu_ciudadn_sol'];
-    $conyu_dpton_sol = $_POST['conyu_dpton_sol'];
-    $conyu_paism_sol = $_POST['conyu_paism_sol'];
-    $conyu_correo_sol = $_POST['conyu_correo_sol'];
-    $conyu_ocupacion_sol = $_POST['conyu_ocupacion_sol'];
-    $conyu_func_sol = $_POST['conyu_func_sol'];
-    $conyu_emp_lab_sol = $_POST['conyu_emp_lab_sol'];
-    $conyu_cargo_sol = $_POST['conyu_cargo_sol'];
-    $conyu_salario_sol = $_POST['conyu_salario_sol'];
-    $conyu_dir_lab_sol = $_POST['conyu_dir_lab_sol'];
-    $conyu_tel_lab_sol = $_POST['conyu_tel_lab_sol'];
-    $conyu_ciudad_lab_sol = $_POST['conyu_ciudad_lab_sol'];
-    $conyu_dpto_lab_sol = $_POST['conyu_dpto_lab_sol'];
-    $fami_nombre_1_sol = $_POST['fami_nombre_1_sol'];
-    $fami_cel_1_sol = $_POST['fami_cel_1_sol'];
-    $fami_tel_1_sol = $_POST['fami_tel_1_sol'];
-    $fami_parent_1_sol = $_POST['fami_parent_1_sol'];
-    $fami_nombre_2_sol = $_POST['fami_nombre_2_sol'];
-    $fami_cel_2_sol = $_POST['fami_cel_2_sol'];
-    $fami_tel_2_sol = $_POST['fami_tel_2_sol'];
-    $fami_parent_2_sol = $_POST['fami_parent_2_sol'];
-    $refer_nombre_1_sol = $_POST['refer_nombre_1_sol'];
-    $refer_cel_1_sol = $_POST['refer_cel_1_sol'];
-    $refer_tel_1_sol = $_POST['refer_tel_1_sol'];
-    $refer_nombre_2_sol = $_POST['refer_nombre_2_sol'];
-    $refer_cel_2_sol = $_POST['refer_cel_2_sol'];
-    $refer_tel_2_sol = $_POST['refer_tel_2_sol'];
-    $id_solicitud = $_POST['id_solicitud'];
+    $tipo_inmu_1_sol = $_POST['tipo_inmu_1_sol'] ?? '';
+    $direccion_1_sol = $_POST['direccion_1_sol']?? '';
+    $valor_comer_1_sol = $_POST['valor_comer_1_sol']?? '';
+    $tipo_inmu_2_sol = $_POST['tipo_inmu_2_sol']?? '';
+    $direccion_2_sol = $_POST['direccion_2_sol']?? '';
+    $valor_comer_2_sol = $_POST['valor_comer_2_sol']?? '';
+    $tipo_vehi_1_sol = $_POST['tipo_vehi_1_sol']?? '';
+    $modelo_1_sol = $_POST['modelo_1_sol']?? '';
+    $marca_1_sol = $_POST['marca_1_sol']?? '';
+    $placa_1_sol = $_POST['placa_1_sol']?? '';
+    $valor_1_sol = $_POST['valor_1_sol']?? '';
+    $tipo_vehi_2_sol = $_POST['tipo_vehi_2_sol']?? '';
+    $modelo_2_sol = $_POST['modelo_2_sol']?? '';
+    $marca_2_sol = $_POST['marca_2_sol']?? '';
+    $placa_2_sol = $_POST['placa_2_sol']?? '';
+    $valor_2_sol = $_POST['valor_2_sol']?? '';
+    $ahorros_sol = $_POST['ahorros_sol']?? '';
+    $valor_ahor_sol = $_POST['valor_ahor_sol']?? '';
+    $enseres_sol = $_POST['enseres_sol']?? '';
+    $valor_enser_sol = $_POST['valor_enser_sol']?? '';
+    $conyu_nombre_sol = $_POST['conyu_nombre_sol']?? '';
+    $conyu_cedula_sol = $_POST['conyu_cedula_sol']?? '';
+    $conyu_naci_sol = $_POST['conyu_naci_sol']?? '';
+    $conyu_exp_sol = $_POST['conyu_exp_sol']?? '';
+    $conyu_ciudadn_sol = $_POST['conyu_ciudadn_sol']?? '';
+    $conyu_dpton_sol = $_POST['conyu_dpton_sol']?? '';
+    $conyu_paism_sol = $_POST['conyu_paism_sol']?? '';
+    $conyu_correo_sol = $_POST['conyu_correo_sol']?? '';
+    $conyu_ocupacion_sol = $_POST['conyu_ocupacion_sol']?? '';
+    $conyu_func_sol = $_POST['conyu_func_sol']?? '';
+    $conyu_emp_lab_sol = $_POST['conyu_emp_lab_sol']?? '';
+    $conyu_cargo_sol = $_POST['conyu_cargo_sol']?? '';
+    $conyu_salario_sol = $_POST['conyu_salario_sol']?? '';
+    $conyu_dir_lab_sol = $_POST['conyu_dir_lab_sol']?? '';
+    $conyu_tel_lab_sol = $_POST['conyu_tel_lab_sol']?? '';
+    $conyu_ciudad_lab_sol = $_POST['conyu_ciudad_lab_sol']?? '';
+    $conyu_dpto_lab_sol = $_POST['conyu_dpto_lab_sol']?? '';
+    $fami_nombre_1_sol = $_POST['fami_nombre_1_sol']?? '';
+    $fami_cel_1_sol = $_POST['fami_cel_1_sol']?? '';
+    $fami_tel_1_sol = $_POST['fami_tel_1_sol']?? '';
+    $fami_parent_1_sol = $_POST['fami_parent_1_sol']?? '';
+    $fami_nombre_2_sol = $_POST['fami_nombre_2_sol']?? '';
+    $fami_cel_2_sol = $_POST['fami_cel_2_sol']?? '';
+    $fami_tel_2_sol = $_POST['fami_tel_2_sol']?? '';
+    $fami_parent_2_sol = $_POST['fami_parent_2_sol']?? '';
+    $refer_nombre_1_sol = $_POST['refer_nombre_1_sol']?? '';
+    $refer_cel_1_sol = $_POST['refer_cel_1_sol']?? '';
+    $refer_tel_1_sol = $_POST['refer_tel_1_sol']?? '';
+    $refer_nombre_2_sol = $_POST['refer_nombre_2_sol']?? '';
+    $refer_cel_2_sol = $_POST['refer_cel_2_sol']?? '';
+    $refer_tel_2_sol = $_POST['refer_tel_2_sol']?? '';
+    $id_solicitud = $_POST['id_solicitud']?? '';
     $fecha_edit_sol = date("Y-m-d H:i:s");
 
     // Construir query
@@ -162,6 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     tipo_deudor_aso = '$tipo_deudor_aso',
     monto_sol = '$monto_sol',
     plazo_sol = '$plazo_sol',
+    otro_plazo_sol = '$otro_plazo_sol',
     linea_cred_aso = '$linea_cred_aso',
     ocupacion_sol = '$ocupacion_sol',
     func_estad_sol = '$func_estad_sol',
@@ -274,15 +276,33 @@ WHERE id_solicitud = '$id_solicitud'";
                 echo "Error al subir archivo: " . $_FILES['archivos']['name'][$index] . "<br>";
             }
         }
+        echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
         echo "<script>
-        alert('Update successful');
-        window.location.href = 'seeSolicitud.php';
-      </script>";
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Actualización exitosa',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'seeSolicitud.php';
+            }
+        });
+    </script>";
     } else {
+        echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
         echo "<script>
-        alert('Error  " . $mysqli->error . "');
-        window.location.href = 'seeSolicitud.php';
-      </script>";
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un problema: " . addslashes($mysqli->error) . "',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'seeSolicitud.php';
+            }
+        });
+    </script>";
     }
 
     $mysqli->close();

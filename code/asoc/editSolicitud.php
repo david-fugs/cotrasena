@@ -86,7 +86,7 @@ $mysqli->close();
                 <h3 class="subtitulo">DATOS PERSONALES</h3>
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="tipo_doc_aso">* Tipo de Documento</label>
+                        <label for="tipo_doc_aso"class="form-label">* Tipo de Documento</label>
                         <select name="tipo_doc_aso" class="form-control" id="tipo_doc_aso" required>
                             <option value="C.C." <?php echo ($datos_solicitud['tipo_doc_aso'] == 'C.C.') ? 'selected' : ''; ?>>C.C.</option>
                             <option value="C.E." <?php echo ($datos_solicitud['tipo_doc_aso'] == 'C.E.') ? 'selected' : ''; ?>>C.E.</option>
@@ -95,17 +95,17 @@ $mysqli->close();
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label for="cedula_aso">* CÉDULA No.</label>
+                        <label for="cedula_aso" class="form-label">* CÉDULA No.</label>
                         <input type='text' name='cedula_aso' class='form-control' id="cedula_aso"
                             value='<?php echo $datos_solicitud['cedula_aso']; ?>' required />
                     </div>
                     <div class="col-md-4">
-                        <label for="nombre_aso">Nombre asociado</label>
+                        <label for="nombre_aso" class="form-label">Nombre asociado</label>
                         <input type='text' name='nombre_aso' id="nombre_aso" class='form-control'
                             value='<?php echo $datos_solicitud['nombre_aso']; ?>' required />
                     </div>
                     <div class="col-md-4">
-                        <label for="direccion_aso">Direccion</label>
+                        <label for="direccion_aso"class="form-label">Direccion</label>
                         <input type='text' name='direccion_aso' class='form-control'
                             value='<?php echo $datos_solicitud['direccion_aso']; ?>' required />
                     </div>
@@ -114,23 +114,23 @@ $mysqli->close();
 
 
                 <div class="row">
-                    <div class="col-md-3">
-                        <label for="fecha_exp_doc_aso">* Fecha Expedicion</label>
+                    <div class="col-md-3 mt-3" class="form-label">
+                        <label for="fecha_exp_doc_aso" class="form-label">* Fecha Expedicion</label>
                         <input type="date" name="fecha_exp_doc_aso" class="form-control" id="fecha_exp_doc_aso"
                             value='<?php echo $datos_solicitud['fecha_exp_doc_aso']; ?>' required />
                     </div>
-                    <div class="col-md-3">
-                        <label for="pais_exp_cedula_aso">* Pais Expedicion</label>
+                    <div class="col-md-3 mt-3" class="form-label">
+                        <label for="pais_exp_cedula_aso"class="form-label">* Pais Expedicion</label>
                         <input type="text" name="pais_exp_cedula_aso" class="form-control" id="pais_exp_cedula_aso"
                             value='<?php echo $datos_solicitud['pais_exp_cedula_aso']; ?>' required />
                     </div>
-                    <div class="col-md-3">
-                        <label for="dpto_exp_cedula_aso">* Departamento Expedicion</label>
+                    <div class="col-md-3 mt-3" class="form-label">
+                        <label for="dpto_exp_cedula_aso" class="form-label">* Departamento Expedicion</label>
                         <input type="text" name="dpto_exp_cedula_aso" class="form-control" id="dpto_exp_cedula_aso"
                             value='<?php echo $datos_solicitud['dpto_exp_cedula_aso']; ?>' required />
                     </div>
-                    <div class="col-md-3">
-                        <label for="ciudad_exp_cedula_aso">* Ciudad Expedicion</label>
+                    <div class="col-md-3 mt-3">
+                        <label for="ciudad_exp_cedula_aso" class="form-label">* Ciudad Expedicion</label>
                         <input type="text" name="ciudad_exp_cedula_aso" class="form-control" id="ciudad_exp_cedula_aso"
                             value='<?php echo $datos_solicitud['ciudad_exp_cedula_aso']; ?>' required />
                     </div>
@@ -283,7 +283,7 @@ $mysqli->close();
                         </select>
                     </div>
                     <div class="col-12 col-sm-3 mt-2">
-                        <label for="monto_sol">* Monto Solicitado/label>
+                        <label for="monto_sol">* Monto Solicitado</label>
                         <input type="number" name="monto_sol" class="form-control" id="monto_sol" value='<?= $datos_solicitud['monto_sol'] ?? ''; ?>' />
                     </div>
                     <div class="col-12 col-sm-2 mt-2">
@@ -299,8 +299,12 @@ $mysqli->close();
                             <option value="96 MESES" <?php echo ($datos_solicitud['plazo_sol'] == '96 MESES') ? 'selected' : ''; ?>>96 MESES</option>
                             <option value="108 MESES" <?php echo ($datos_solicitud['plazo_sol'] == '108 MESES') ? 'selected' : ''; ?>>108 MESES</option>
                             <option value="120 MESES" <?php echo ($datos_solicitud['plazo_sol'] == '120 MESES') ? 'selected' : ''; ?>>120 MESES</option>
-
+                            <option value="otro" <?php echo ($datos_solicitud['plazo_sol'] == 'otro') ? 'selected' : ''; ?>>Otro</option>
                         </select>
+                    </div>
+                    <div class="col-12 col-sm-3 mt-2">
+                        <label for="otro_plazo_sol">* Cuanto Plazo</label>
+                        <input type="text" name="otro_plazo_sol" class="form-control" id="otro_plazo_sol" value='<?= $datos_solicitud['otro_plazo_sol'] ?? ''; ?>' />
                     </div>
                     <div class="col-12 col-lg-2 mt-2">
                         <label for="linea_cred_aso">* Linea de Credito</label>

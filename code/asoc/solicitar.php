@@ -262,7 +262,12 @@ $datos_usuario = [];
                                 <option value="96 MESES">96 MESES</option>
                                 <option value="108 MESES">108 MESES</option>
                                 <option value="120 MESES">120 MESES</option>
+                                <option value="otro">Otro</option>
                             </select>
+                        </div>
+                        <div class="col-12 col-sm-2 d-none" id="otro_plazo_div">
+                            <label for="otro_plazo_sol">* Cuanto Plazo</label>
+                            <input type="text" name="otro_plazo_sol" class="form-control" id="otro_plazo_sol" />
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="linea_cred_aso">* Linea Credito</label>
@@ -859,6 +864,22 @@ $datos_usuario = [];
     </div>
 </body>
 <script>
+    //campo de plazo Meses
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectPlazo = document.getElementById('plazo_sol');
+        const otroPlazoDiv = document.getElementById('otro_plazo_div');
+
+        selectPlazo.addEventListener('change', function() {
+            if (selectPlazo.value === 'otro') {
+                otroPlazoDiv.classList.remove('d-none');
+                document.getElementById('otro_plazo').setAttribute('required', true);
+            } else {
+                otroPlazoDiv.classList.add('d-none');
+                document.getElementById('otro_plazo').removeAttribute('required');
+            }
+        });
+    });
+
     const fileInput = document.getElementById('fileInput');
     const fileList = document.getElementById('fileList');
 

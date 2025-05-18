@@ -59,12 +59,12 @@ function deleteMember($id_solicitud)
         <div class="logo-container">
             <img src='../../img/img3.png' class="logo" alt="Logo">
         </div>
-        <h1 class="title">SOLICITUDES</h1>
+        <h1 class="title">ESTADO SOLICITUDES</h1>
     </header>
 
     <div class="container">
         <div class="box">
-            <form action="seeSolicitud.php" method="get" class="form">
+            <form action="estadoSolicitud.php" method="get" class="form">
                 <input name="cedula_persona" type="number" placeholder="Cédula"
                     value="<?= isset($_GET['cedula_persona']) ? htmlspecialchars($_GET['cedula_persona']) : '' ?>" class="search-input">
                 <input name="nombre" type="text" placeholder="Nombre"
@@ -84,12 +84,12 @@ function deleteMember($id_solicitud)
         </div>
 
         <div class="position-relative mb-3">
-            <h2 class="text-center titulo me-5">Solicitudes Registradas</h2>
+            <h2 class="text-center titulo me-5">Estado de Solicitudes</h2>
 
             <!-- Contenedor de los botones alineado a la derecha -->
             <div class="position-absolute top-0 end-0 d-flex gap-2 m">
-                <button type="button" class="btn btn-success" onclick="window.location.href='estadoSolicitud.php'">
-                 Estado  Solicitud
+                <button type="button" class="btn btn-success" onclick="window.location.href='seeSolicitud.php'">
+                Solicitudes
                 </button>
                 <button type="button" class="btn btn-success" onclick="window.location.href='solicitar.php'">
                     <i class="fas fa-plus"></i> Agregar Solicitud
@@ -109,16 +109,11 @@ function deleteMember($id_solicitud)
                         <th>Linea Credito</th>
                         <th>Observacion</th>
                         <th>Fecha Solicitud</th>
-                        <?php if ($_SESSION['tipo_usu'] == '1' || $_SESSION['tipo_usu'] == '3') { ?>
-                            <th>Aprobar Solicitud</th>
-                        <?php } ?>
-                        <th>Agregar Observacion</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php include "getSolicitud.php"; ?>
+                    <?php include "getSolicitudEstado.php"; ?>
                 </tbody>
             </table>
         </div>

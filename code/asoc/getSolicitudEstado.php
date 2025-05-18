@@ -2,7 +2,7 @@
 include("../../conexion.php");
 require_once("../../zebra.php");
 
-$where = "WHERE s.estado_solicitud = 1";
+$where = "WHERE 1 = 1";
 
 
 // Filtro por cédula
@@ -45,12 +45,13 @@ $offset = ($page - 1) * $resul_x_pagina;
 $query = "
 SELECT s.cedula_aso, s.nombre_aso, s.id_solicitud, s.fecha_devolucion,
        s.fecha_alta_solicitud, s.monto_sol, s.linea_cred_aso,
-       s.observacion_solicitud, d.observacion_devolucion
+       s.observacion_solicitud, d.observacion_devolucion, s.estado_solicitud
 FROM solicitudes AS s
 LEFT JOIN devoluciones AS d ON s.id_solicitud = d.id_solicitud
 $where
 ORDER BY 
     CASE WHEN s.fecha_observacion IS NOT NULL THEN 0 ELSE 1 END,
+    s.estado_solicitud DESC,
     s.fecha_alta_solicitud DESC
 LIMIT $offset, $resul_x_pagina
 ";
@@ -67,23 +68,31 @@ function getColor($dias)
 {
     if ($dias >= 0 && $dias <= 7) {
         return "#d4edda"; // verde suave
-    } elseif ($dias > 7 && $dias <= 14) {
+    } elseif ($dias > 7 && $dias <= 15) {
         return "#fff3cd"; // amarillo suave
     } else {
         return "#f8d7da"; // rojo suave
     }
 }
+function nombreEstado($estado)
+{
+    switch ($estado) {
+        case '1':
+            return "Ingresada";
+        case '2':
+            return "Aprobada";
+        case '3':
+            return "En Gerencia";
+
+    }
+}
 
 if ($result->num_rows > 0) {
-    $color = "green";
+    $color = "";
     while ($row = $result->fetch_assoc()) {
 
 
-        if ($row['fecha_devolucion'] != null) {
-            $color = getColor(getDiasDesdeSolicitud($row['fecha_devolucion']));
-        } else {
-            $color = getColor(getDiasDesdeSolicitud($row['fecha_alta_solicitud']));
-        }
+
         echo "<tr>";
         if ($row['fecha_devolucion'] != null) {
             echo '
@@ -105,31 +114,7 @@ if ($result->num_rows > 0) {
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['linea_cred_aso'] . '</td>';
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['observacion_solicitud'] . '</td>';
         echo '<td  class="fila"style="background-color:' . $color . ';">' . $row['fecha_alta_solicitud'] . '</td>';
-        echo '<td class="fila" style="background-color:' . $color . ';" data-label="Estado" ">
-                <a href="updateEstadoSolicitud.php?id_solicitud=' . $row['id_solicitud'] . '&estado_solicitud=2" class="btn " " onclick="return confirm(\'¿Estás seguro de aprobar esta Solicitud?\')">
-                        <i class="fas fa-rotate-right fa-lg"></i> 
-                    </a>
-                  </td>';
-        echo '
-            <td data-label="Editar" style="background-color:' . $color . ';" class="fila" >
-                <button type="button" class="btn-edit" 
-                    data-bs-toggle="modal" data-bs-target="#modalObservacion"
-                     data-id_solicitud="' .  $row['id_solicitud']  . '"
-                    style="background-color:transparent; border:none;">
-                    <i class="fa-solid fa-note-sticky fa-lg"></i>
-                </button>     
-            </td> ';
-
-        echo '<td class="fila" style="background-color:' . $color . ';" data-label="Editar">
-        <a href="editSolicitud.php?id_solicitud=' . $row['id_solicitud'] . '" class="btn btn-sm">
-            <i class="fa-sharp fa-solid fa-pen-to-square fa-lg"></i>
-        </a>
-      </td>';
-        echo '<td class="fila" style="background-color:' . $color . ';">
-                <a href="?delete=' . $row['id_solicitud'] . '" class="btn btn-sm " onclick="return confirm(\'¿Estás seguro de que deseas eliminar esta persona?\')">
-                    <i class="fa-solid fa-trash fa-lg"></i>
-                </a>
-              </td>';
+        echo '<td class="fila" style="background-color:' . $color . ';">' . nombreEstado($row['estado_solicitud']) . '</td>';
         echo "</tr>";
     }
 } else {
