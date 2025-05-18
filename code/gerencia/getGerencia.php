@@ -44,7 +44,7 @@ function getColor($dias)
 {
     if ($dias >= 0 && $dias <= 7) {
         return "#d4edda"; // verde suave
-    } elseif ($dias > 7 && $dias <= 15) {
+    } elseif ($dias > 7 && $dias <= 14) {
         return "#fff3cd"; // amarillo suave
     } else {
         return "#f8d7da"; // rojo suave
@@ -86,7 +86,11 @@ if ($result->num_rows > 0) {
                         <i class="fas fa-rotate-left fa-lg"></i>
                     </button>     
                 </td> ';
-
+        echo '<td class="fila" style="background-color:' . $color . ';" data-label="Estado" ">
+                        <a href="../asoc/updateEstadoSolicitud.php?id_solicitud=' . $row['id_solicitud'] . '&estado_solicitud=4" class="btn " " onclick="return confirm(\'¿Estás seguro de aprobar esta Solicitud?\')">
+                                <i class="fa-solid fa-up-long"></i>
+                        </a>
+                </td>';
         echo '<td class="fila" style="background-color:' . $color . ';" data-label="Editar">
         <a href="../asoc/editSolicitud.php?id_solicitud=' . $row['id_solicitud'] . '" class="btn btn-sm">
             <i class="fa-sharp fa-solid fa-pen-to-square fa-lg"></i>

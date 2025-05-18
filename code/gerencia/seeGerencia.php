@@ -97,6 +97,7 @@ function deleteMember($id_solicitud)
                     <th class="fila" >Fecha Gerencia</th>
                     <th class="fila">Agregar Observacion</th>
                     <th class="fila">Devolver Solicitud</th>
+                    <th class="fila">Aprobar desde Gerencia</th>
                     <th class="fila">Edit</th>
                     </tr>
                 </thead>
