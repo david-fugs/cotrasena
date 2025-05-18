@@ -860,6 +860,11 @@ $datos_usuario = [];
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary mt-5">Enviar Solicitud</button>
+                <?php if ($_SESSION): ?>
+                    <div class="d-flex justify-content-center align-content-center" >
+                        <br /><a href="../../access.php"><img src='../../img/atras.png' width="72" height="72" title="back" /></a><br>
+                    </div>
+                <?php endif; ?>
         </form>
     </div>
 </body>
