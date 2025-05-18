@@ -83,7 +83,8 @@ function nombreEstado($estado)
             return "Aprobada";
         case '3':
             return "En Gerencia";
-
+        case '4':
+            return "Aprobada Gerencia";
     }
 }
 
@@ -94,20 +95,7 @@ if ($result->num_rows > 0) {
 
 
         echo "<tr>";
-        if ($row['fecha_devolucion'] != null) {
-            echo '
-            <td data-label="Editar" style="background-color:' . $color . ';" class="fila" >
-                <button type="button" class="btn-edit" 
-                    data-bs-toggle="modal" data-bs-target="#modalDevolucion"
-                    data-id_solicitud="' .  $row['id_solicitud']  . '"
-                     data-observacion_devolucion="' . htmlspecialchars($row['observacion_devolucion']) . '"
-                    style="background-color:transparent; border:none;">
-                    <i class="fa-solid fa-triangle-exclamation fa-lg"></i>            
-                </button>     
-            </td> ';
-        } else {
-            echo '<td class="fila" style="background-color:' . $color . ';">' .  '</td>';
-        }
+
         echo '<td class="fila"  style="background-color:' . $color . ';">' . $row['cedula_aso'] . '</td>';
         echo '<td  class="fila" style="background-color:' . $color . ';">' . $row['nombre_aso'] . '</td>';
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['monto_sol'] . '</td>';
