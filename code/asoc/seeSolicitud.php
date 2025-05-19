@@ -89,7 +89,7 @@ function deleteMember($id_solicitud)
             <!-- Contenedor de los botones alineado a la derecha -->
             <div class="position-absolute top-0 end-0 d-flex gap-2 m">
                 <button type="button" class="btn btn-success" onclick="window.location.href='estadoSolicitud.php'">
-                 Estado  Solicitud
+                    Estado Solicitud
                 </button>
                 <button type="button" class="btn btn-success" onclick="window.location.href='solicitar.php'">
                     <i class="fas fa-plus"></i> Agregar Solicitud
@@ -98,7 +98,7 @@ function deleteMember($id_solicitud)
         </div>
 
 
-        <div class="table-responsive">
+        <div class="table-responsive" style="width: 105%;">
             <table class="data-table" id="salesTable">
                 <thead>
                     <tr>
@@ -109,9 +109,7 @@ function deleteMember($id_solicitud)
                         <th>Linea Credito</th>
                         <th>Observacion</th>
                         <th>Fecha Solicitud</th>
-                        <?php if ($_SESSION['tipo_usu'] == '1' || $_SESSION['tipo_usu'] == '3') { ?>
-                            <th>Aprobar Solicitud</th>
-                        <?php } ?>
+                        <th>Aprobar Solicitud</th>
                         <th>Agregar Observacion</th>
                         <th>Edit</th>
                         <th>Delete</th>

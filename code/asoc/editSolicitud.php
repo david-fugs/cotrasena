@@ -67,15 +67,22 @@ $mysqli->close();
         }
     </style>
 </head>
-
-<body>
+<div>
     <header class="header">
         <div class="logo-container">
             <img src='../../img/img2.jpg' class="logo" alt="Logo COTRASENA">
         </div>
         <h1 class="title">EDITAR SOLICITUD DE CRÉDITO</h1>
     </header>
-    <div class="container">
+    <div class="">
+        <div class="d-flex justify-content-end mt-3" style="margin-right: 140px;">
+            <button type="button" class="btn btn-success " onclick="window.print()">
+                Imprimir
+            </button>
+        </div>
+    </div>
+
+    <div class="container" id="container">
         <form action='updateSolicitud.php' method="POST" enctype="multipart/form-data">
             <!-- Campo oculto para enviar el id_solicitud -->
             <input type="hidden" name="id_solicitud" value="<?php echo $datos_solicitud['id_solicitud']; ?>">
@@ -85,8 +92,8 @@ $mysqli->close();
 
                 <h3 class="subtitulo">DATOS PERSONALES</h3>
                 <div class="row">
-                    <div class="col-md-2">
-                        <label for="tipo_doc_aso"class="form-label">* Tipo de Documento</label>
+                    <div class="col-sm-2">
+                        <label for="tipo_doc_aso" class="form-label">* Tipo de Documento</label>
                         <select name="tipo_doc_aso" class="form-control" id="tipo_doc_aso" required>
                             <option value="C.C." <?php echo ($datos_solicitud['tipo_doc_aso'] == 'C.C.') ? 'selected' : ''; ?>>C.C.</option>
                             <option value="C.E." <?php echo ($datos_solicitud['tipo_doc_aso'] == 'C.E.') ? 'selected' : ''; ?>>C.E.</option>
@@ -94,18 +101,18 @@ $mysqli->close();
                             <option value="OTRO" <?php echo ($datos_solicitud['tipo_doc_aso'] == 'OTRO') ? 'selected' : ''; ?>>OTRO</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-sm-2">
                         <label for="cedula_aso" class="form-label">* CÉDULA No.</label>
                         <input type='text' name='cedula_aso' class='form-control' id="cedula_aso"
                             value='<?php echo $datos_solicitud['cedula_aso']; ?>' required />
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                         <label for="nombre_aso" class="form-label">Nombre asociado</label>
                         <input type='text' name='nombre_aso' id="nombre_aso" class='form-control'
                             value='<?php echo $datos_solicitud['nombre_aso']; ?>' required />
                     </div>
-                    <div class="col-md-4">
-                        <label for="direccion_aso"class="form-label">Direccion</label>
+                    <div class="col-sm-4">
+                        <label for="direccion_aso" class="form-label">Direccion</label>
                         <input type='text' name='direccion_aso' class='form-control'
                             value='<?php echo $datos_solicitud['direccion_aso']; ?>' required />
                     </div>
@@ -114,22 +121,22 @@ $mysqli->close();
 
 
                 <div class="row">
-                    <div class="col-md-3 mt-3" class="form-label">
+                    <div class="col-sm-3 mt-3" class="form-label">
                         <label for="fecha_exp_doc_aso" class="form-label">* Fecha Expedicion</label>
                         <input type="date" name="fecha_exp_doc_aso" class="form-control" id="fecha_exp_doc_aso"
                             value='<?php echo $datos_solicitud['fecha_exp_doc_aso']; ?>' required />
                     </div>
-                    <div class="col-md-3 mt-3" class="form-label">
-                        <label for="pais_exp_cedula_aso"class="form-label">* Pais Expedicion</label>
+                    <div class="col-sm-3 mt-3" class="form-label">
+                        <label for="pais_exp_cedula_aso" class="form-label">* Pais Expedicion</label>
                         <input type="text" name="pais_exp_cedula_aso" class="form-control" id="pais_exp_cedula_aso"
                             value='<?php echo $datos_solicitud['pais_exp_cedula_aso']; ?>' required />
                     </div>
-                    <div class="col-md-3 mt-3" class="form-label">
+                    <div class="col-sm-3 mt-3" class="form-label">
                         <label for="dpto_exp_cedula_aso" class="form-label">* Departamento Expedicion</label>
                         <input type="text" name="dpto_exp_cedula_aso" class="form-control" id="dpto_exp_cedula_aso"
                             value='<?php echo $datos_solicitud['dpto_exp_cedula_aso']; ?>' required />
                     </div>
-                    <div class="col-md-3 mt-3">
+                    <div class="col-sm-3 mt-3">
                         <label for="ciudad_exp_cedula_aso" class="form-label">* Ciudad Expedicion</label>
                         <input type="text" name="ciudad_exp_cedula_aso" class="form-control" id="ciudad_exp_cedula_aso"
                             value='<?php echo $datos_solicitud['ciudad_exp_cedula_aso']; ?>' required />
@@ -227,15 +234,20 @@ $mysqli->close();
                         <label for="email_aso">* Email</label>
                         <input type='email' name='email_aso' id="email_aso" class='form-control' value='<?= $datos_solicitud['email_aso'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-sm-2 mt-2">
+                    <div class="col-12 col-sm-4 mt-2">
                         <label for="tel_aso">* Telefono Fijo</label>
                         <input type='number' name='tel_aso' id="tel_aso" class='form-control' value='<?= $datos_solicitud['tel_aso'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-sm-3 mt-2">
+                    <div class="col-12 col-sm-4 mt-2">
                         <label for="cel_aso">* Celular</label>
                         <input type='number' name='cel_aso' class='form-control' value='<?= $datos_solicitud['cel_aso'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-sm-3 mt-2">
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12 col-sm-4 mt-2">
                         <label for="nivel_educa_aso">* Nivel Educativo</label>
                         <select name="nivel_educa_aso" class="form-control" id="nivel_educa_aso">
                             <option value="primaria" <?php echo ($datos_solicitud['nivel_educa_aso'] == 'primaria') ? 'selected' : ''; ?>>PRIMARIA</option>
@@ -248,15 +260,11 @@ $mysqli->close();
                             <option value="doctorado" <?php echo ($datos_solicitud['nivel_educa_aso'] == 'doctorado') ? 'selected' : ''; ?>>DOCTORADO</option>
                         </select>
                     </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-12 col-sm-6 mt-2">
+                    <div class="col-12 col-sm-4 mt-2">
                         <label for="titulo_obte_aso">Titulo Obtenido</label>
                         <input type='text' name='titulo_obte_aso' class='form-control' value='<?= $datos_solicitud['titulo_obte_aso'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-sm-6 mt-2">
+                    <div class="col-12 col-sm-4 mt-2">
                         <label for="titulo_pos_aso">Titulo en Postgrado</label>
                         <input type='text' name='titulo_pos_aso' class='form-control' value='<?= $datos_solicitud['titulo_pos_aso'] ?? ''; ?>' />
                     </div>
@@ -272,7 +280,7 @@ $mysqli->close();
                         <input type="text" name="fecha_sol" class="form-control" id="fecha_sol"
                             value='<?= $datos_solicitud['fecha_sol'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-lg-3 mt-2">
+                    <div class="col-12 col-sm-3 mt-2">
                         <label for="tipo_deudor_aso">* Tipo Deudor</label>
                         <select name="tipo_deudor_aso" class="form-control" id="tipo_deudor_aso">
                             <!-- <option value="DEUDOR PRINCIPAL">DEUDOR PRINCIPAL</option>
@@ -306,7 +314,7 @@ $mysqli->close();
                         <label for="otro_plazo_sol">* Cuanto Plazo</label>
                         <input type="text" name="otro_plazo_sol" class="form-control" id="otro_plazo_sol" value='<?= $datos_solicitud['otro_plazo_sol'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-lg-2 mt-2">
+                    <div class="col-12 col-sm-3 mt-2">
                         <label for="linea_cred_aso">* Linea de Credito</label>
                         <select name="linea_cred_aso" class="form-control" id="linea_cred_aso">
                             <option value="LIBRE INVERSION" <?php echo ($datos_solicitud['linea_cred_aso'] == 'LIBRE INVERSION') ? 'selected' : ''; ?>>LIBRE INVERSION</option>
@@ -348,15 +356,12 @@ $mysqli->close();
                         <label for="nit_emp_labo_sol">* NIT Empresa</label>
                         <input type='text' name='nit_emp_labo_sol' id="nit_emp_labo_sol" class='form-control' value='<?= $datos_solicitud['nit_emp_labo_sol'] ?? ''; ?>' />
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-12 col-sm-3 mt-2">
                         <label for="act_emp_labo_sol">* Actividad Empresa</label>
                         <input type='text' name='act_emp_labo_sol' id="act_emp_labo_sol" class='form-control' value='<?= $datos_solicitud['act_emp_labo_sol'] ?? ''; ?>' />
                     </div>
-                </div>
-
-
-
-                <div class="row">
                     <div class="col-12 col-sm-3 mt-2">
                         <label for="dir_emp_sol">* Direccion Empresa</label>
                         <input name="dir_emp_sol" class="form-control" id="dir_emp_sol" value='<?= $datos_solicitud['dir_emp_sol'] ?? ''; ?>' />
@@ -369,14 +374,12 @@ $mysqli->close();
                         <label for="depar_emp_sol">* Departamento</label>
                         <input type='text' name='depar_emp_sol' id="depar_emp_sol" class='form-control' value='<?= $datos_solicitud['depar_emp_sol'] ?? ''; ?>' />
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-12 col-sm-3 mt-2">
                         <label for="tel_emp_sol">* Telefono Empresa</label>
                         <input type='number' name='tel_emp_sol' id="tel_emp_sol" class='form-control' value='<?= $datos_solicitud['tel_emp_sol'] ?? ''; ?>' />
                     </div>
-                </div>
-
-
-                <div class="row">
                     <div class="col-12 col-sm-3 mt-2">
                         <label for="fecha_ing_emp_sol">* Fecha de Ingreso</label>
                         <input type="date" name="fecha_ing_emp_sol" class="form-control" id="fecha_ing_emp_sol" value='<?= $datos_solicitud['fecha_ing_emp_sol'] ?? ''; ?>' />
@@ -389,6 +392,10 @@ $mysqli->close();
                         <label for="anti_emp_mes_sol">* Antigüedad en Meses</label>
                         <input type="number" name="anti_emp_mes_sol" id="anti_emp_mes_sol" class="form-control" value='<?= $datos_solicitud['anti_emp_mes_sol'] ?? ''; ?>' />
                     </div>
+
+                </div>
+
+                <div class="row">
                     <div class="col-12 col-sm-3 mt-2">
                         <label for="cargo_actual_emp_sol">* Cargo Actual</label>
                         <input type='text' name='cargo_actual_emp_sol' id="cargo_actual_emp_sol" class='form-control' value='<?= $datos_solicitud['cargo_actual_emp_sol'] ?? ''; ?>' />
@@ -397,14 +404,11 @@ $mysqli->close();
                         <label for="area_trabajo_sol">* Área de Trabajo</label>
                         <input type='text' name='area_trabajo_sol' id="area_trabajo_sol" class='form-control' value='<?= $datos_solicitud['area_trabajo_sol'] ?? ''; ?>' />
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12 col-sm-6 mt-2">
+                    <div class="col-12 col-sm-3 mt-2">
                         <label for="acti_inde_sol">* Actividad Como Independiente</label>
                         <input type="text" name="acti_inde_sol" class="form-control" id="acti_inde_sol" value='<?= $datos_solicitud['acti_inde_sol'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-sm-6 mt-2">
+                    <div class="col-12 col-sm-3 mt-2">
                         <label for="num_emple_emp_sol">* Numero de empleados de su Empresa</label>
                         <input type="number" name="num_emple_emp_sol" id="num_emple_emp_sol" class="form-control" value='<?= $datos_solicitud['num_emple_emp_sol'] ?? ''; ?>' />
                     </div>
@@ -415,7 +419,7 @@ $mysqli->close();
                 <h3 class="subtitulo">DATOS FINANCIEROS</h3>
                 <h5>INGRESOS</h5>
                 <div class="row">
-                    <div class="col-12 col-sm-2 mt-2">
+                    <div class="col-12 col-sm-3 mt-2">
                         <label for="salario_sol">* Salario</label>
                         <input type="number" name="salario_sol" class="form-control" id="salario_sol" value='<?= $datos_solicitud['salario_sol'] ?? ''; ?>' />
                     </div>
@@ -423,11 +427,11 @@ $mysqli->close();
                         <label for="ing_arri_sol">* Ingreso por Arriendo</label>
                         <input type="number" name="ing_arri_sol" id="ing_arri_sol" class="form-control" value='<?= $datos_solicitud['ing_arri_sol'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-sm-2 mt-2">
+                    <div class="col-12 col-sm-3 mt-2">
                         <label for="honorarios_sol">* Honorarios</label>
                         <input type='number' name='honorarios_sol' id="honorarios_sol" class='form-control' value='<?= $datos_solicitud['honorarios_sol'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-sm-2 mt-2">
+                    <div class="col-12 col-sm-3 mt-2">
                         <label for="pension_sol">* Pension</label>
                         <input type='number' name='pension_sol' id="pension_sol" class='form-control' value='<?= $datos_solicitud['pension_sol'] ?? ''; ?>' />
                     </div>
@@ -440,15 +444,15 @@ $mysqli->close();
             <div class="seccion">
                 <h5 class="subtitulo">EGRESOS</h5>
                 <div class="row">
-                    <div class="col-12 col-sm-2 mt-2">
+                    <div class="col-12 col-sm-3 mt-2">
                         <label for="cuota_pres_sol">* Cuota Prestamos</label>
                         <input type="number" name="cuota_pres_sol" class="form-control" id="cuota_pres_sol" value='<?= $datos_solicitud['cuota_pres_sol'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-sm-2 mt-2">
+                    <div class="col-12 col-sm-3 mt-2">
                         <label for="cuota_tar_cred_sol">* Cuota Tarjeta de Credito</label>
                         <input type="number" name="cuota_tar_cred_sol" id="cuota_tar_cred_sol" class="form-control" value='<?= $datos_solicitud['cuota_tar_cred_sol'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-sm-2 mt-2">
+                    <div class="col-12 col-sm-3 mt-2">
                         <label for="arrendo_sol">* Arrendamiento</label>
                         <input type='number' name='arrendo_sol' id="arrendo_sol" class='form-control' value='<?= $datos_solicitud['arrendo_sol'] ?? ''; ?>' />
                     </div>
@@ -456,15 +460,12 @@ $mysqli->close();
                         <label for="gastos_fam_sol">* Gastos Familiares</label>
                         <input type='number' name='gastos_fam_sol' id="gastos_fam_sol" class='form-control' value='<?= $datos_solicitud['gastos_fam_sol'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-sm-2 mt-2">
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-4 mt-2">
                         <label for="otros_gastos_sol">* Otros Gastos</label>
                         <input type='number' name='otros_gastos_sol' id="otros_gastos_sol" class='form-control' value='<?= $datos_solicitud['otros_gastos_sol'] ?? ''; ?>' />
                     </div>
-                </div>
-
-
-
-                <div class="row">
                     <div class="col-12 col-sm-4 mt-2">
                         <label for="ahorro_banco_sol">* Bancos (AHORROS, INVERSIONES, CDTS)</label>
                         <input type="number" name="ahorro_banco_sol" class="form-control" id="ahorro_banco_sol" value='<?= $datos_solicitud['ahorro_banco_sol'] ?? ''; ?>' />
@@ -473,13 +474,14 @@ $mysqli->close();
                         <label for="vehiculo_sol">* Vehiculos (VALOR COMERCIAL)</label>
                         <input type="number" name="vehiculo_sol" id="vehiculo_sol" class="form-control" value='<?= $datos_solicitud['vehiculo_sol'] ?? ''; ?>' />
                     </div>
+
+                </div>
+
+                <div class="row">
                     <div class="col-12 col-sm-4 mt-2">
                         <label for="bienes_raices_sol">* Biendes raices (VALOR COMERCIAL)</label>
                         <input type='number' name='bienes_raices_sol' id="bienes_raices_sol" class='form-control' value='<?= $datos_solicitud['bienes_raices_sol'] ?? ''; ?>' />
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="col-12 col-sm-4 mt-2">
                         <label for="otros_activos_sol">* Otros Activos</label>
                         <input type='number' name='otros_activos_sol' id="otros_activos_sol" class='form-control' value='<?= $datos_solicitud['otros_activos_sol'] ?? ''; ?>' />
@@ -488,18 +490,19 @@ $mysqli->close();
                         <label for="presta_total_sol">* Prestamos (DEUDA TOTAL)</label>
                         <input type='number' name='presta_total_sol' id="presta_total_sol" class='form-control' value='<?= $datos_solicitud['presta_total_sol'] ?? ''; ?>' />
                     </div>
+
+                </div>
+
+                <div class="row">
                     <div class="col-12 col-sm-4 mt-2">
                         <label for="hipotecas_sol">* Hipotecas</label>
                         <input type='number' name='hipotecas_sol' id="hipotecas_sol" class='form-control' value='<?= $datos_solicitud['hipotecas_sol'] ?? ''; ?>' />
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12 col-sm-6 mt-2">
+                    <div class="col-12 col-sm-4 mt-2">
                         <label for="tar_cred_total_sol">* Tarjeta de Credito (DEUDA TOTAL)</label>
                         <input type='number' name='tar_cred_total_sol' id="tar_cred_total_sol" class='form-control' value='<?= $datos_solicitud['tar_cred_total_sol'] ?? ''; ?>' />
                     </div>
-                    <div class="col-12 col-sm-6 mt-2">
+                    <div class="col-12 col-sm-4 mt-2">
                         <label for="otros_pasivos_sol">* Otros Pasivos</label>
                         <input type='number' name='otros_pasivos_sol' id="otros_pasivos_sol" class='form-control' value='<?= $datos_solicitud['otros_pasivos_sol'] ?? ''; ?>' />
                     </div>
@@ -860,35 +863,35 @@ $mysqli->close();
 
         </form>
     </div>
-</body>
-<script>
-    const fileInput = document.getElementById('fileInput');
-    const fileList = document.getElementById('fileList');
+    </body>
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
 
-    fileInput.addEventListener('change', (event) => {
-        const selectedFiles = Array.from(event.target.files);
+        fileInput.addEventListener('change', (event) => {
+            const selectedFiles = Array.from(event.target.files);
 
-        // Mostrar solo los primeros 3 archivos seleccionados
-        if (selectedFiles.length > 3) {
-            alert("Solo puedes subir hasta 3 archivos.");
-            fileInput.value = ''; // Borra la selección si son más de 3
-            return;
-        }
+            // Mostrar solo los primeros 3 archivos seleccionados
+            if (selectedFiles.length > 3) {
+                alert("Solo puedes subir hasta 3 archivos.");
+                fileInput.value = ''; // Borra la selección si son más de 3
+                return;
+            }
 
-        renderFileList(selectedFiles);
-    });
+            renderFileList(selectedFiles);
+        });
 
-    function renderFileList(files) {
-        // Agregar solo los archivos nuevos a la lista sin borrar los anteriores
-        files.forEach((file) => {
-            const fileDiv = document.createElement('div');
-            fileDiv.className = 'alert alert-secondary d-flex justify-content-between align-items-center py-2 px-3 mb-2';
-            fileDiv.innerHTML = `
+        function renderFileList(files) {
+            // Agregar solo los archivos nuevos a la lista sin borrar los anteriores
+            files.forEach((file) => {
+                const fileDiv = document.createElement('div');
+                fileDiv.className = 'alert alert-secondary d-flex justify-content-between align-items-center py-2 px-3 mb-2';
+                fileDiv.innerHTML = `
             <span><i class="bi bi-file-earmark-text me-2"></i> ${file.name}</span>
         `;
-            fileList.appendChild(fileDiv);
-        });
-    }
-</script>
+                fileList.appendChild(fileDiv);
+            });
+        }
+    </script>
 
 </html>

@@ -90,7 +90,7 @@ function deleteMember($id_solicitud)
            
         </div>
 
-        <div class="table-responsive">
+        <div class="table-responsive" style="width: 105%;">
             <table class="data-table" id="salesTable">
                 <thead>
                     <tr>

@@ -1,5 +1,6 @@
 <?php
 include("../../conexion.php");
+require_once("../../zebra.php");
 
 $where = "WHERE estado_solicitud = 2";
 
@@ -21,6 +22,26 @@ if (!empty($_GET['credito'])) {
     $credito = $mysqli->real_escape_string($_GET['credito']);
     $where .= " AND s.linea_cred_aso = '$credito'";
 }
+// --- CONSULTA PARA CONTAR REGISTROS ---
+$countQuery = "
+    SELECT COUNT(DISTINCT s.id_solicitud) AS total
+    FROM solicitudes AS s
+    LEFT JOIN devolucion_gerencia AS d ON s.id_solicitud = d.id_solicitud
+    LEFT JOIN aprobaciones as a ON s.id_solicitud = a.id_solicitud
+    $where
+    
+";
+$countResult = $mysqli->query($countQuery);
+if (!$countResult) die("Error al contar registros: " . $mysqli->error);
+$totalRegistros = $countResult->fetch_assoc()['total'];
+
+// --- CONFIGURAR PAGINACIÓN ---
+$resul_x_pagina = 25;
+$paginacion = new Zebra_Pagination();
+$paginacion->records($totalRegistros);
+$paginacion->records_per_page($resul_x_pagina);
+$page = $paginacion->get_page();
+$offset = ($page - 1) * $resul_x_pagina;
 
 // Consulta SQL para obtener los datos
 $query = "
@@ -31,6 +52,7 @@ $where
 ORDER BY 
   (d.observacion_devolucion_gerencia IS NULL OR d.observacion_devolucion_gerencia = '') ASC,
   fecha_aprobacion DESC
+  LIMIT $offset, $resul_x_pagina
 ";
 $result = $mysqli->query($query);
 $data = [];
@@ -61,7 +83,7 @@ if ($result->num_rows > 0) {
         } else {
             $color = getColor(getDiasDesdeSolicitud($row['fecha_aprobacion']));
         }
-        
+
         echo "<tr>";
         if ($row['fecha_devolucion_gerencia'] != null) {
             echo '
@@ -118,6 +140,6 @@ if ($result->num_rows > 0) {
 } else {
     echo "<tr><td colspan='9'>No se encontraron registros.</td></tr>";
 }
-
+$paginacion->render();
 
 $mysqli->close();
