@@ -272,6 +272,7 @@ $datos_usuario = [];
                                 <option value="CREDITO EDUCATIVO">CREDITO EDUCATIVO</option>
                                 <option value="CREDITO ROTATIVO">CREDITO ROTATIVO</option>
                                 <option value="CREDITO PRIMA">CREDITO PRIMA</option>
+                                <option value="ADELANTO DE SALARIO">ADELANTO DE SALARIO</option>
                             </select>
                         </div>
                     </div>
