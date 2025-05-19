@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $tipo_deudor_aso = $mysqli->real_escape_string($_POST['tipo_deudor_aso']);
   $monto_sol = $mysqli->real_escape_string($_POST['monto_sol']);
   $plazo_sol = $mysqli->real_escape_string($_POST['plazo_sol']);
+  $otro_plazo_sol = $mysqli->real_escape_string($_POST['otro_plazo_sol']) ?? '';
   $linea_cred_aso = $mysqli->real_escape_string($_POST['linea_cred_aso']);
   $ocupacion_sol = $mysqli->real_escape_string($_POST['ocupacion_sol']);
   $func_estad_sol = $mysqli->real_escape_string($_POST['func_estad_sol']);
@@ -49,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $tel_emp_sol = $mysqli->real_escape_string($_POST['tel_emp_sol']);
   $fecha_ing_emp_sol = $mysqli->real_escape_string($_POST['fecha_ing_emp_sol']);
   $anti_emp_sol = $mysqli->real_escape_string($_POST['anti_emp_sol']);
+  $anti_emp_mes_sol = $mysqli->real_escape_string($_POST['anti_emp_mes_sol']);
   $cargo_actual_emp_sol = $mysqli->real_escape_string($_POST['cargo_actual_emp_sol']);
   $area_trabajo_sol = $mysqli->real_escape_string($_POST['area_trabajo_sol']);
   $acti_inde_sol = $mysqli->real_escape_string($_POST['acti_inde_sol']);
@@ -125,53 +127,93 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Construir query
   $query = "INSERT INTO solicitudes (tipo_doc_aso, cedula_aso, nombre_aso, direccion_aso, fecha_exp_doc_aso, pais_exp_cedula_aso, dpto_exp_cedula_aso, ciudad_exp_cedula_aso, fecha_nacimiento_aso, pais_naci_aso, dpto_naci_aso, ciudad_naci_aso, edad_aso, sexo_aso, nacionalidad_aso, estado_civil_aso, per_cargo_aso, tip_vivienda_aso, barrio_aso, ciudad_aso, departamente_aso, estrato_aso, email_aso, tel_aso, cel_aso, nivel_educa_aso, titulo_obte_aso, titulo_pos_aso,
-    fecha_sol, tipo_deudor_aso, monto_sol, plazo_sol, linea_cred_aso, ocupacion_sol, func_estad_sol, emp_labo_sol, nit_emp_labo_sol, act_emp_labo_sol, dir_emp_sol, ciudad_emp_sol, depar_emp_sol, tel_emp_sol, fecha_ing_emp_sol, anti_emp_sol, cargo_actual_emp_sol, area_trabajo_sol, acti_inde_sol, num_emple_emp_sol, salario_sol, ing_arri_sol, honorarios_sol, pension_sol, otros_ing_sol, cuota_pres_sol, cuota_tar_cred_sol, arrendo_sol, gastos_fam_sol, otros_gastos_sol, ahorro_banco_sol, vehiculo_sol, bienes_raices_sol, otros_activos_sol, presta_total_sol, hipotecas_sol, tar_cred_total_sol, otros_pasivos_sol,
+    fecha_sol, tipo_deudor_aso, monto_sol, plazo_sol, otro_plazo_sol, linea_cred_aso, ocupacion_sol, func_estad_sol, emp_labo_sol, nit_emp_labo_sol, act_emp_labo_sol, dir_emp_sol, ciudad_emp_sol, depar_emp_sol, tel_emp_sol, fecha_ing_emp_sol, anti_emp_sol,anti_emp_mes_sol, cargo_actual_emp_sol, area_trabajo_sol, acti_inde_sol, num_emple_emp_sol, salario_sol, ing_arri_sol, honorarios_sol, pension_sol, otros_ing_sol, cuota_pres_sol, cuota_tar_cred_sol, arrendo_sol, gastos_fam_sol, otros_gastos_sol, ahorro_banco_sol, vehiculo_sol, bienes_raices_sol, otros_activos_sol, presta_total_sol, hipotecas_sol, tar_cred_total_sol, otros_pasivos_sol,
     tipo_inmu_1_sol, direccion_1_sol, valor_comer_1_sol, tipo_inmu_2_sol, direccion_2_sol, valor_comer_2_sol, tipo_vehi_1_sol, modelo_1_sol, marca_1_sol, placa_1_sol, valor_1_sol, tipo_vehi_2_sol, modelo_2_sol, marca_2_sol, placa_2_sol, valor_2_sol, ahorros_sol, valor_ahor_sol, enseres_sol, valor_enser_sol,
     conyu_nombre_sol, conyu_cedula_sol, conyu_naci_sol, conyu_exp_sol, conyu_ciudadn_sol, conyu_dpton_sol, conyu_paism_sol, conyu_correo_sol, conyu_ocupacion_sol, conyu_func_sol, conyu_emp_lab_sol, conyu_cargo_sol, conyu_salario_sol, conyu_dir_lab_sol, conyu_tel_lab_sol, conyu_ciudad_lab_sol, conyu_dpto_lab_sol,
     fami_nombre_1_sol, fami_cel_1_sol, fami_tel_1_sol, fami_parent_1_sol, fami_nombre_2_sol, fami_cel_2_sol, fami_tel_2_sol, fami_parent_2_sol,
     refer_nombre_1_sol, refer_cel_1_sol, refer_tel_1_sol, refer_nombre_2_sol, refer_cel_2_sol, refer_tel_2_sol)
     VALUES ('$tipo_doc_aso', '$cedula_aso', '$nombre_aso', '$direccion_aso', '$fecha_exp_doc_aso', '$pais_exp_cedula_aso', '$dpto_exp_cedula_aso', '$ciudad_exp_cedula_aso', '$fecha_nacimiento_aso', '$pais_naci_aso', '$dpto_naci_aso', '$ciudad_naci_aso', '$edad_aso', '$sexo_aso', '$nacionalidad_aso', '$estado_civil_aso', '$per_cargo_aso', '$tip_vivienda_aso', '$barrio_aso', '$ciudad_aso', '$departamente_aso', '$estrato_aso', '$email_aso', '$tel_aso', '$cel_aso', '$nivel_educa_aso', '$titulo_obte_aso', '$titulo_pos_aso',
-    '$fecha_sol', '$tipo_deudor_aso', '$monto_sol', '$plazo_sol', '$linea_cred_aso', '$ocupacion_sol', '$func_estad_sol', '$emp_labo_sol', '$nit_emp_labo_sol', '$act_emp_labo_sol', '$dir_emp_sol', '$ciudad_emp_sol', '$depar_emp_sol', '$tel_emp_sol', '$fecha_ing_emp_sol', '$anti_emp_sol', '$cargo_actual_emp_sol', '$area_trabajo_sol', '$acti_inde_sol', '$num_emple_emp_sol', '$salario_sol', '$ing_arri_sol', '$honorarios_sol', '$pension_sol', '$otros_ing_sol', '$cuota_pres_sol', '$cuota_tar_cred_sol', '$arrendo_sol', '$gastos_fam_sol', '$otros_gastos_sol', '$ahorro_banco_sol', '$vehiculo_sol', '$bienes_raices_sol', '$otros_activos_sol', '$presta_total_sol', '$hipotecas_sol', '$tar_cred_total_sol', '$otros_pasivos_sol',
+    '$fecha_sol', '$tipo_deudor_aso', '$monto_sol', '$plazo_sol', '$otro_plazo_sol', '$linea_cred_aso', '$ocupacion_sol', '$func_estad_sol', '$emp_labo_sol', '$nit_emp_labo_sol', '$act_emp_labo_sol', '$dir_emp_sol', '$ciudad_emp_sol', '$depar_emp_sol', '$tel_emp_sol', '$fecha_ing_emp_sol', '$anti_emp_sol', '$anti_emp_mes_sol', '$cargo_actual_emp_sol', '$area_trabajo_sol', '$acti_inde_sol', '$num_emple_emp_sol', '$salario_sol', '$ing_arri_sol', '$honorarios_sol', '$pension_sol', '$otros_ing_sol', '$cuota_pres_sol', '$cuota_tar_cred_sol', '$arrendo_sol', '$gastos_fam_sol', '$otros_gastos_sol', '$ahorro_banco_sol', '$vehiculo_sol', '$bienes_raices_sol', '$otros_activos_sol', '$presta_total_sol', '$hipotecas_sol', '$tar_cred_total_sol', '$otros_pasivos_sol',
     '$tipo_inmu_1_sol', '$direccion_1_sol', '$valor_comer_1_sol', '$tipo_inmu_2_sol', '$direccion_2_sol', '$valor_comer_2_sol', '$tipo_vehi_1_sol', '$modelo_1_sol', '$marca_1_sol', '$placa_1_sol', '$valor_1_sol', '$tipo_vehi_2_sol', '$modelo_2_sol', '$marca_2_sol', '$placa_2_sol', '$valor_2_sol', '$ahorros_sol', '$valor_ahor_sol', '$enseres_sol', '$valor_enser_sol',
     '$conyu_nombre_sol', '$conyu_cedula_sol', '$conyu_naci_sol', '$conyu_exp_sol', '$conyu_ciudadn_sol', '$conyu_dpton_sol', '$conyu_paism_sol', '$conyu_correo_sol', '$conyu_ocupacion_sol', '$conyu_func_sol', '$conyu_emp_lab_sol', '$conyu_cargo_sol', '$conyu_salario_sol', '$conyu_dir_lab_sol', '$conyu_tel_lab_sol', '$conyu_ciudad_lab_sol', '$conyu_dpto_lab_sol',
     '$fami_nombre_1_sol', '$fami_cel_1_sol', '$fami_tel_1_sol', '$fami_parent_1_sol', '$fami_nombre_2_sol', '$fami_cel_2_sol', '$fami_tel_2_sol', '$fami_parent_2_sol',
     '$refer_nombre_1_sol', '$refer_cel_1_sol', '$refer_tel_1_sol', '$refer_nombre_2_sol', '$refer_cel_2_sol', '$refer_tel_2_sol')";
 
   if ($mysqli->query($query)) {
-    //cargar archivos
-    $uploadDir = __DIR__ . '/documentos/'; // Carpeta 'documentos' en la misma ubicación del script
+    // Directorio donde se guardarán los archivos
+    $uploadDir = __DIR__ . '/documentos/';
 
-    foreach ($_FILES['archivos']['name'] as $index => $fileName) {
-      if ($_FILES['archivos']['error'][$index] === UPLOAD_ERR_OK) {
-        $tmpName = $_FILES['archivos']['tmp_name'][$index];
-        $originalName = basename($fileName); // Evita rutas no seguras
-
-        // Opcionalmente puedes limpiar el nombre del archivo
-        $originalName = preg_replace('/[^a-zA-Z0-9_\.\-]/', '_', $originalName);
-
-        $newFileName = $cedula_aso . '_' . $originalName;
-        $destination = $uploadDir . $newFileName;
-
-        if (move_uploaded_file($tmpName, $destination)) {
-          echo "Archivo guardado: $newFileName<br>";
-        } else {
-          echo "Error al mover: $originalName<br>";
-        }
-      } else {
-        echo "Error al subir archivo: " . $_FILES['archivos']['name'][$index] . "<br>";
+    // Validar si hay al menos un archivo subido correctamente
+    $hayArchivos = false;
+    foreach ($_FILES['archivos']['error'] as $error) {
+      if ($error === UPLOAD_ERR_OK) {
+        $hayArchivos = true;
+        break;
       }
     }
-    echo "<script>
-        alert('Insert successful');
-        window.location.reload = 'solicitar.php';
-      </script>";
-  } else {
-    echo "<script>
-        alert('Error  " . $mysqli->error . "');
-        window.location.href = 'solicitar.php';
-      </script>";
-  }
 
+    if ($hayArchivos) {
+      foreach ($_FILES['archivos']['name'] as $index => $fileName) {
+        if ($_FILES['archivos']['error'][$index] === UPLOAD_ERR_OK) {
+          $tmpName = $_FILES['archivos']['tmp_name'][$index];
+          $originalName = basename($fileName);
+          $originalName = preg_replace('/[^a-zA-Z0-9_\.\-]/', '_', $originalName);
+          $newFileName = $cedula_aso . '_' . $originalName;
+          $destination = $uploadDir . $newFileName;
+
+          if (move_uploaded_file($tmpName, $destination)) {
+            echo "Archivo guardado: $newFileName<br>";
+          } else {
+            echo "Error al mover: $originalName<br>";
+          }
+        } else {
+          echo "Error al subir archivo: $fileName<br>";
+        }
+      }
+    }
+
+    echo "<!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Éxito</title>
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+  </head>
+  <body>
+    <script>
+      Swal.fire({
+        title: '¡Éxito!',
+        text: 'Creado Correctamente',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        window.history.back();
+      });
+    </script>
+  </body>
+  </html>";
+  } else {
+    echo "<!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Error</title>
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+  </head>
+  <body>
+    <script>
+      Swal.fire({
+        title: 'Error',
+        text: 'Error: " . $mysqli->error . "',
+        icon: 'error',
+        confirmButtonText: 'Volver'
+      }).then(() => {
+      window.history.back();
+      });
+    </script>
+  </body>
+  </html>";
+  }
   $mysqli->close();
 } else {
   echo "Método no permitido.";

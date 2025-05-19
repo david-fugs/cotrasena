@@ -80,9 +80,16 @@ function deleteMember($id_solicitud)
             </form>
         </div>
 
-        <div class="position-relative mb-3">
-            <h2 class="text-center titulo">Solicitudes Gerencia Registradas</h2>
-           
+         <div class="position-relative mb-3">
+            <h2 class="text-center titulo me-5">Solicitudes Gerencia Registradas</h2>
+
+            <!-- Contenedor de los botones alineado a la derecha -->
+            <div class="position-absolute top-0 end-0 d-flex gap-2 m">
+                <button type="button" class="btn btn-success" onclick="window.location.href='../asoc/estadoSolicitud.php'">
+                 Estado  Solicitud
+                </button>
+               
+            </div>
         </div>
 
         <div class="table-responsive">
@@ -97,6 +104,7 @@ function deleteMember($id_solicitud)
                     <th class="fila" >Fecha Gerencia</th>
                     <th class="fila">Agregar Observacion</th>
                     <th class="fila">Devolver Solicitud</th>
+                    <th class="fila">Aprobar desde Gerencia</th>
                     <th class="fila">Edit</th>
                     </tr>
                 </thead>

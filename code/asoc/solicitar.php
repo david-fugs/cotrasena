@@ -70,7 +70,7 @@ $datos_usuario = [];
                     </div>
                     <div class="col-md-4">
                         <label for="direccion_aso" class="form-label">Dirección</label>
-                        <input type='text' name='direccion_aso' class='form-control' id="direccion_aso"
+                        <input type='text' name='direccion_aso' class='form-control form-control-dark-focus' id="direccion_aso"
                             value=''>
                     </div>
                 </div>
@@ -103,7 +103,7 @@ $datos_usuario = [];
                     <div class="row mt-3">
                         <div class="col-12 col-sm-3">
                             <label for="fecha_nacimiento_aso">* Fecha Nacimiento</label>
-                            <input type="date" name="fecha_nacimiento_aso" class="form-control" id="fecha_nacimiento_aso" required/>
+                            <input type="date" name="fecha_nacimiento_aso" class="form-control" id="fecha_nacimiento_aso" required />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="pais_naci_aso">* Pais Nacimiento</label>
@@ -141,7 +141,7 @@ $datos_usuario = [];
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="estado_civil_aso">* Estado Civil</label>
-                            <select name="estado_civil_aso" class="form-control" id="estado_civil_aso" required>
+                            <select name="estado_civil_aso" class="form-control form-control-dark-focus" id="estado_civil_aso" required>
                                 <option value="SOLTERO">SOLTERO (A)</option>
                                 <option value="CASADO">CASADO (A)</option>
                                 <option value="UNION LIBRE">UNION LIBRE</option>
@@ -168,19 +168,19 @@ $datos_usuario = [];
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="barrio_aso">* Barrio</label>
-                            <input type='text' name='barrio_aso' id="barrio_aso" class='form-control' required />
+                            <input type='text' name='barrio_aso' id="barrio_aso" class='form-control form-control-dark-focus' required />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="ciudad_aso">* Ciudad</label>
-                            <input type='text' name='ciudad_aso' id="ciudad_aso" class='form-control' required />
+                            <input type='text' name='ciudad_aso' id="ciudad_aso" class='form-control form-control-dark-focus' required />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="departamente_aso">* Departamento</label>
-                            <input type='text' name='departamente_aso' id="departamente_aso" class='form-control' required>
+                            <input type='text' name='departamente_aso' id="departamente_aso" class='form-control form-control-dark-focus' required>
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="estrato_aso">* Estrato</label>
-                            <input type='number' name='estrato_aso' id="estrato_aso" class='form-control' required />
+                            <input type='number' name='estrato_aso' id="estrato_aso" class='form-control form-control-dark-focus' required />
                         </div>
                     </div>
                 </div>
@@ -189,19 +189,19 @@ $datos_usuario = [];
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <label for="email_aso">* Email</label>
-                            <input type='email' name='email_aso' id="email_aso" class='form-control' required />
+                            <input type='email' name='email_aso' id="email_aso" class='form-control form-control-dark-focus' required />
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="tel_aso">* Telefono</label>
-                            <input type='text' name='tel_aso' id="tel_aso" class='form-control' required />
+                            <input type='text' name='tel_aso' id="tel_aso" class='form-control' />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="cel_aso">* Celular</label>
-                            <input type='text' name='cel_aso' id="cel_aso" class='form-control' required />
+                            <input type='text' name='cel_aso' id="cel_aso" class='form-control form-control-dark-focus' required />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="nivel_educa_aso">* Nivel Educativo</label>
-                            <select name="nivel_educa_aso" class="form-control" id="nivel_educa_aso" required>
+                            <select name="nivel_educa_aso" class="form-control form-control-dark-focus" id="nivel_educa_aso" required>
                                 <option value="PRIMARIA">PRIMARIA</option>
                                 <option value="BACHILLER">BACHILLER</option>
                                 <option value="TECNICO">TECNICO (A)</option>
@@ -219,11 +219,11 @@ $datos_usuario = [];
                     <div class="row">
                         <div class="col-12 col-sm-6">
                             <label for="titulo_obte_aso">Titulo Obtenido</label>
-                            <input type='text' name='titulo_obte_aso' id="titulo_obte_aso" class='form-control' />
+                            <input type='text' name='titulo_obte_aso' id="titulo_obte_aso" class='form-control form-control-dark-focus' />
                         </div>
                         <div class="col-12 col-sm-6">
                             <label for="titulo_pos_aso">Titulo en Postgrado</label>
-                            <input type='text' name='titulo_pos_aso' id="titulo_pos_aso" class='form-control' />
+                            <input type='text' name='titulo_pos_aso' id="titulo_pos_aso" class='form-control form-control-dark-focus' />
                         </div>
                     </div>
                 </div>
@@ -262,7 +262,12 @@ $datos_usuario = [];
                                 <option value="96 MESES">96 MESES</option>
                                 <option value="108 MESES">108 MESES</option>
                                 <option value="120 MESES">120 MESES</option>
+                                <option value="otro">Otro</option>
                             </select>
+                        </div>
+                        <div class="col-12 col-sm-2 d-none" id="otro_plazo_div">
+                            <label for="otro_plazo_sol">* Cuanto Plazo</label>
+                            <input type="text" name="otro_plazo_sol" class="form-control" id="otro_plazo_sol" />
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="linea_cred_aso">* Linea Credito</label>
@@ -344,27 +349,32 @@ $datos_usuario = [];
                             <input type="date" name="fecha_ing_emp_sol" class="form-control" id="fecha_ing_emp_sol" required />
                         </div>
                         <div class="col-12 col-sm-3">
-                            <label for="anti_emp_sol">* ANTIGÜEDAD EN AÑOS</label>
+                            <label for="anti_emp_sol">* Antigüedad en años</label>
                             <input type="number" name="anti_emp_sol" id="anti_emp_sol" class="form-control" required />
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <label for="anti_emp_sol">* Antigüedad en Meses</label>
+                            <input type="number" name="anti_emp_mes_sol" id="anti_emp_mes_sol" class="form-control" required />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="cargo_actual_emp_sol">* Cargo Actual</label>
                             <input type='text' name='cargo_actual_emp_sol' id="cargo_actual_emp_sol" class='form-control' required />
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <label for="area_trabajo_sol">* Área Trabajo</label>
-                            <input type='text' name='area_trabajo_sol' id="area_trabajo_sol" class='form-control' required />
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-3">
+                            <label for="area_trabajo_sol">* Área Trabajo</label>
+                            <input type='text' name='area_trabajo_sol' id="area_trabajo_sol" class='form-control' required />
+                        </div>
+                        <div class="col-12 col-sm-3">
                             <label for="acti_inde_sol">* Actividad como Independiente</label>
                             <input type="text" name="acti_inde_sol" class="form-control" id="acti_inde_sol" required />
                         </div>
-                        <div class="col-12 col-sm-6">
+
+                        <div class="col-12 col-sm-4">
                             <label for="num_emple_emp_sol">* Numero Empleados de su Empresa </label>
                             <input type="number" name="num_emple_emp_sol" id="num_emple_emp_sol" class="form-control" required />
                         </div>
@@ -479,7 +489,7 @@ $datos_usuario = [];
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <label for="tipo_inmu_1_sol">Tipo de Inmueble 1</label>
-                            <select name="tipo_inmu_1_sol" class="form-control" id="tipo_inmu_1_sol">
+                            <select name="tipo_inmu_1_sol" class="form-control form-control-dark-focus" id="tipo_inmu_1_sol">
                                 <option value="LOTE">LOTE</option>
                                 <option value="CASA">CASA</option>
                                 <option value="FINCA">FINCA</option>
@@ -503,7 +513,7 @@ $datos_usuario = [];
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <label for="tipo_inmu_2_sol">TIPO DE INMUEBLE 2</label>
-                            <select name="tipo_inmu_2_sol" class="form-control" id="tipo_inmu_2_sol">
+                            <select name="tipo_inmu_2_sol" class="form-control form-control-dark-focus" id="tipo_inmu_2_sol">
                                 <option value="LOTE">LOTE</option>
                                 <option value="CASA">CASA</option>
                                 <option value="FINCA">FINCA</option>
@@ -851,10 +861,31 @@ $datos_usuario = [];
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary mt-5">Enviar Solicitud</button>
+                <?php if ($_SESSION): ?>
+                    <div class="d-flex justify-content-center align-content-center">
+                        <br /><a href="../../access.php"><img src='../../img/atras.png' width="72" height="72" title="back" /></a><br>
+                    </div>
+                <?php endif; ?>
         </form>
     </div>
 </body>
 <script>
+    //campo de plazo Meses
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectPlazo = document.getElementById('plazo_sol');
+        const otroPlazoDiv = document.getElementById('otro_plazo_div');
+
+        selectPlazo.addEventListener('change', function() {
+            if (selectPlazo.value === 'otro') {
+                otroPlazoDiv.classList.remove('d-none');
+                document.getElementById('otro_plazo').setAttribute('required', true);
+            } else {
+                otroPlazoDiv.classList.add('d-none');
+                document.getElementById('otro_plazo').removeAttribute('required');
+            }
+        });
+    });
+
     const fileInput = document.getElementById('fileInput');
     const fileList = document.getElementById('fileList');
 
@@ -889,116 +920,251 @@ $datos_usuario = [];
         const edadInput = document.getElementById('edad_aso');
         const direccionInput = document.getElementById('direccion_aso');
 
-        const tipo_doc_aso = document.getElementById('tipo_doc_aso');
-        const edad_aso = document.getElementById('edad_aso');
-        const sexo_aso = document.getElementById('sexo_aso');
-        const nacionalidad_aso = document.getElementById('nacionalidad_aso');
-        const estado_civil_aso = document.getElementById('estado_civil_aso');
-        const per_cargo_aso = document.getElementById('per_cargo_aso');
-        const tip_vivienda_aso = document.getElementById('tip_vivienda_aso');
-        const barrio_aso = document.getElementById('barrio_aso');
-        const ciudad_aso = document.getElementById('ciudad_aso');
-        const departamente_aso = document.getElementById('departamente_aso');
-        const nivel_educa_aso = document.getElementById('nivel_educa_aso');
-        const titulo_obte_aso = document.getElementById('titulo_obte_aso');
-        const titulo_pos_aso = document.getElementById('titulo_pos_aso');
-        const tel_aso = document.getElementById('tel_aso');
-        const email_aso = document.getElementById('email_aso');
-        const cel_aso = document.getElementById('cel_aso');
-        const fecha_nacimiento_aso = document.getElementById('fecha_nacimiento_aso');
-        const ciudad_naci_aso = document.getElementById('ciudad_naci_aso');
-        const dpto_naci_aso = document.getElementById('dpto_naci_aso');
-        const pais_naci_aso = document.getElementById('pais_naci_aso');
-        const estrato_aso = document.getElementById('estrato_aso');
-        const dpto_exp_cedula_aso = document.getElementById('dpto_exp_cedula_aso');
-        const pais_exp_cedula_aso = document.getElementById('pais_exp_cedula_aso');
-        const fecha_exp_doc_aso = document.getElementById('fecha_exp_doc_aso');
-        const ciudad_exp_cedula_aso = document.getElementById('ciudad_exp_cedula_aso');
+
+        function llenarCampos(data) {
+            nombreInput.value = data.nombre_aso || '';
+            edadInput.value = data.edad_aso || '';
+            direccionInput.value = data.direccion_aso || '';
+            tipo_doc_aso.value = data.tipo_doc_aso?.trim() || '';
+
+            if (data.sexo_aso === 'M') {
+                sexo_aso.value = 'Masculino';
+            } else if (data.sexo_aso === 'F') {
+                sexo_aso.value = 'Femenino';
+            } else {
+                sexo_aso.value = '';
+            }
+
+            nacionalidad_aso.value = data.nacionalidad_aso || '';
+            estado_civil_aso.value = data.estado_civil_aso || '';
+            per_cargo_aso.value = data.per_cargo_aso || '';
+            tip_vivienda_aso.value = data.tip_vivienda_aso || '';
+            barrio_aso.value = data.barrio_aso || '';
+            ciudad_aso.value = data.ciudad_aso || '';
+            departamente_aso.value = data.departamente_aso || '';
+            nivel_educa_aso.value = data.nivel_educa_aso || '';
+            titulo_obte_aso.value = data.titulo_obte_aso || '';
+            titulo_pos_aso.value = data.titulo_pos_aso || '';
+            tel_aso.value = data.tel_aso || '';
+            email_aso.value = data.email_aso || '';
+            cel_aso.value = data.cel_aso || '';
+            fecha_nacimiento_aso.value = data.fecha_nacimiento_aso || '';
+            ciudad_naci_aso.value = data.ciudad_naci_aso || '';
+            dpto_naci_aso.value = data.dpto_naci_aso || '';
+            pais_naci_aso.value = data.pais_naci_aso || '';
+            estrato_aso.value = data.estrato_aso || '';
+            dpto_exp_cedula_aso.value = data.dpto_exp_cedula_aso || '';
+            pais_exp_cedula_aso.value = data.pais_exp_cedula_aso || '';
+            fecha_exp_doc_aso.value = data.fecha_exp_doc_aso || '';
+            ciudad_exp_cedula_aso.value = data.ciudad_exp_cedula_aso || '';
+        }
+
+
+        function limpiarCampos() {
+            const campos = [
+                'nombre_aso', 'edad_aso', 'direccion_aso', 'tipo_doc_aso', 'sexo_aso',
+                'nacionalidad_aso', 'estado_civil_aso', 'per_cargo_aso', 'tip_vivienda_aso',
+                'barrio_aso', 'ciudad_aso', 'departamente_aso', 'nivel_educa_aso',
+                'titulo_obte_aso', 'titulo_pos_aso', 'tel_aso', 'email_aso', 'cel_aso',
+                'fecha_nacimiento_aso', 'ciudad_naci_aso', 'dpto_naci_aso', 'pais_naci_aso',
+                'estrato_aso', 'dpto_exp_cedula_aso', 'pais_exp_cedula_aso',
+                'fecha_exp_doc_aso', 'ciudad_exp_cedula_aso', 'act_emp_labo_sol',
+                'acti_inde_sol',
+                'ahorro_banco_sol',
+                'ahorros_sol',
+                'anti_emp_mes_sol',
+                'anti_emp_sol',
+                'area_trabajo_sol',
+                'arrendo_sol',
+                'barrio_aso',
+                'bienes_raices_sol',
+                'cargo_actual_emp_sol',
+                'cel_aso',
+                'ciudad_aso',
+                'ciudad_emp_sol',
+                'ciudad_exp_cedula_aso',
+                'ciudad_naci_aso',
+                'conyu_cargo_sol',
+                'conyu_cedula_sol',
+                'conyu_ciudad_lab_sol',
+                'conyu_ciudadn_sol',
+                'conyu_correo_sol',
+                'conyu_dir_lab_sol',
+                'conyu_dpto_lab_sol',
+                'conyu_dpton_sol',
+                'conyu_emp_lab_sol',
+                'conyu_exp_sol',
+                'conyu_func_sol',
+                'conyu_naci_sol',
+                'conyu_nombre_sol',
+                'conyu_ocupacion_sol',
+                'conyu_paism_sol',
+                'conyu_salario_sol',
+                'conyu_tel_lab_sol',
+                'cuota_pres_sol',
+                'cuota_tar_cred_sol',
+                'depar_emp_sol',
+                'departamente_aso',
+                'dir_emp_sol',
+                'direccion_1_sol',
+                'direccion_2_sol',
+                'direccion_aso',
+                'dpto_exp_cedula_aso',
+                'dpto_naci_aso',
+                'edad_aso',
+                'email_aso',
+                'emp_labo_sol',
+                'enseres_sol',
+                'estado_civil_aso',
+                'estado_solicitud',
+                'estrato_aso',
+                'fami_cel_1_sol',
+                'fami_cel_2_sol',
+                'fami_nombre_1_sol',
+                'fami_nombre_2_sol',
+                'fami_parent_1_sol',
+                'fami_parent_2_sol',
+                'fami_tel_1_sol',
+                'fami_tel_2_sol',
+                'fecha_alta_solicitud',
+                'fecha_devolucion',
+                'fecha_devolucion_gerencia',
+                'fecha_edit_solicitud',
+                'fecha_exp_doc_aso',
+                'fecha_ing_emp_sol',
+                'fecha_nacimiento_aso',
+                'fecha_observacion',
+                'fecha_sol',
+                'func_estad_sol',
+                'gastos_fam_sol',
+                'hipotecas_sol',
+                'honorarios_sol',
+                'id_solicitud',
+                'ing_arri_sol',
+                'linea_cred_aso',
+                'marca_1_sol',
+                'marca_2_sol',
+                'modelo_1_sol',
+                'modelo_2_sol',
+                'monto_sol',
+                'nacionalidad_aso',
+                'nit_emp_labo_sol',
+                'nivel_educa_aso',
+                'nombre_aso',
+                'num_emple_emp_sol',
+                'observacion_solicitud',
+                'ocupacion_sol',
+                'otro_plazo_sol',
+                'otros_activos_sol',
+                'otros_gastos_sol',
+                'otros_ing_sol',
+                'otros_pasivos_sol',
+                'pais_exp_cedula_aso',
+                'pais_naci_aso',
+                'pension_sol',
+                'per_cargo_aso',
+                'placa_1_sol',
+                'placa_2_sol',
+                'plazo_sol',
+                'presta_total_sol',
+                'refer_cel_1_sol',
+                'refer_cel_2_sol',
+                'refer_nombre_1_sol',
+                'refer_nombre_2_sol',
+                'refer_tel_1_sol',
+                'refer_tel_2_sol',
+                'salario_sol',
+                'sexo_aso',
+                'tar_cred_total_sol',
+                'tel_aso',
+                'tel_emp_sol',
+                'tip_vivienda_aso',
+                'tipo_deudor_aso',
+                'tipo_doc_aso',
+                'tipo_inmu_1_sol',
+                'tipo_inmu_2_sol',
+                'tipo_vehi_1_sol',
+                'tipo_vehi_2_sol',
+                'titulo_obte_aso',
+                'titulo_pos_aso',
+                'valor_1_sol',
+                'valor_2_sol',
+                'valor_ahor_sol',
+                'valor_comer_1_sol',
+                'valor_comer_2_sol',
+                'valor_enser_sol',
+                'vehiculo_sol'
+            ];
+
+            campos.forEach(id => {
+                const campo = document.getElementById(id);
+                if (campo) campo.value = '';
+            });
+        }
+
+
+
+        function llenarCamposDesdeSolicitud(solicitud) {
+
+            for (const key in solicitud) { // 1. Recorre todas las propiedades del objeto 'solicitud'
+                if (solicitud.hasOwnProperty(key)) { // 2. Verifica que la propiedad pertenezca directamente a 'solicitud' (no heredada)
+                    const elemento = document.getElementById(key); // 3. Busca en el HTML un elemento con id igual al nombre de la propiedad (key)
+                    if (elemento) { // 4. Si existe ese elemento...
+                        // 5. Si el valor es un string, lo convierte a mayúsculas y lo pone en el input
+                        //    Si no es string (por ejemplo un número), lo pone tal cual
+                        if (typeof solicitud[key] === 'string') {
+                            elemento.value = solicitud[key].toUpperCase();
+                        } else {
+                            elemento.value = solicitud[key];
+                        }
+                    }
+                }
+            }
+
+        }
+
         // Escuchar el evento 'blur' cuando el campo pierde el foco
         cedulaInput.addEventListener('blur', function() {
             const cedula_aso = cedulaInput.value.trim(); // Obtener la cédula que el usuario está escribiendo
 
-            // Puedes poner un mínimo de caracteres si lo prefieres
+
             // Crear una solicitud AJAX
             const xhr = new XMLHttpRequest();
             xhr.open('GET', 'getAsociado.php?cedula_aso=' + encodeURIComponent(cedula_aso), true);
 
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    // Procesar la respuesta JSON
-                    const data = JSON.parse(xhr.responseText);
-
-                    if (data.error) {
-                        // Si hubo un error, puedes mostrar un mensaje o dejar los campos vacíos
-                        nombreInput.value = '';
-                        edadInput.value = '';
-                        direccionInput.value = '';
-                        tipo_doc_aso.value = '';
-                        edad_aso.value = '';
-                        sexo_aso.value = '';
-                        nacionalidad_aso.value = '';
-                        estado_civil_aso.value = '';
-                        per_cargo_aso.value = '';
-                        tip_vivienda_aso.value = '';
-                        barrio_aso.value = '';
-                        ciudad_aso.value = '';
-                        departamente_aso.value = '';
-                        nivel_educa_aso.value = '';
-                        titulo_obte_aso.value = '';
-                        titulo_pos_aso.value = '';
-                        tel_aso.value = '';
-                        email_aso.value = '';
-                        cel_aso.value = '';
-                        fecha_nacimiento_aso.value = '';
-                        ciudad_naci_aso.value = '';
-                        dpto_naci_aso.value = '';
-                        pais_naci_aso.value = '';
-                        estrato_aso.value = '';
-                        dpto_exp_cedula_aso.value = '';
-                        pais_exp_cedula_aso.value = '';
-                        fecha_exp_doc_aso.value = '';
-                        ciudad_exp_cedula_aso.value = '';
-
-                    } else {
-                        console.log(data);
-                        // Si la consulta fue exitosa, mostrar los datos en los campos
-                        nombreInput.value = data.nombre_aso;
-                        edadInput.value = data.edad_aso;
-                        direccionInput.value = data.direccion_aso;
-                        if (data.tipo_doc_aso) {
-                            tipo_doc_aso.value = data.tipo_doc_aso.trim();
+                    try {
+                        const data = JSON.parse(xhr.responseText);
+                        console.log('Respuesta parseada:', data);
+                        if (data.error) {
+                            limpiarCampos();
+                            return;
                         }
-                        edad_aso.value = data.edad_aso;
-
-                        // Verifica el valor de data.sexo_aso y asigna el valor adecuado al select
-                        if (data.sexo_aso === 'M') {
-                            sexo_aso.value = 'Masculino'; // Asigna "Masculino" si el valor es "M"
-                        } else if (data.sexo_aso === 'F') {
-                            sexo_aso.value = 'Femenino'; // Asigna "Femenino" si el valor es "F"
+                        // Verifica si hay un error o la respuesta está vacía
+                        if (data.error || Object.keys(data).length === 0) {
+                            alert('Asociado no encontrado.');
+                            limpiarCampos();
+                            return;
                         }
-                        nacionalidad_aso.value = data.nacionalidad_aso;
-                        estado_civil_aso.value = data.estado_civil_aso;
-                        per_cargo_aso.value = data.per_cargo_aso;
-                        tip_vivienda_aso.value = data.tip_vivienda_aso;
-                        barrio_aso.value = data.barrio_aso;
-                        ciudad_aso.value = data.ciudad_aso;
-                        departamente_aso.value = data.departamente_aso;
-                        nivel_educa_aso.value = data.nivel_educa_aso;
-                        titulo_obte_aso.value = data.titulo_obte_aso;
-                        titulo_pos_aso.value = data.titulo_pos_aso;
-                        tel_aso.value = data.tel_aso;
-                        email_aso.value = data.email_aso;
-                        cel_aso.value = data.cel_aso;
-                        fecha_nacimiento_aso.value = data.fecha_nacimiento_aso;
-                        ciudad_naci_aso.value = data.ciudad_naci_aso;
-                        dpto_naci_aso.value = data.dpto_naci_aso;
-                        pais_naci_aso.value = data.pais_naci_aso;
-                        estrato_aso.value = data.estrato_aso;
-                        dpto_exp_cedula_aso.value = data.dpto_exp_cedula_aso;
-                        pais_exp_cedula_aso.value = data.pais_exp_cedula_aso;
-                        fecha_exp_doc_aso.value = data.fecha_exp_cedula_aso;
-                        ciudad_exp_cedula_aso.value = data.ciudad_exp_cedula_aso;
+                        // Verifica de dónde proviene la respuesta
+                        if (data.from === 'solicitudes') {
+                            // Extraer el primer elemento del array data.data
+                            const solicitud = data.data[0];
+                            limpiarCampos();
+                            llenarCamposDesdeSolicitud(solicitud);
+                        } else if (data.from === 'asociados') {
+                            llenarCampos(data); // Aquí pasas el objeto completo
+                        } else {
+                            alert('Origen de datos no reconocido.');
 
+                            limpiarCampos();
+                        }
+
+                    } catch (e) {
+                        console.error('Error parseando JSON:', e);
+                        alert('Error procesando la respuesta del servidor.');
+                        limpiarCampos();
                     }
                 } else {
                     alert('Error en la solicitud. Intenta de nuevo.');

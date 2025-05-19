@@ -12,7 +12,7 @@ $solicitudes = $row[0];
 $query = "
   SELECT estado_solicitud, COUNT(*) AS cantidad
   FROM solicitudes
-  WHERE estado_solicitud IN (1, 2, 3)
+  WHERE estado_solicitud IN (1, 2, 3, 4)
   GROUP BY estado_solicitud
 ";
 
@@ -104,6 +104,10 @@ echo "<br><br><br><br><br><br><br>";
         $palabra_soliciutud = "Solicitudes en Gerencia";
         $cantidad = $estado_solicitud['cantidad'];
       }
+      if ($estado_solicitud['estado_solicitud'] == 4) {
+        $palabra_soliciutud = "Solicitudes Aprobadas Gerencia";
+        $cantidad = $estado_solicitud['cantidad'];
+      }
     ?>
       <div class="card">
         <div class="card-header">
@@ -118,6 +122,9 @@ echo "<br><br><br><br><br><br><br>";
               <i class="fa-solid fa-clock"></i>
             <?php } elseif ($estado_solicitud['estado_solicitud'] == 3) { ?>
               <i class="fa-solid fa-users"></i>
+            <?php } ?>
+            <?php if ($estado_solicitud['estado_solicitud'] == 4) { ?>
+              <i class="fa-solid fa-pager"></i>
             <?php } ?>
           </div>
         </div>

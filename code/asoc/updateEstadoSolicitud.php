@@ -7,7 +7,8 @@ function redirigir($mensaje, $estado)
     $rutas = [
         1 => '../aprovedRequest/seeRequest.php',
         2 => 'seeSolicitud.php',
-        3 => '../aprovedRequest/seeRequest.php'
+        3 => '../aprovedRequest/seeRequest.php',
+        4 => '../gerencia/seeGerencia.php',
     ];
 
     $ruta = $rutas[$estado] ?? 'index.php';

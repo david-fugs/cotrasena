@@ -84,13 +84,21 @@ function deleteMember($id_solicitud)
         </div>
 
         <div class="position-relative mb-3">
-            <h2 class="text-center titulo">Solicitudes Registradas</h2>
-            <button type="button" class="btn btn-success position-absolute top-0 end-0" onclick="window.location.href='solicitar.php'">
-                <i class="fas fa-plus"></i> Agregar Solicitud
-            </button>
+            <h2 class="text-center titulo me-5">Solicitudes Registradas</h2>
+
+            <!-- Contenedor de los botones alineado a la derecha -->
+            <div class="position-absolute top-0 end-0 d-flex gap-2 m">
+                <button type="button" class="btn btn-success" onclick="window.location.href='estadoSolicitud.php'">
+                    Estado Solicitud
+                </button>
+                <button type="button" class="btn btn-success" onclick="window.location.href='solicitar.php'">
+                    <i class="fas fa-plus"></i> Agregar Solicitud
+                </button>
+            </div>
         </div>
 
-        <div class="table-responsive">
+
+        <div class="table-responsive" style="width: 105%;">
             <table class="data-table" id="salesTable">
                 <thead>
                     <tr>
@@ -101,9 +109,7 @@ function deleteMember($id_solicitud)
                         <th>Linea Credito</th>
                         <th>Observacion</th>
                         <th>Fecha Solicitud</th>
-                        <?php if ($_SESSION['tipo_usu'] == '1' || $_SESSION['tipo_usu'] == '3') { ?>
-                            <th>Aprobar Solicitud</th>
-                        <?php } ?>
+                        <th>Aprobar Solicitud</th>
                         <th>Agregar Observacion</th>
                         <th>Edit</th>
                         <th>Delete</th>

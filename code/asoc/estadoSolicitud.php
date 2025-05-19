@@ -53,20 +53,18 @@ function deleteMember($id_solicitud)
 
 <body>
     <style>
-        .fila {
-            text-align: center;
-            vertical-align: middle;
-        }
+
     </style>
     <header class="header">
         <div class="logo-container">
             <img src='../../img/img3.png' class="logo" alt="Logo">
         </div>
-        <h1 class="title">SOLICITUDES APROBADAS</h1>
+        <h1 class="title">ESTADO SOLICITUDES</h1>
     </header>
+
     <div class="container">
         <div class="box">
-            <form action="seeRequest.php" method="get" class="form">
+            <form action="estadoSolicitud.php" method="get" class="form">
                 <input name="cedula_persona" type="number" placeholder="Cédula"
                     value="<?= isset($_GET['cedula_persona']) ? htmlspecialchars($_GET['cedula_persona']) : '' ?>" class="search-input">
                 <input name="nombre" type="text" placeholder="Nombre"
@@ -86,33 +84,48 @@ function deleteMember($id_solicitud)
         </div>
 
         <div class="position-relative mb-3">
-            <h2 class="text-center titulo">Solicitudes Aprobadas Registradas</h2>
-           
+            <h2 class="text-center titulo me-5">Estado de Solicitudes</h2>
+    
+            <!-- Contenedor de los botones alineado a la derecha -->
+             
+            <div class="position-absolute top-0 end-0 d-flex gap-2 m">
+                <?php if($_SESSION['tipo_usu'] == 1): ?>
+                <button type="button" class="btn btn-success" onclick="window.location.href='../gerencia/seeGerencia.php'">
+                Solicitudes Gerencia
+                </button>
+                <?php endif; ?>
+                <?php if($_SESSION['tipo_usu'] == 2): ?>
+                <button type="button" class="btn btn-success" onclick="window.location.href='seeSolicitud.php'">
+                Solicitudes 
+                </button>
+                <?php endif; ?>
+                <button type="button" class="btn btn-success" onclick="window.location.href='solicitar.php'">
+                    <i class="fas fa-plus"></i> Agregar Solicitud
+                </button>
+            </div>
         </div>
 
-        <div class="table-responsive" style="width: 105%;">
+
+        <div class="table-responsive">
             <table class="data-table" id="salesTable">
                 <thead>
                     <tr>
-                    <th></th>
-                    <th>Cedula</th>
-                    <th>Nombres</th>
-                    <th>Monto Solicitado</th>
-                    <th>Linea Credito</th>
-                    <th>Observacion</th>
-                    <th>Fecha Solicitud</th>
-                    <th>Agregar Observacion</th>
-                    <th>Enviar a Gerencia</th>
-                    <th>Devolver Solicitud</th>
-                    <th>Edit</th>
+                        <th>Cedula</th>
+                        <th>Nombres</th>
+                        <th>Monto Solicitado</th>
+                        <th>Linea Credito</th>
+                        <th>Observacion</th>
+                        <th>Fecha Solicitud</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php include "getRequest.php"; ?>
+                    <?php include "getSolicitudEstado.php"; ?>
                 </tbody>
             </table>
         </div>
     </div>
+
     <!-- MODAL OBSERVACION -->
     <div class="modal fade" id="modalObservacion" tabindex="-1" aria-labelledby="modalObservacionLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -121,13 +134,13 @@ function deleteMember($id_solicitud)
                     <h5 class="modal-title" id="modalObservacionLabel">Agregar una Observacion</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="observationAprobacion.php" method="POST">
+                <form action="observationSolicitud.php" method="POST">
                     <div class="modal-body px-4 py-3">
                         <div class="mb-3">
-                            <label for="observacion_Aprobacion" class="form-label">Observacion</label>
-                            <input type="text" class="form-control" id="observacion_Aprobacion" name="observacion_aprobacion">
+                            <label for="observacion_solicitud" class="form-label">Observacion</label>
+                            <input type="text" class="form-control" id="observacion_solicitud" name="observacion_solicitud">
                         </div>
-                        <input type="hidden" name="id_aprobacion" id="id_aprobacion" value="">
+                        <input type="hidden" name="id_solicitud" id="id_solicitud" value="">
 
                     </div>
 
@@ -139,31 +152,6 @@ function deleteMember($id_solicitud)
             </div>
         </div>
     </div>
-    <!-- MODAL DEVOLVER SOLICITUD-->
-    <div class="modal fade" id="modalDevolverSolicitud" tabindex="-1" aria-labelledby="modalDevolverSolicitudLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-4 shadow-sm">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title" id="modalDevolverSolicitudLabel">Agrega una Observacion</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="devolverAprobacion.php" method="POST">
-                    <div class="modal-body px-4 py-3">
-                        <div class="mb-3">
-                            <label for="observacion_Aprobacion" class="form-label">Observacion</label>
-                            <input type="text" class="form-control" id="observacion_Aprobacion" name="observacion_aprobacion">
-                        </div>
-                        <input type="hidden" name="id_aprobacion" id="id_aprobacion2" value="">
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" id="guardarCambios">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- MODAL DEVOLUCION -->
     <div class="modal fade" id="modalDevolucion" tabindex="-1" aria-labelledby="modalDevolucionLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -174,7 +162,7 @@ function deleteMember($id_solicitud)
                 </div>
                 <div class="modal-body px-4 py-3">
                     <div class="mb-3">
-                        <label for="observacion_devolucion" class="form-label">Observacion Devolucion de Gerencia</label>
+                        <label for="observacion_devolucion" class="form-label">Observacion Devolucion</label>
                         <input type="text" class="form-control" id="observacion_devolucion" name="observacion_devolucion" readonly>
                     </div>
                     <input type="hidden" name="id_solicitud" id="id_solicitud" value="">
@@ -187,33 +175,28 @@ function deleteMember($id_solicitud)
     </div>
 
 
-
     <br /><a href="../../access.php"><img src='../../img/atras.png' width="72" height="72" title="back" /></a><br>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const modalObservacion = document.getElementById("modalObservacion");
+
         modalObservacion.addEventListener("shown.bs.modal", function(event) {
             const button = event.relatedTarget;
+
             // Datos generales
-            document.getElementById("id_aprobacion").value = button.getAttribute("data-id_aprobacion");
+            document.getElementById("id_solicitud").value = button.getAttribute("data-id_solicitud");
         });
-
-
     });
 
     document.addEventListener("DOMContentLoaded", function() {
-        const modalDevolverSolicitud = document.getElementById("modalDevolverSolicitud");
-
-        modalDevolverSolicitud.addEventListener('show.bs.modal', function(event) {
+        const modalObservacion = document.getElementById("modalObservacion");
+        modalObservacion.addEventListener("shown.bs.modal", function(event) {
             const button = event.relatedTarget;
-            const id_aprobacion = button.getAttribute('data-id_aprobacion');
-            console.log(id_aprobacion)
-            document.getElementById('id_aprobacion2').value = id_aprobacion;
+            // Datos generales
+            document.getElementById("id_solicitud").value = button.getAttribute("data-id_solicitud");
         });
-
     });
-
 
     document.addEventListener("DOMContentLoaded", function() {
         const modalDevolucion = document.getElementById("modalDevolucion");
@@ -222,7 +205,7 @@ function deleteMember($id_solicitud)
             const button = event.relatedTarget;
 
             const id_solicitud = button.getAttribute('data-id_solicitud');
-            const observacion_devolucion = button.getAttribute('data-observacion_devolucion_gerencia');
+            const observacion_devolucion = button.getAttribute('data-observacion_devolucion');
             console.log(id_solicitud, observacion_devolucion)
             document.getElementById('id_solicitud').value = id_solicitud;
             document.getElementById('observacion_devolucion').value = observacion_devolucion;
