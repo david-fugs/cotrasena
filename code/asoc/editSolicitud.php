@@ -31,6 +31,10 @@ if ($result->num_rows > 0) {
     echo "<p class='text-danger'>No se encontraron datos para esta solicitud.</p>";
     header("Location: editSolicitud.php");
 }
+//usuario
+$query_usuario = "SELECT id_usu,usuario,nombre,tipo_usu FROM usuarios WHERE tipo_usu = 2";
+$result_usuario = $mysqli->query($query_usuario);
+
 $archivosExistentes = [];
 $directorio = __DIR__ . '/documentos/';
 
@@ -620,7 +624,7 @@ $mysqli->close();
                     </div>
                     <div class="col-12 col-sm-3 hidden mt-2" id="otro_ahorros_div">
                         <label for="ahorros_sol">* Que otro</label>
-                        <input type='text' value="<?= $datos_solicitud['otro_ahorros_sol'] ?>"  name='otro_ahorros_sol' id="otro_ahorros_sol" class='form-control' />
+                        <input type='text' value="<?= $datos_solicitud['otro_ahorros_sol'] ?>" name='otro_ahorros_sol' id="otro_ahorros_sol" class='form-control' />
                     </div>
                     <div class="col-12 col-sm-4 mt-2">
                         <label for="valor_ahor_sol">* Valor General</label>
@@ -842,6 +846,27 @@ $mysqli->close();
                     </div>
                 </div>
             </div>
+
+
+
+
+            <div class="seccion">
+                <h3 class="subtitulo">Atencion</h3>
+                <div class="row">
+
+                    <div class="col-12 col-sm-3 mt-2">
+                        <label for="fami_parent_1_sol">* Atendido Por</label>
+                        <select name="atendido_por" class="form-control" id="atendido_por">
+                            <option value=""></option>
+                            <?php foreach ($result_usuario as $usuario): ?>
+                                <option value="<?= $usuario['id_usu'] ?>" <?= ($datos_solicitud['atendido_por'] == $usuario['id_usu']) ? 'selected' : ''; ?>><?= $usuario['nombre'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="form-group">
                 <h3 class="subtitulo">SUBIR ARCHIVOS</h3>
                 <div class="row">
@@ -865,6 +890,7 @@ $mysqli->close();
                     </div>
                 </div>
             </div>
+
             <input type="hidden" name="id_solicitud" value="<?= $datos_solicitud['id_solicitud'] ?? ''; ?>" />
             <a href="seeSolicitud.php"><img src='../../img/atras.png' width="72" height="72" title="back" style="margin-right: 80px;" /></a>
             <button type="submit" class="btn btn-primary">Actualizar Solicitud</button>
