@@ -92,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $placa_2_sol = $_POST['placa_2_sol']?? '';
     $valor_2_sol = $_POST['valor_2_sol']?? '';
     $ahorros_sol = $_POST['ahorros_sol']?? '';
+    $otro_ahorros_sol = $_POST['otro_ahorros_sol']?? '';
     $valor_ahor_sol = $_POST['valor_ahor_sol']?? '';
     $enseres_sol = $_POST['enseres_sol']?? '';
     $valor_enser_sol = $_POST['valor_enser_sol']?? '';
@@ -215,6 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     placa_2_sol = '$placa_2_sol',
     valor_2_sol = '$valor_2_sol',
     ahorros_sol = '$ahorros_sol',
+    otro_ahorros_sol = '$otro_ahorros_sol',
     valor_ahor_sol = '$valor_ahor_sol',
     enseres_sol = '$enseres_sol',
     valor_enser_sol = '$valor_enser_sol',

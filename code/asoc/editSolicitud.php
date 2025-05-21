@@ -605,16 +605,24 @@ $mysqli->close();
             <div class="seccion">
                 <h3 class="subtitulo">OTROS ACTIVOS</h3>
                 <div class="row">
-                    <div class="col-12 col-sm-6 mt-2">
-                        <label for="ahorros_sol">* (CDT, CARTERA, INVERSIONES, CUENTAS, APORTES, OTROS)</label>
+                    <div class="col-12 col-sm-4 mt-2">
+                        <label for="ahorros_sol">* (CDT, CARTERA, CUENTAS, OTROS)</label>
                         <select name="ahorros_sol" class="form-control" id="ahorros_sol">
-                            <!-- <option value="AHORROS">AHORROS</option>
-                            <option value="N/A">N/A</option> -->
                             <option value="AHORROS" <?php echo ($datos_solicitud['ahorros_sol'] == 'AHORROS') ? 'selected' : ''; ?>>AHORROS</option>
+                            <option value="CDT" <?php echo ($datos_solicitud['ahorros_sol'] == 'CDT') ? 'selected' : ''; ?>>CDT</option>
+                            <option value="CARTERA" <?php echo ($datos_solicitud['ahorros_sol'] == 'CARTERA') ? 'selected' : ''; ?>>CARTERA</option>
+                            <option value="INVERSIONES" <?php echo ($datos_solicitud['ahorros_sol'] == 'INVERSIONES') ? 'selected' : ''; ?>>INVERSIONES</option>
+                            <option value="CUENTAS" <?php echo ($datos_solicitud['ahorros_sol'] == 'CUENTAS') ? 'selected' : ''; ?>>CUENTAS</option>
+                            <option value="APORTES" <?php echo ($datos_solicitud['ahorros_sol'] == 'APORTES') ? 'selected' : ''; ?>>APORTES</option>
+                            <option value="OTROS" <?php echo ($datos_solicitud['ahorros_sol'] == 'OTROS') ? 'selected' : ''; ?>>OTROS</option>
                             <option value="N/A" <?php echo ($datos_solicitud['ahorros_sol'] == 'N/A') ? 'selected' : ''; ?>>N/A</option>
                         </select>
                     </div>
-                    <div class="col-12 col-sm-6 mt-2">
+                    <div class="col-12 col-sm-3 hidden mt-2" id="otro_ahorros_div">
+                        <label for="ahorros_sol">* Que otro</label>
+                        <input type='text' value="<?= $datos_solicitud['otro_ahorros_sol'] ?>"  name='otro_ahorros_sol' id="otro_ahorros_sol" class='form-control' />
+                    </div>
+                    <div class="col-12 col-sm-4 mt-2">
                         <label for="valor_ahor_sol">* Valor General</label>
                         <input type='number' name='valor_ahor_sol' id="valor_ahor_sol" class='form-control' value='<?= $datos_solicitud['valor_ahor_sol'] ?? ''; ?>' />
                     </div>

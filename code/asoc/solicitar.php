@@ -609,14 +609,24 @@ $datos_usuario = [];
                 <div class="form-group">
                     <h3 class="subtitulo">OTROS ACTIVOS</h3>
                     <div class="row">
-                        <div class="col-12 col-sm-6">
-                            <label for="ahorros_sol">* (CDT, Cartera, Inversiones, Cuentas, Aportes, Otros)</label>
+                        <div class="col-12 col-sm-4">
+                            <label for="ahorros_sol">* (CDT, Cartera, Inversiones, Otros)</label>
                             <select name="ahorros_sol" class="form-control" id="ahorros_sol" required>
                                 <option value="AHORROS">AHORROS</option>
+                                <option value="CDT">CDT</option>
+                                <option value="CARTERA">CARTERA</option>
+                                <option value="INVERSIONES">INVERSIONES</option>
+                                <option value="CUENTAS">CUENTAS</option>
+                                <option value="APORTES">APORTES</option>
+                                <option value="OTROS">OTROS</option>
                                 <option value="N/A">N/A</option>
                             </select>
                         </div>
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-4 hidden d-none" id="otro_ahorros_div">
+                            <label for="ahorros_sol">* Que otro</label>
+                            <input type='text' name='otro_ahorros_sol' id="otro_ahorros_sol" class='form-control' />
+                        </div>
+                        <div class="col-12 col-sm-4">
                             <label for="valor_ahor_sol">* Valor General</label>
                             <input type='number' name='valor_ahor_sol' id="valor_ahor_sol" class='form-control' required />
                         </div>
@@ -882,6 +892,22 @@ $datos_usuario = [];
             } else {
                 otroPlazoDiv.classList.add('d-none');
                 document.getElementById('otro_plazo').removeAttribute('required');
+            }
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectAhorros = document.getElementById('ahorros_sol');
+        const otroAhorrosDiv = document.getElementById('otro_ahorros_div');
+        const otroAhorrosInput = document.getElementById('otro_ahorros_sol');
+
+        selectAhorros.addEventListener('change', function() {
+            if (selectAhorros.value === 'OTROS') {
+                otroAhorrosDiv.classList.remove('d-none');
+                otroAhorrosInput.setAttribute('required', true);
+            } else {
+                otroAhorrosDiv.classList.add('d-none');
+                otroAhorrosInput.removeAttribute('required');
+                otroAhorrosInput.value = ''; // limpiar campo si no aplica
             }
         });
     });
