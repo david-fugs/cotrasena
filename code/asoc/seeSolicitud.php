@@ -96,11 +96,16 @@ function deleteMember($id_solicitud)
                 </button>
             </div>
         </div>
+        <div class="d-flex justify-content-end mb-2">
+            <button type="button" class="btn btn-success" onclick="window.location.href='excelSolicitud.php'">
+                <i class="fa-solid fa-file"></i> Imprimir Excel
+            </button>
+        </div>
 
         <div class="d-flex flex-wrap justify-content-center ">
             <div class="table-responsive1" style="border: 2px solid #13603e;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;">
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                    border-radius: 8px;">
                 <table class="data-table" id="salesTable">
                     <thead>
                         <tr>
