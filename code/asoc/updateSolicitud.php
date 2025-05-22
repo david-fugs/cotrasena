@@ -5,6 +5,7 @@ if (!isset($_SESSION['id_usu'])) {
     header("Location: ../../index.php");
     exit();
 }
+$id_usu = $_SESSION['id_usu'];
 include("../../conexion.php");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Escapar TODOS los inputs
@@ -76,59 +77,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tar_cred_total_sol = $mysqli->real_escape_string($_POST['tar_cred_total_sol']);
     $otros_pasivos_sol = $mysqli->real_escape_string($_POST['otros_pasivos_sol']);
     $tipo_inmu_1_sol = $_POST['tipo_inmu_1_sol'] ?? '';
-    $direccion_1_sol = $_POST['direccion_1_sol']?? '';
-    $valor_comer_1_sol = $_POST['valor_comer_1_sol']?? '';
-    $tipo_inmu_2_sol = $_POST['tipo_inmu_2_sol']?? '';
-    $direccion_2_sol = $_POST['direccion_2_sol']?? '';
-    $valor_comer_2_sol = $_POST['valor_comer_2_sol']?? '';
-    $tipo_vehi_1_sol = $_POST['tipo_vehi_1_sol']?? '';
-    $modelo_1_sol = $_POST['modelo_1_sol']?? '';
-    $marca_1_sol = $_POST['marca_1_sol']?? '';
-    $placa_1_sol = $_POST['placa_1_sol']?? '';
-    $valor_1_sol = $_POST['valor_1_sol']?? '';
-    $tipo_vehi_2_sol = $_POST['tipo_vehi_2_sol']?? '';
-    $modelo_2_sol = $_POST['modelo_2_sol']?? '';
-    $marca_2_sol = $_POST['marca_2_sol']?? '';
-    $placa_2_sol = $_POST['placa_2_sol']?? '';
-    $valor_2_sol = $_POST['valor_2_sol']?? '';
-    $ahorros_sol = $_POST['ahorros_sol']?? '';
-    $otro_ahorros_sol = $_POST['otro_ahorros_sol']?? '';
-    $valor_ahor_sol = $_POST['valor_ahor_sol']?? '';
-    $enseres_sol = $_POST['enseres_sol']?? '';
-    $valor_enser_sol = $_POST['valor_enser_sol']?? '';
-    $conyu_nombre_sol = $_POST['conyu_nombre_sol']?? '';
-    $conyu_cedula_sol = $_POST['conyu_cedula_sol']?? '';
-    $conyu_naci_sol = $_POST['conyu_naci_sol']?? '';
-    $conyu_exp_sol = $_POST['conyu_exp_sol']?? '';
-    $conyu_ciudadn_sol = $_POST['conyu_ciudadn_sol']?? '';
-    $conyu_dpton_sol = $_POST['conyu_dpton_sol']?? '';
-    $conyu_paism_sol = $_POST['conyu_paism_sol']?? '';
-    $conyu_correo_sol = $_POST['conyu_correo_sol']?? '';
-    $conyu_ocupacion_sol = $_POST['conyu_ocupacion_sol']?? '';
-    $conyu_func_sol = $_POST['conyu_func_sol']?? '';
-    $conyu_emp_lab_sol = $_POST['conyu_emp_lab_sol']?? '';
-    $conyu_cargo_sol = $_POST['conyu_cargo_sol']?? '';
-    $conyu_salario_sol = $_POST['conyu_salario_sol']?? '';
-    $conyu_dir_lab_sol = $_POST['conyu_dir_lab_sol']?? '';
-    $conyu_tel_lab_sol = $_POST['conyu_tel_lab_sol']?? '';
-    $conyu_ciudad_lab_sol = $_POST['conyu_ciudad_lab_sol']?? '';
-    $conyu_dpto_lab_sol = $_POST['conyu_dpto_lab_sol']?? '';
-    $fami_nombre_1_sol = $_POST['fami_nombre_1_sol']?? '';
-    $fami_cel_1_sol = $_POST['fami_cel_1_sol']?? '';
-    $fami_tel_1_sol = $_POST['fami_tel_1_sol']?? '';
-    $fami_parent_1_sol = $_POST['fami_parent_1_sol']?? '';
-    $fami_nombre_2_sol = $_POST['fami_nombre_2_sol']?? '';
-    $fami_cel_2_sol = $_POST['fami_cel_2_sol']?? '';
-    $fami_tel_2_sol = $_POST['fami_tel_2_sol']?? '';
-    $fami_parent_2_sol = $_POST['fami_parent_2_sol']?? '';
-    $refer_nombre_1_sol = $_POST['refer_nombre_1_sol']?? '';
-    $refer_cel_1_sol = $_POST['refer_cel_1_sol']?? '';
-    $refer_tel_1_sol = $_POST['refer_tel_1_sol']?? '';
-    $refer_nombre_2_sol = $_POST['refer_nombre_2_sol']?? '';
-    $refer_cel_2_sol = $_POST['refer_cel_2_sol']?? '';
-    $refer_tel_2_sol = $_POST['refer_tel_2_sol']?? '';
-    $id_solicitud = $_POST['id_solicitud']?? '';
+    $direccion_1_sol = $_POST['direccion_1_sol'] ?? '';
+    $valor_comer_1_sol = $_POST['valor_comer_1_sol'] ?? '';
+    $tipo_inmu_2_sol = $_POST['tipo_inmu_2_sol'] ?? '';
+    $direccion_2_sol = $_POST['direccion_2_sol'] ?? '';
+    $valor_comer_2_sol = $_POST['valor_comer_2_sol'] ?? '';
+    $tipo_vehi_1_sol = $_POST['tipo_vehi_1_sol'] ?? '';
+    $modelo_1_sol = $_POST['modelo_1_sol'] ?? '';
+    $marca_1_sol = $_POST['marca_1_sol'] ?? '';
+    $placa_1_sol = $_POST['placa_1_sol'] ?? '';
+    $valor_1_sol = $_POST['valor_1_sol'] ?? '';
+    $tipo_vehi_2_sol = $_POST['tipo_vehi_2_sol'] ?? '';
+    $modelo_2_sol = $_POST['modelo_2_sol'] ?? '';
+    $marca_2_sol = $_POST['marca_2_sol'] ?? '';
+    $placa_2_sol = $_POST['placa_2_sol'] ?? '';
+    $valor_2_sol = $_POST['valor_2_sol'] ?? '';
+    $ahorros_sol = $_POST['ahorros_sol'] ?? '';
+    $otro_ahorros_sol = $_POST['otro_ahorros_sol'] ?? '';
+    $valor_ahor_sol = $_POST['valor_ahor_sol'] ?? '';
+    $enseres_sol = $_POST['enseres_sol'] ?? '';
+    $valor_enser_sol = $_POST['valor_enser_sol'] ?? '';
+    $conyu_nombre_sol = $_POST['conyu_nombre_sol'] ?? '';
+    $conyu_cedula_sol = $_POST['conyu_cedula_sol'] ?? '';
+    $conyu_naci_sol = $_POST['conyu_naci_sol'] ?? '';
+    $conyu_exp_sol = $_POST['conyu_exp_sol'] ?? '';
+    $conyu_ciudadn_sol = $_POST['conyu_ciudadn_sol'] ?? '';
+    $conyu_dpton_sol = $_POST['conyu_dpton_sol'] ?? '';
+    $conyu_paism_sol = $_POST['conyu_paism_sol'] ?? '';
+    $conyu_correo_sol = $_POST['conyu_correo_sol'] ?? '';
+    $conyu_ocupacion_sol = $_POST['conyu_ocupacion_sol'] ?? '';
+    $conyu_func_sol = $_POST['conyu_func_sol'] ?? '';
+    $conyu_emp_lab_sol = $_POST['conyu_emp_lab_sol'] ?? '';
+    $conyu_cargo_sol = $_POST['conyu_cargo_sol'] ?? '';
+    $conyu_salario_sol = $_POST['conyu_salario_sol'] ?? '';
+    $conyu_dir_lab_sol = $_POST['conyu_dir_lab_sol'] ?? '';
+    $conyu_tel_lab_sol = $_POST['conyu_tel_lab_sol'] ?? '';
+    $conyu_ciudad_lab_sol = $_POST['conyu_ciudad_lab_sol'] ?? '';
+    $conyu_dpto_lab_sol = $_POST['conyu_dpto_lab_sol'] ?? '';
+    $fami_nombre_1_sol = $_POST['fami_nombre_1_sol'] ?? '';
+    $fami_cel_1_sol = $_POST['fami_cel_1_sol'] ?? '';
+    $fami_tel_1_sol = $_POST['fami_tel_1_sol'] ?? '';
+    $fami_parent_1_sol = $_POST['fami_parent_1_sol'] ?? '';
+    $fami_nombre_2_sol = $_POST['fami_nombre_2_sol'] ?? '';
+    $fami_cel_2_sol = $_POST['fami_cel_2_sol'] ?? '';
+    $fami_tel_2_sol = $_POST['fami_tel_2_sol'] ?? '';
+    $fami_parent_2_sol = $_POST['fami_parent_2_sol'] ?? '';
+    $refer_nombre_1_sol = $_POST['refer_nombre_1_sol'] ?? '';
+    $refer_cel_1_sol = $_POST['refer_cel_1_sol'] ?? '';
+    $refer_tel_1_sol = $_POST['refer_tel_1_sol'] ?? '';
+    $refer_nombre_2_sol = $_POST['refer_nombre_2_sol'] ?? '';
+    $refer_cel_2_sol = $_POST['refer_cel_2_sol'] ?? '';
+    $refer_tel_2_sol = $_POST['refer_tel_2_sol'] ?? '';
+    $id_solicitud = $_POST['id_solicitud'] ?? '';
     $fecha_edit_sol = date("Y-m-d H:i:s");
+
+    $atendido_por = $_POST['atendido_por'] ?? '';
 
     // Construir query
     $query = "UPDATE solicitudes SET 
@@ -255,6 +258,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 WHERE id_solicitud = '$id_solicitud'";
 
     if ($mysqli->query($query)) {
+        //insertar en la tabla atenciones y en fecha_solicitud
+        // Verificar si ya existe un registro con ese id_solicitud y que tenga fecha_solicitud
+        $checkQuery = "SELECT id_atencion FROM atenciones WHERE id_solicitud = '$id_solicitud' AND fecha_solicitud IS NOT NULL";
+        $result = $mysqli->query($checkQuery);
+
+        if ($result && $result->num_rows > 0) {
+            // Ya existe, entonces actualizamos
+            $updateQuery = "UPDATE atenciones SET id_usu = '$atendido_por', fecha_solicitud = '$fecha_edit_sol' WHERE id_solicitud = '$id_solicitud'";
+            if ($mysqli->query($updateQuery) === TRUE) {
+                echo "Registro actualizado correctamente.";
+            } else {
+                echo "Error al actualizar en la tabla atenciones: " . $mysqli->error;
+            }
+        } else {
+            // No existe o no tiene fecha_solicitud, entonces insertamos
+            $insertQuery = "INSERT INTO atenciones (id_solicitud, id_usu, fecha_solicitud) VALUES ('$id_solicitud', '$atendido_por', '$fecha_edit_sol')";
+            if ($mysqli->query($insertQuery) === TRUE) {
+                echo "Registro insertado correctamente.";
+            } else {
+                echo "Error al insertar en la tabla atenciones: " . $mysqli->error;
+            }
+        }
+
         //cargar archivos
         $uploadDir = __DIR__ . '/documentos/'; // Carpeta 'documentos' en la misma ubicación del script
 

@@ -97,31 +97,34 @@ function deleteMember($id_solicitud)
             </div>
         </div>
 
-
-        <div class="table-responsive" style="width: 105%;">
-            <table class="data-table" id="salesTable">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Cedula</th>
-                        <th>Nombres</th>
-                        <th>Monto Solicitado</th>
-                        <th>Linea Credito</th>
-                        <th>Observacion</th>
-                        <th>Fecha Solicitud</th>
-                        <th>Aprobar Solicitud</th>
-                        <th>Agregar Observacion</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php include "getSolicitud.php"; ?>
-                </tbody>
-            </table>
+        <div class="d-flex flex-wrap justify-content-center ">
+            <div class="table-responsive1" style="border: 2px solid #13603e;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;">
+                <table class="data-table" id="salesTable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Cedula</th>
+                            <th>Nombres</th>
+                            <th>Monto Solicitado</th>
+                            <th>Linea Credito</th>
+                            <th>Observacion</th>
+                            <th>Fecha Solicitud</th>
+                            <th>Atendido Por</th>
+                            <th>Aprobar Solicitud</th>
+                            <th>Agregar Observacion</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php include "getSolicitud.php"; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
     <!-- MODAL OBSERVACION -->
     <div class="modal fade" id="modalObservacion" tabindex="-1" aria-labelledby="modalObservacionLabel" aria-hidden="true">
         <div class="modal-dialog">

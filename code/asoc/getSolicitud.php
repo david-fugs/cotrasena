@@ -2,6 +2,16 @@
 include("../../conexion.php");
 require_once("../../zebra.php");
 
+function getUserName($id_usuario)
+{
+    global $mysqli;
+    $query = "SELECT nombre FROM usuarios WHERE id_usu = '$id_usuario'";
+    $result = $mysqli->query($query);
+    if ($result && $result->num_rows > 0) {
+        return $result->fetch_assoc()['nombre'];
+    }
+    return null;
+}
 $where = "WHERE s.estado_solicitud = 1";
 
 
@@ -27,6 +37,7 @@ $countQuery = "
     SELECT COUNT(DISTINCT s.id_solicitud) AS total
     FROM solicitudes AS s
     LEFT JOIN devoluciones AS d ON s.id_solicitud = d.id_solicitud
+    
     $where
 ";
 $countResult = $mysqli->query($countQuery);
@@ -45,9 +56,10 @@ $offset = ($page - 1) * $resul_x_pagina;
 $query = "
 SELECT s.cedula_aso, s.nombre_aso, s.id_solicitud, s.fecha_devolucion,
        s.fecha_alta_solicitud, s.monto_sol, s.linea_cred_aso,
-       s.observacion_solicitud, d.observacion_devolucion
+       s.observacion_solicitud, d.observacion_devolucion, a.id_usu as atendido_por, a.fecha_solicitud
 FROM solicitudes AS s
 LEFT JOIN devoluciones AS d ON s.id_solicitud = d.id_solicitud
+LEFT JOIN atenciones as a ON s.id_solicitud = a.id_solicitud
 $where
 ORDER BY 
     CASE WHEN s.fecha_observacion IS NOT NULL THEN 0 ELSE 1 END,
@@ -105,6 +117,7 @@ if ($result->num_rows > 0) {
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['linea_cred_aso'] . '</td>';
         echo '<td class="fila" style="background-color:' . $color . ';">' . $row['observacion_solicitud'] . '</td>';
         echo '<td  class="fila"style="background-color:' . $color . ';">' . $row['fecha_alta_solicitud'] . '</td>';
+        echo '<td class="fila" style="background-color:' . $color . ';">' . getUserName($row['atendido_por']) . '</td>';
         echo '<td class="fila" style="background-color:' . $color . ';" data-label="Estado" ">
                 <a href="updateEstadoSolicitud.php?id_solicitud=' . $row['id_solicitud'] . '&estado_solicitud=2" class="btn " " onclick="return confirm(\'¿Estás seguro de aprobar esta Solicitud?\')">
                         <i class="fas fa-rotate-right fa-lg"></i> 

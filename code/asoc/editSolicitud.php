@@ -21,7 +21,9 @@ include("../../conexion.php");
 $id_solicitud = intval($_GET['id_solicitud']);
 
 // Consulta para obtener los datos de la solicitud
-$query = "SELECT * FROM solicitudes WHERE id_solicitud = $id_solicitud";
+$query = "SELECT s.*, a.id_usu as atendido_por FROM solicitudes as s
+LEFT JOIN atenciones as a ON s.id_solicitud = a.id_solicitud
+WHERE s.id_solicitud = $id_solicitud";
 $result = $mysqli->query($query);
 
 
@@ -846,10 +848,6 @@ $mysqli->close();
                     </div>
                 </div>
             </div>
-
-
-
-
             <div class="seccion">
                 <h3 class="subtitulo">Atencion</h3>
                 <div class="row">
@@ -865,8 +863,6 @@ $mysqli->close();
                     </div>
                 </div>
             </div>
-
-
             <div class="form-group">
                 <h3 class="subtitulo">SUBIR ARCHIVOS</h3>
                 <div class="row">
