@@ -5,7 +5,8 @@ if (isset($_GET['cedula_aso']) && !empty($_GET['cedula_aso'])) {
     $cedula_aso = $_GET['cedula_aso'];
 
     // Primero buscamos en la tabla solicitudes
-    $query_solicitud = "SELECT * FROM solicitudes WHERE cedula_aso = ?";
+    $query_solicitud = "SELECT * FROM solicitudes WHERE cedula_aso = ?  ORDER BY fecha_alta_solicitud DESC
+    LIMIT 1 ";
     if ($stmt1 = $mysqli->prepare($query_solicitud)) {
         $stmt1->bind_param("s", $cedula_aso);
         $stmt1->execute();
@@ -41,12 +42,35 @@ if (isset($_GET['cedula_aso']) && !empty($_GET['cedula_aso'])) {
         $stmt2->store_result();
 
         if ($stmt2->num_rows > 0) {
-            $stmt2->bind_result($nombre_aso, $edad_aso, $direccion_aso, $tipo_doc_aso, $sexo_aso, $nacionalidad_aso, 
-                                $estado_civil_aso, $per_cargo_aso, $tip_vivienda_aso, $barrio_aso, $ciudad_aso, 
-                                $departamente_aso, $nivel_educa_aso, $titulo_obte_aso, $titulo_pos_aso, $tel_aso, 
-                                $email_aso, $cel_aso, $fecha_nacimiento_aso, $ciudad_naci_aso, $dpto_naci_aso, 
-                                $pais_naci_aso, $estrato_aso, $dpto_exp_cedula_aso, $pais_exp_cedula_aso,
-                                $fecha_exp_cedula_aso, $ciudad_exp_cedula_aso);
+            $stmt2->bind_result(
+                $nombre_aso,
+                $edad_aso,
+                $direccion_aso,
+                $tipo_doc_aso,
+                $sexo_aso,
+                $nacionalidad_aso,
+                $estado_civil_aso,
+                $per_cargo_aso,
+                $tip_vivienda_aso,
+                $barrio_aso,
+                $ciudad_aso,
+                $departamente_aso,
+                $nivel_educa_aso,
+                $titulo_obte_aso,
+                $titulo_pos_aso,
+                $tel_aso,
+                $email_aso,
+                $cel_aso,
+                $fecha_nacimiento_aso,
+                $ciudad_naci_aso,
+                $dpto_naci_aso,
+                $pais_naci_aso,
+                $estrato_aso,
+                $dpto_exp_cedula_aso,
+                $pais_exp_cedula_aso,
+                $fecha_exp_cedula_aso,
+                $ciudad_exp_cedula_aso
+            );
             $stmt2->fetch();
 
             echo json_encode([
@@ -91,4 +115,3 @@ if (isset($_GET['cedula_aso']) && !empty($_GET['cedula_aso'])) {
 }
 
 $mysqli->close();
-?>

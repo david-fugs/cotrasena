@@ -83,24 +83,25 @@ function deleteMember($id_solicitud)
             </form>
         </div>
 
-        <div class="position-relative mb-3">
-            <h2 class="text-center titulo me-5">Solicitudes Registradas</h2>
-
-            <!-- Contenedor de los botones alineado a la derecha -->
-            <div class="position-absolute top-0 end-0 d-flex gap-2 m">
-                <button type="button" class="btn btn-success" onclick="window.location.href='estadoSolicitud.php'">
-                    Estado Solicitud
-                </button>
-                <button type="button" class="btn btn-success" onclick="window.location.href='solicitar.php'">
-                    <i class="fas fa-plus"></i> Agregar Solicitud
-                </button>
-            </div>
+        <!-- Título centrado -->
+        <div class="text-center mb-3">
+            <h2 class="titulo m-0">Solicitudes Registradas</h2>
         </div>
-        <div class="d-flex justify-content-end mb-2">
+
+        <!-- Botones alineados a la derecha -->
+        <div class="d-flex justify-content-end gap-2 mb-3">
+            <button type="button" class="btn btn-success" onclick="window.location.href='estadoSolicitud.php'">
+                Estado Solicitud
+            </button>
+            <button type="button" class="btn btn-success" onclick="window.location.href='solicitar.php'">
+                <i class="fas fa-plus"></i> Agregar Solicitud
+            </button>
             <button type="button" class="btn btn-success" onclick="window.location.href='excelSolicitud.php'">
                 <i class="fa-solid fa-file"></i> Imprimir Excel
             </button>
         </div>
+
+
 
         <div class="d-flex flex-wrap justify-content-center ">
             <div class="table-responsive1" style="border: 2px solid #13603e;

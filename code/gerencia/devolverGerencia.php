@@ -3,7 +3,6 @@ include("../../conexion.php");
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    print_r($_POST);  
     // Capturar datos del formulario
     $id_gerencia = $_POST['id_gerencia'];
     $observacion_gerencia = $_POST['observacion_gerencia'];

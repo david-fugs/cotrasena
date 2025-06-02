@@ -110,6 +110,7 @@ function deleteMember($id_solicitud)
             <table class="data-table" id="salesTable">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Cedula</th>
                         <th>Nombres</th>
                         <th>Monto Solicitado</th>

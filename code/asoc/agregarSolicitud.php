@@ -1,5 +1,6 @@
 <?php
 session_start();
+header('Content-Type: text/html; charset=UTF-8');
 
 include("../../conexion.php");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -177,18 +178,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <html>
   <head>
     <meta charset='UTF-8'>
-    <title>Éxito</title>
+    <title>Exito</title>
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
   </head>
   <body>
     <script>
       Swal.fire({
-        title: '¡Éxito!',
-        text: 'Creado Correctamente',
+        title: 'Solicitud Enviada',
+        text: 'Creada Correctamente',
         icon: 'success',
         confirmButtonText: 'OK'
       }).then(() => {
-        window.history.back();
+        window.location.href = 'solicitar.php';
       });
     </script>
   </body>
@@ -209,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         icon: 'error',
         confirmButtonText: 'Volver'
       }).then(() => {
-      window.history.back();
+      window.location.href = 'solicitar.php';
       });
     </script>
   </body>

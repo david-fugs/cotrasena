@@ -914,31 +914,46 @@ $datos_usuario = [];
 
     const fileInput = document.getElementById('fileInput');
     const fileList = document.getElementById('fileList');
+    let allFiles = [];
 
     fileInput.addEventListener('change', (event) => {
         const selectedFiles = Array.from(event.target.files);
 
-        // Mostrar solo los primeros 3 archivos seleccionados
-        if (selectedFiles.length > 3) {
+        // Combina archivos nuevos con los ya seleccionados
+        allFiles = allFiles.concat(selectedFiles);
+
+        // Evita más de 3 archivos
+        if (allFiles.length > 3) {
             alert("Solo puedes subir hasta 3 archivos.");
-            fileInput.value = ''; // Borra la selección si son más de 3
+            allFiles = []; // Borra todo si se pasa
+            fileInput.value = '';
             fileList.innerHTML = '';
             return;
         }
 
-        renderFileList(selectedFiles);
+        fileInput.value = ''; // Limpia input para permitir volver a seleccionar el mismo archivo
+        renderFileList();
     });
 
-    function renderFileList(files) {
+    function renderFileList() {
         fileList.innerHTML = '';
-        files.forEach((file) => {
+
+        allFiles.forEach((file, index) => {
             const fileDiv = document.createElement('div');
             fileDiv.className = 'alert alert-secondary d-flex justify-content-between align-items-center py-2 px-3 mb-2';
             fileDiv.innerHTML = `
             <span><i class="bi bi-file-earmark-text me-2"></i> ${file.name}</span>
+            <button class="btn btn-sm btn-danger" onclick="removeFile(${index})">
+                <i class="bi bi-x-lg"></i>
+            </button>
         `;
             fileList.appendChild(fileDiv);
         });
+    }
+
+    function removeFile(index) {
+        allFiles.splice(index, 1); // Elimina el archivo de la lista
+        renderFileList();
     }
     document.addEventListener('DOMContentLoaded', function() {
         const cedulaInput = document.getElementById('cedula_aso');
