@@ -1,6 +1,6 @@
 <?php
 	 
-	$mysqli = new mysqli('localhost', 'cotrasena_creditos', 'uBQ;*zdC-5bG', 'cotrasena_creditos');
+	$mysqli = new mysqli('localhost', 'softepuc_cotrasena', 'uBQ;*zdC-5bG', 'softepuc_cotrasena');
 	$mysqli->set_charset("utf8");
 	if($mysqli->connect_error){
 		
