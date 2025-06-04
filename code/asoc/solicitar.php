@@ -32,6 +32,17 @@ $datos_usuario = [];
 
 </head>
 
+<style>
+    input.form-control-dark-focus {
+        border-color: #0c3d2a !important;
+        box-shadow: 0 0 0 5px rgba(12, 61, 42, 0.4) !important;
+    }
+
+    select.form-control-dark-focus {
+        border-color: #0c3d2a !important;
+        box-shadow: 0 0 0 5px rgba(12, 61, 42, 0.4) !important;
+    }
+</style>
 
 <body>
     <header class="header">
@@ -151,7 +162,7 @@ $datos_usuario = [];
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="per_cargo_aso">* Personas a Cargo</label>
-                            <input type='number' name='per_cargo_aso' id="per_cargo_aso" class='form-control' required />
+                            <input type='number' name='per_cargo_aso' id="per_cargo_aso" class='form-control form-control-dark-focus' required />
                         </div>
                     </div>
                 </div>
@@ -160,7 +171,7 @@ $datos_usuario = [];
                     <div class="row">
                         <div class="col-12 col-sm-2">
                             <label for="tip_vivienda_aso">* Tipo Vivienda</label>
-                            <select name="tip_vivienda_aso" class="form-control" id="tip_vivienda_aso" required>
+                            <select name="tip_vivienda_aso" class="form-control form-control-dark-focus" id="tip_vivienda_aso" required>
                                 <option value="Arriendo">ARRIENDO</option>
                                 <option value="Propia">PROPIA</option>
                                 <option value="Familiar">FAMILIAR</option>
@@ -193,7 +204,7 @@ $datos_usuario = [];
                         </div>
                         <div class="col-12 col-sm-2">
                             <label for="tel_aso">* Telefono</label>
-                            <input type='text' name='tel_aso' id="tel_aso" class='form-control' />
+                            <input type='text' name='tel_aso' id="tel_aso" class='form-control form-control-dark-focus' />
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="cel_aso">* Celular</label>
@@ -201,7 +212,7 @@ $datos_usuario = [];
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="nivel_educa_aso">* Nivel Educativo</label>
-                            <select name="nivel_educa_aso" class="form-control form-control-dark-focus" id="nivel_educa_aso" required>
+                            <select name="nivel_educa_aso" class="form-control " id="nivel_educa_aso" required>
                                 <option value="PRIMARIA">PRIMARIA</option>
                                 <option value="BACHILLER">BACHILLER</option>
                                 <option value="TECNICO">TECNICO (A)</option>
@@ -219,11 +230,11 @@ $datos_usuario = [];
                     <div class="row">
                         <div class="col-12 col-sm-6">
                             <label for="titulo_obte_aso">Titulo Obtenido</label>
-                            <input type='text' name='titulo_obte_aso' id="titulo_obte_aso" class='form-control form-control-dark-focus' />
+                            <input type='text' name='titulo_obte_aso' id="titulo_obte_aso" class='form-control ' />
                         </div>
                         <div class="col-12 col-sm-6">
                             <label for="titulo_pos_aso">Titulo en Postgrado</label>
-                            <input type='text' name='titulo_pos_aso' id="titulo_pos_aso" class='form-control form-control-dark-focus' />
+                            <input type='text' name='titulo_pos_aso' id="titulo_pos_aso" class='form-control ' />
                         </div>
                     </div>
                 </div>
@@ -484,127 +495,82 @@ $datos_usuario = [];
             </div>
             <!--Relacion de inmuebles-->
             <div class="seccion">
-                <div class="form-group">
-                    <h3 class="subtitulo">RELACION INMUEBLES</h3>
-                    <div class="row">
-                        <div class="col-12 col-sm-4">
-                            <label for="tipo_inmu_1_sol">Tipo de Inmueble 1</label>
-                            <select name="tipo_inmu_1_sol" class="form-control form-control-dark-focus" id="tipo_inmu_1_sol">
-                                <option value="LOTE">LOTE</option>
-                                <option value="CASA">CASA</option>
-                                <option value="FINCA">FINCA</option>
-                                <option value="APARTAMENTO">APARTAMENTO</option>
-                                <option value="LOCAL">LOCAL</option>
-                                <option value="N/A">N/A</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-4">
-                            <label for="direccion_1_sol">Direccion 1</label>
-                            <input type='text' name='direccion_1_sol' id="direccion_1_sol" class='form-control' />
-                        </div>
-                        <div class="col-12 col-sm-4">
-                            <label for="valor_comer_1_sol">Valor Comercial 1</label>
-                            <input type='number' name='valor_comer_1_sol' id="valor_comer_1_sol" class='form-control' />
+                <h3 class="subtitulo">RELACION INMUEBLES</h3>
+
+                <div id="inmuebles-wrapper">
+                    <!-- Aquí se agregan dinámicamente los bloques -->
+                    <div class="form-group inmueble-item">
+                        <div class="row">
+                            <div class="col-12 col-sm-4">
+                                <label>Tipo de Inmueble</label>
+                                <select name="tipo_inmu[]" class="form-control">
+                                    <option value="LOTE">LOTE</option>
+                                    <option value="CASA">CASA</option>
+                                    <option value="FINCA">FINCA</option>
+                                    <option value="APARTAMENTO">APARTAMENTO</option>
+                                    <option value="LOCAL">LOCAL</option>
+                                    <option value="N/A">N/A</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label>Dirección</label>
+                                <input type='text' name='direccion[]' class='form-control' />
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label>Valor Comercial</label>
+                                <input type='number' name='valor_comer[]' class='form-control' />
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-12 col-sm-4">
-                            <label for="tipo_inmu_2_sol">TIPO DE INMUEBLE 2</label>
-                            <select name="tipo_inmu_2_sol" class="form-control form-control-dark-focus" id="tipo_inmu_2_sol">
-                                <option value="LOTE">LOTE</option>
-                                <option value="CASA">CASA</option>
-                                <option value="FINCA">FINCA</option>
-                                <option value="APARTAMENTO">APARTAMENTO</option>
-                                <option value="LOCAL">LOCAL</option>
-                                <option value="N/A">N/A</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-4">
-                            <label for="direccion_2_sol">DIRECCION 2</label>
-                            <input type='text' name='direccion_2_sol' id="direccion_2_sol" class='form-control' />
-                        </div>
-                        <div class="col-12 col-sm-4">
-                            <label for="valor_comer_2_sol">Valor Comercial 2</label>
-                            <input type='number' name='valor_comer_2_sol' id="valor_comer_2_sol" class='form-control' />
-                        </div>
-                    </div>
-                </div>
+                <button type="button" class="btn btn-success mt-2" onclick="agregarInmueble()">Agregar Inmueble</button>
             </div>
             <div class="seccion">
-                <div class="form-group">
-                    <h3 class="subtitulo">RELACION VEHICULOS</h3>
-                    <div class="row">
-                        <div class="col-12 col-sm-2">
-                            <label for="tipo_vehi_1_sol">Tipo de Vehiculo 1</label>
-                            <select name="tipo_vehi_1_sol" class="form-control" id="tipo_vehi_1_sol">
-                                <option value="MOTO">MOTO</option>
-                                <option value="CARRO">CARRO</option>
-                                <option value="CAMIONETA">CAMIONETA</option>
-                                <option value="BUS">BUS</option>
-                                <option value="BUSETA">BUSETA</option>
-                                <option value="MICROBUS">MICROBUS</option>
-                                <option value="TAXI">TAXI</option>
-                                <option value="CAMION">CAMION</option>
-                                <option value="N/A">N/A</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-2">
-                            <label for="modelo_1_sol">Modelo 1</label>
-                            <input type='number' name='modelo_1_sol' id="modelo_1_sol" class='form-control' />
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <label for="marca_1_sol">Marca 1</label>
-                            <input type='text' name='marca_1_sol' id="marca_1_sol" class='form-control' />
-                        </div>
-                        <div class="col-12 col-sm-2">
-                            <label for="placa_1_sol">Placa 1</label>
-                            <input type='text' name='placa_1_sol' id="placa_1_sol" class='form-control' />
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <label for="valor_1_sol">Valor Comercial 1</label>
-                            <input type='number' name='valor_1_sol' id="valor_1_sol" class='form-control' />
+                <h3 class="subtitulo">RELACIÓN VEHÍCULOS</h3>
+
+                <div id="vehiculos-wrapper">
+                    <!-- Aquí se agregan dinámicamente los bloques -->
+                    <div class="form-group vehiculo-item">
+                        <div class="row">
+                            <div class="col-12 col-sm-2">
+                                <label>Tipo de Vehículo</label>
+                                <select name="tipo_vehi[]" class="form-control">
+                                    <option value="MOTO">MOTO</option>
+                                    <option value="CARRO">CARRO</option>
+                                    <option value="CAMIONETA">CAMIONETA</option>
+                                    <option value="BUS">BUS</option>
+                                    <option value="BUSETA">BUSETA</option>
+                                    <option value="MICROBUS">MICROBUS</option>
+                                    <option value="TAXI">TAXI</option>
+                                    <option value="CAMION">CAMION</option>
+                                    <option value="N/A">N/A</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-sm-2">
+                                <label>Modelo</label>
+                                <input type="number" name="modelo[]" class="form-control" />
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <label>Marca</label>
+                                <input type="text" name="marca[]" class="form-control" />
+                            </div>
+                            <div class="col-12 col-sm-2">
+                                <label>Placa</label>
+                                <input type="text" name="placa[]" class="form-control" />
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <label>Valor Comercial</label>
+                                <input type="number" name="valor[]" class="form-control" />
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-12 col-sm-2">
-                            <label for="tipo_vehi_2_sol">Tipo de Vehiculo 2</label>
-                            <select name="tipo_vehi_2_sol" class="form-control" id="tipo_vehi_2_sol">
-                                <option value="MOTO">MOTO</option>
-                                <option value="CARRO">CARRO</option>
-                                <option value="CAMIONETA">CAMIONETA</option>
-                                <option value="BUS">BUS</option>
-                                <option value="BUSETA">BUSETA</option>
-                                <option value="MICROBUS">MICROBUS</option>
-                                <option value="TAXI">TAXI</option>
-                                <option value="CAMION">CAMION</option>
-                                <option value="N/A">N/A</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-2">
-                            <label for="modelo_2_sol">Modelo 2</label>
-                            <input type='number' name='modelo_2_sol' id="modelo_2_sol" class='form-control' />
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <label for="marca_2_sol">Marca 2</label>
-                            <input type='text' name='marca_2_sol' id="marca_2_sol" class='form-control' />
-                        </div>
-                        <div class="col-12 col-sm-2">
-                            <label for="placa_2_sol">Placa 2</label>
-                            <input type='text' name='placa_2_sol' id="placa_2_sol" class='form-control' />
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <label for="valor_2_sol">Valor Comercial 2</label>
-                            <input type='number' name='valor_2_sol' id="valor_2_sol" class='form-control' />
-                        </div>
-                    </div>
-                </div>
+                <button type="button" class="btn btn-success mt-2" onclick="agregarVehiculo()">Agregar Vehículo</button>
             </div>
+
+
             <div class="seccion">
                 <div class="form-group">
                     <h3 class="subtitulo">OTROS ACTIVOS</h3>
@@ -1219,6 +1185,30 @@ $datos_usuario = [];
             xhr.send();
         });
     });
+
+    function agregarInmueble() {
+        const wrapper = document.getElementById('inmuebles-wrapper');
+        const item = wrapper.querySelector('.inmueble-item');
+        const clone = item.cloneNode(true);
+
+        // Limpiar los inputs del clon
+        clone.querySelectorAll('input').forEach(input => input.value = '');
+        clone.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+
+        wrapper.appendChild(clone);
+    }
+
+    function agregarVehiculo() {
+        const wrapper = document.getElementById('vehiculos-wrapper');
+        const item = wrapper.querySelector('.vehiculo-item');
+        const clone = item.cloneNode(true);
+
+        // Limpiar los inputs del clon
+        clone.querySelectorAll('input').forEach(input => input.value = '');
+        clone.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+
+        wrapper.appendChild(clone);
+    }
 </script>
 
 

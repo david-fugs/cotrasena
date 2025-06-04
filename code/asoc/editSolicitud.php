@@ -47,6 +47,13 @@ if ($datos_solicitud['cedula_aso'] && is_dir($directorio)) {
         }
     }
 }
+$sql_inmuebles = "SELECT * FROM inmuebles WHERE id_solicitud = $id_solicitud";
+$result_inmuebles = $mysqli->query($sql_inmuebles);
+
+$sql_vehiculos = "SELECT * FROM vehiculos WHERE id_solicitud = $id_solicitud";
+$result_vehiculos = $mysqli->query($sql_vehiculos);
+
+
 $mysqli->close();
 ?>
 
@@ -516,98 +523,148 @@ $mysqli->close();
             </div>
             <!--Relacion de inmuebles-->
             <div class="seccion">
-                <h3 class="subtitulo">RELACION INMUEBLES</h3>
-                <div class="row">
-                    <div class="col-12 col-sm-4 mt-2">
-                        <label for="tipo_inmu_1_sol">Tipo de Inmueble 1</label>
-                        <select name="tipo_inmu_1_sol" class="form-control" id="tipo_inmu_1_sol">
-
-                            <option value="LOTE" <?php echo ($datos_solicitud['tipo_inmu_1_sol'] == 'LOTE') ? 'selected' : ''; ?>>LOTE</option>
-                            <option value="CASA" <?php echo ($datos_solicitud['tipo_inmu_1_sol'] == 'CASA') ? 'selected' : ''; ?>>CASA</option>
-                            <option value="FINCA" <?php echo ($datos_solicitud['tipo_inmu_1_sol'] == 'FINCA') ? 'selected' : ''; ?>>FINCA</option>
-                            <option value="APARTAMENTO" <?php echo ($datos_solicitud['tipo_inmu_1_sol'] == 'APARTAMENTO') ? 'selected' : ''; ?>>APARTAMENTO</option>
-                            <option value="LOCAL" <?php echo ($datos_solicitud['tipo_inmu_1_sol'] == 'LOCAL') ? 'selected' : ''; ?>>LOCAL</option>
-                            <option value="N/A" <?php echo ($datos_solicitud['tipo_inmu_1_sol'] == 'N/A') ? 'selected' : ''; ?>>N/A</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-sm-4 mt-2">
-                        <label for="direccion_1_sol">Direccion 1</label>
-                        <input type='text' name='direccion_1_sol' id="direccion_1_sol" class='form-control' value='<?= $datos_solicitud['direccion_1_sol'] ?? ''; ?>' />
-                    </div>
-                    <div class="col-12 col-sm-4 mt-2">
-                        <label for="valor_comer_1_sol">Valor Comercial 1</label>
-                        <input type='number' name='valor_comer_1_sol' id="valor_comer_1_sol" class='form-control' value='<?= $datos_solicitud['valor_comer_1_sol'] ?? ''; ?>' />
-                    </div>
+                <h3 class="subtitulo">RELACIÓN INMUEBLES</h3>
+                <div id="inmuebles-wrapper">
+                    <?php if ($result_inmuebles && $result_inmuebles->num_rows > 0): ?>
+                        <?php $index = 0; ?>
+                        <?php while ($row = $result_inmuebles->fetch_assoc()): ?>
+                            <div class="form-group inmueble-item">
+                                <div class="row">
+                                    <div class="col-12 col-sm-4 mt-2">
+                                        <label for="tipo_inmu_<?= $index ?>">Tipo de Inmueble <?= $index + 1 ?></label>
+                                        <select name="tipo_inmu[]" class="form-control" id="tipo_inmu_<?= $index ?>">
+                                            <?php
+                                            $opciones = ['LOTE', 'CASA', 'FINCA', 'APARTAMENTO', 'LOCAL', 'N/A'];
+                                            foreach ($opciones as $opcion):
+                                            ?>
+                                                <option value="<?= $opcion ?>" <?= ($row['tipo'] == $opcion) ? 'selected' : '' ?>>
+                                                    <?= $opcion ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-sm-4 mt-2">
+                                        <label for="direccion_<?= $index ?>">Dirección <?= $index + 1 ?></label>
+                                        <input type="text" name="direccion[]" class="form-control" id="direccion_<?= $index ?>" value="<?= htmlspecialchars($row['direccion']) ?>" />
+                                    </div>
+                                    <div class="col-12 col-sm-4 mt-2">
+                                        <label for="valor_comer_<?= $index ?>">Valor Comercial <?= $index + 1 ?></label>
+                                        <input type="number" name="valor_comer[]" class="form-control" id="valor_comer_<?= $index ?>" value="<?= htmlspecialchars($row['valor_comercial']) ?>" />
+                                    </div>
+                                </div>
+                            </div>
+                            <?php $index++; ?>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <div class="form-group inmueble-item">
+                            <div class="row">
+                                <div class="col-12 col-sm-4 mt-2">
+                                    <label>Tipo de Inmueble</label>
+                                    <select name="tipo_inmu[]" class="form-control">
+                                        <option value="LOTE">LOTE</option>
+                                        <option value="CASA">CASA</option>
+                                        <option value="FINCA">FINCA</option>
+                                        <option value="APARTAMENTO">APARTAMENTO</option>
+                                        <option value="LOCAL">LOCAL</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-sm-4 mt-2">
+                                    <label>Dirección</label>
+                                    <input type="text" name="direccion[]" class="form-control" />
+                                </div>
+                                <div class="col-12 col-sm-4 mt-2">
+                                    <label>Valor Comercial</label>
+                                    <input type="number" name="valor_comer[]" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
+
+                <button type="button" class="btn btn-success mt-2" onclick="agregarInmueble()">Agregar Inmueble</button>
             </div>
+
             <div class="seccion">
-                <h3 class="subtitulo">RELACION VEHICULOS</h3>
-                <div class="row">
-                    <div class="col-12 col-sm-3 mt-2">
-                        <label for="tipo_vehi_1_sol">Tipo de Vehiculo 1</label>
-                        <select name="tipo_vehi_1_sol" class="form-control" id="tipo_vehi_1_sol">
-                            <option value="MOTO" <?php echo ($datos_solicitud['tipo_vehi_1_sol'] == 'MOTO') ? 'selected' : ''; ?>>MOTO</option>
-                            <option value="CARRO" <?php echo ($datos_solicitud['tipo_vehi_1_sol'] == 'CARRO') ? 'selected' : ''; ?>>CARRO</option>
-                            <option value="CAMIONETA" <?php echo ($datos_solicitud['tipo_vehi_1_sol'] == 'CAMIONETA') ? 'selected' : ''; ?>>CAMIONETA</option>
-                            <option value="BUS" <?php echo ($datos_solicitud['tipo_vehi_1_sol'] == 'BUS') ? 'selected' : ''; ?>>BUS</option>
-                            <option value="BUSETA" <?php echo ($datos_solicitud['tipo_vehi_1_sol'] == 'BUSETA') ? 'selected' : ''; ?>>BUSETA</option>
-                            <option value="MICROBUS" <?php echo ($datos_solicitud['tipo_vehi_1_sol'] == 'MICROBUS') ? 'selected' : ''; ?>>MICROBUS</option>
-                            <option value="TAXI" <?php echo ($datos_solicitud['tipo_vehi_1_sol'] == 'TAXI') ? 'selected' : ''; ?>>TAXI</option>
-                            <option value="CAMION" <?php echo ($datos_solicitud['tipo_vehi_1_sol'] == 'CAMION') ? 'selected' : ''; ?>>CAMION</option>
-                            <option value="N/A" <?php echo ($datos_solicitud['tipo_vehi_1_sol'] == 'N/A') ? 'selected' : ''; ?>>N/A</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-sm-2 mt-2">
-                        <label for="modelo_1_sol">Modelo 1</label>
-                        <input type='number' name='modelo_1_sol' id="modelo_1_sol" class='form-control' value='<?= $datos_solicitud['modelo_1_sol'] ?? ''; ?>' />
-                    </div>
-                    <div class="col-12 col-sm-2 mt-2">
-                        <label for="marca_1_sol">Marca 1</label>
-                        <input type='text' name='marca_1_sol' id="marca_1_sol" class='form-control' value='<?= $datos_solicitud['marca_1_sol'] ?? ''; ?>' />
-                    </div>
-                    <div class="col-12 col-sm-2 mt-2">
-                        <label for="placa_1_sol">Placa 1</label>
-                        <input type='text' name='placa_1_sol' id="placa_1_sol" class='form-control' value='<?= $datos_solicitud['placa_1_sol'] ?? ''; ?>' />
-                    </div>
-                    <div class="col-12 col-sm-3 mt-2">
-                        <label for="valor_1_sol">Valor Comercial 1</label>
-                        <input type='number' name='valor_1_sol' id="valor_1_sol" class='form-control' value='<?= $datos_solicitud['valor_1_sol'] ?? ''; ?>' />
-                    </div>
+                <h3 class="subtitulo">RELACIÓN VEHÍCULOS</h3>
+                <div id="vehiculos-wrapper">
+                    <?php if ($result_vehiculos && $result_vehiculos->num_rows > 0): ?>
+                        <?php while ($row = $result_vehiculos->fetch_assoc()): ?>
+                            <div class="form-group vehiculo-item">
+                                <div class="row">
+                                    <div class="col-12 col-sm-3 mt-2">
+                                        <label>Tipo de Vehículo</label>
+                                        <select name="tipo_vehi[]" class="form-control">
+                                            <?php
+                                            $opciones = ['MOTO', 'CARRO', 'CAMIONETA', 'BUS', 'BUSETA', 'MICROBUS', 'TAXI', 'CAMION', 'N/A'];
+                                            foreach ($opciones as $opcion):
+                                            ?>
+                                                <option value="<?= $opcion ?>" <?= ($row['tipo'] == $opcion) ? 'selected' : '' ?>>
+                                                    <?= $opcion ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-sm-2 mt-2">
+                                        <label>Modelo</label>
+                                        <input type="number" name="modelo[]" class="form-control" value="<?= htmlspecialchars($row['modelo']) ?>" />
+                                    </div>
+                                    <div class="col-12 col-sm-2 mt-2">
+                                        <label>Marca</label>
+                                        <input type="text" name="marca[]" class="form-control" value="<?= htmlspecialchars($row['marca']) ?>" />
+                                    </div>
+                                    <div class="col-12 col-sm-2 mt-2">
+                                        <label>Placa</label>
+                                        <input type="text" name="placa[]" class="form-control" value="<?= htmlspecialchars($row['placa']) ?>" />
+                                    </div>
+                                    <div class="col-12 col-sm-3 mt-2">
+                                        <label>Valor Comercial</label>
+                                        <input type="number" name="valor_comer[]" class="form-control" value="<?= htmlspecialchars($row['valor_comercial']) ?>" />
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <div class="form-group vehiculo-item">
+                            <div class="row">
+                                <div class="col-12 col-sm-3 mt-2">
+                                    <label>Tipo de Vehículo</label>
+                                    <select name="tipo_vehi[]" class="form-control">
+                                        <option value="MOTO">MOTO</option>
+                                        <option value="CARRO">CARRO</option>
+                                        <option value="CAMIONETA">CAMIONETA</option>
+                                        <option value="BUS">BUS</option>
+                                        <option value="BUSETA">BUSETA</option>
+                                        <option value="MICROBUS">MICROBUS</option>
+                                        <option value="TAXI">TAXI</option>
+                                        <option value="CAMION">CAMION</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-sm-2 mt-2">
+                                    <label>Modelo</label>
+                                    <input type="number" name="modelo[]" class="form-control" />
+                                </div>
+                                <div class="col-12 col-sm-2 mt-2">
+                                    <label>Marca</label>
+                                    <input type="text" name="marca[]" class="form-control" />
+                                </div>
+                                <div class="col-12 col-sm-2 mt-2">
+                                    <label>Placa</label>
+                                    <input type="text" name="placa[]" class="form-control" />
+                                </div>
+                                <div class="col-12 col-sm-3 mt-2">
+                                    <label>Valor Comercial</label>
+                                    <input type="number" name="valor_comer[]" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
-                <div class="row">
-                    <div class="col-12 col-sm-3 mt-2">
-                        <label for="tipo_vehi_2_sol">Tipo de Vehiculo 2</label>
-                        <select name="tipo_vehi_2_sol" class="form-control" id="tipo_vehi_2_sol">
-                            <option value="MOTO" <?php echo ($datos_solicitud['tipo_vehi_2_sol'] == 'MOTO') ? 'selected' : ''; ?>>MOTO</option>
-                            <option value="CARRO" <?php echo ($datos_solicitud['tipo_vehi_2_sol'] == 'CARRO') ? 'selected' : ''; ?>>CARRO</option>
-                            <option value="CAMIONETA" <?php echo ($datos_solicitud['tipo_vehi_2_sol'] == 'CAMIONETA') ? 'selected' : ''; ?>>CAMIONETA</option>
-                            <option value="BUS" <?php echo ($datos_solicitud['tipo_vehi_2_sol'] == 'BUS') ? 'selected' : ''; ?>>BUS</option>
-                            <option value="BUSETA" <?php echo ($datos_solicitud['tipo_vehi_2_sol'] == 'BUSETA') ? 'selected' : ''; ?>>BUSETA</option>
-                            <option value="MICROBUS" <?php echo ($datos_solicitud['tipo_vehi_2_sol'] == 'MICROBUS') ? 'selected' : ''; ?>>MICROBUS</option>
-                            <option value="TAXI" <?php echo ($datos_solicitud['tipo_vehi_2_sol'] == 'TAXI') ? 'selected' : ''; ?>>TAXI</option>
-                            <option value="CAMION" <?php echo ($datos_solicitud['tipo_vehi_2_sol'] == 'CAMION') ? 'selected' : ''; ?>>CAMION</option>
-                            <option value="N/A" <?php echo ($datos_solicitud['tipo_vehi_2_sol'] == 'N/A') ? 'selected' : ''; ?>>N/A</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-sm-2 mt-2">
-                        <label for="modelo_2_sol">Modelo 2</label>
-                        <input type='number' name='modelo_2_sol' id="modelo_2_sol" class='form-control' value='<?= $datos_solicitud['modelo_2_sol'] ?? ''; ?>' />
-                    </div>
-                    <div class="col-12 col-sm-2 mt-2">
-                        <label for="marca_2_sol">Marca 2</label>
-                        <input type='text' name='marca_2_sol' id="marca_2_sol" class='form-control' value='<?= $datos_solicitud['marca_2_sol'] ?? ''; ?>' />
-                    </div>
-                    <div class="col-12 col-sm-2 mt-2">
-                        <label for="placa_2_sol">Placa 2</label>
-                        <input type='text' name='placa_2_sol' id="placa_2_sol" class='form-control' value='<?= $datos_solicitud['placa_2_sol'] ?? ''; ?>' />
-                    </div>
-                    <div class="col-12 col-sm-3 mt-2">
-                        <label for="valor_2_sol">Valor Comercial 2</label>
-                        <input type='number' name='valor_2_sol' id="valor_2_sol" class='form-control' value='<?= $datos_solicitud['valor_2_sol'] ?? ''; ?>' />
-                    </div>
-                </div>
+                <button type="button" class="btn btn-success mt-2" onclick="agregarVehiculo()">Agregar Vehículo</button>
             </div>
+
             <div class="seccion">
                 <h3 class="subtitulo">OTROS ACTIVOS</h3>
                 <div class="row">
@@ -921,6 +978,30 @@ $mysqli->close();
         `;
                 fileList.appendChild(fileDiv);
             });
+        }
+
+        function agregarInmueble() {
+            const wrapper = document.getElementById('inmuebles-wrapper');
+            const item = wrapper.querySelector('.inmueble-item');
+            const clone = item.cloneNode(true);
+
+            // Limpiar los inputs del clon
+            clone.querySelectorAll('input').forEach(input => input.value = '');
+            clone.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+
+            wrapper.appendChild(clone);
+        }
+
+        function agregarVehiculo() {
+            const wrapper = document.getElementById('vehiculos-wrapper');
+            const item = wrapper.querySelector('.vehiculo-item');
+            const clone = item.cloneNode(true);
+
+            // Limpiar inputs y selects
+            clone.querySelectorAll('input').forEach(input => input.value = '');
+            clone.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+
+            wrapper.appendChild(clone);
         }
     </script>
 

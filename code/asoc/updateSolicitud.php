@@ -76,22 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hipotecas_sol = $mysqli->real_escape_string($_POST['hipotecas_sol']);
     $tar_cred_total_sol = $mysqli->real_escape_string($_POST['tar_cred_total_sol']);
     $otros_pasivos_sol = $mysqli->real_escape_string($_POST['otros_pasivos_sol']);
-    $tipo_inmu_1_sol = $_POST['tipo_inmu_1_sol'] ?? '';
-    $direccion_1_sol = $_POST['direccion_1_sol'] ?? '';
-    $valor_comer_1_sol = $_POST['valor_comer_1_sol'] ?? '';
-    $tipo_inmu_2_sol = $_POST['tipo_inmu_2_sol'] ?? '';
-    $direccion_2_sol = $_POST['direccion_2_sol'] ?? '';
-    $valor_comer_2_sol = $_POST['valor_comer_2_sol'] ?? '';
-    $tipo_vehi_1_sol = $_POST['tipo_vehi_1_sol'] ?? '';
-    $modelo_1_sol = $_POST['modelo_1_sol'] ?? '';
-    $marca_1_sol = $_POST['marca_1_sol'] ?? '';
-    $placa_1_sol = $_POST['placa_1_sol'] ?? '';
-    $valor_1_sol = $_POST['valor_1_sol'] ?? '';
-    $tipo_vehi_2_sol = $_POST['tipo_vehi_2_sol'] ?? '';
-    $modelo_2_sol = $_POST['modelo_2_sol'] ?? '';
-    $marca_2_sol = $_POST['marca_2_sol'] ?? '';
-    $placa_2_sol = $_POST['placa_2_sol'] ?? '';
-    $valor_2_sol = $_POST['valor_2_sol'] ?? '';
     $ahorros_sol = $_POST['ahorros_sol'] ?? '';
     $otro_ahorros_sol = $_POST['otro_ahorros_sol'] ?? '';
     $valor_ahor_sol = $_POST['valor_ahor_sol'] ?? '';
@@ -202,22 +186,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     hipotecas_sol = '$hipotecas_sol',
     tar_cred_total_sol = '$tar_cred_total_sol',
     otros_pasivos_sol = '$otros_pasivos_sol',
-    tipo_inmu_1_sol = '$tipo_inmu_1_sol',
-    direccion_1_sol = '$direccion_1_sol',
-    valor_comer_1_sol = '$valor_comer_1_sol',
-    tipo_inmu_2_sol = '$tipo_inmu_2_sol',
-    direccion_2_sol = '$direccion_2_sol',
-    valor_comer_2_sol = '$valor_comer_2_sol',
-    tipo_vehi_1_sol = '$tipo_vehi_1_sol',
-    modelo_1_sol = '$modelo_1_sol',
-    marca_1_sol = '$marca_1_sol',
-    placa_1_sol = '$placa_1_sol',
-    valor_1_sol = '$valor_1_sol',
-    tipo_vehi_2_sol = '$tipo_vehi_2_sol',
-    modelo_2_sol = '$modelo_2_sol',
-    marca_2_sol = '$marca_2_sol',
-    placa_2_sol = '$placa_2_sol',
-    valor_2_sol = '$valor_2_sol',
     ahorros_sol = '$ahorros_sol',
     otro_ahorros_sol = '$otro_ahorros_sol',
     valor_ahor_sol = '$valor_ahor_sol',
@@ -258,6 +226,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 WHERE id_solicitud = '$id_solicitud'";
 
     if ($mysqli->query($query)) {
+        //borrar y crear vehiculos
+        $deleteVehiculoQuery = "DELETE FROM vehiculos WHERE id_solicitud = '$id_solicitud'";
+        $mysqli->query($deleteVehiculoQuery);
+        // 2. Insertar todos los vehículos que vienen del formulario
+        $tipos = $_POST['tipo_vehi'] ?? [];
+        $modelos = $_POST['modelo'] ?? [];
+        $marcas = $_POST['marca'] ?? [];
+        $placas = $_POST['placa'] ?? [];
+        $valores = $_POST['valor_comer'] ?? [];
+
+        for ($i = 0; $i < count($tipos); $i++) {
+            $tipo = $mysqli->real_escape_string($tipos[$i]);
+            $modelo = intval($modelos[$i]); // modelo es numérico
+            $marca = $mysqli->real_escape_string($marcas[$i]);
+            $placa = $mysqli->real_escape_string($placas[$i]);
+            $valor = floatval($valores[$i]);
+
+            // Solo insertar si algún campo obligatorio no está vacío (ejemplo placa o tipo)
+            if (!empty($tipo) && !empty($placa)) {
+                $sql_insert = "INSERT INTO vehiculos (id_solicitud, tipo, modelo, marca, placa, valor_comercial) VALUES 
+            ($id_solicitud, '$tipo', $modelo, '$marca', '$placa', $valor)";
+                $mysqli->query($sql_insert);
+            }
+        }
+
+        //borrar y crear inmuebles
+        $deleteInmuebleQuery = "DELETE FROM inmuebles WHERE id_solicitud = '$id_solicitud'";
+        $mysqli->query($deleteInmuebleQuery);
+        // 2. Insertar los inmuebles recibidos del formulario
+        $tipos = $_POST['tipo_inmu'] ?? [];
+        $direcciones = $_POST['direccion'] ?? [];
+        $valores = $_POST['valor_comer'] ?? [];
+
+        for ($i = 0; $i < count($tipos); $i++) {
+            $tipo = $mysqli->real_escape_string($tipos[$i]);
+            $direccion = $mysqli->real_escape_string($direcciones[$i]);
+            $valor = floatval($valores[$i]);
+
+            // Validar que al menos un campo obligatorio no esté vacío (ej. tipo o dirección)
+            if (!empty($tipo) && !empty($direccion)) {
+                $sql_insert = "INSERT INTO inmuebles (id_solicitud, tipo, direccion, valor_comercial)
+                       VALUES ($id_solicitud, '$tipo', '$direccion', $valor)";
+                $mysqli->query($sql_insert);
+            }
+        }
+
+
+
         //insertar en la tabla atenciones y en fecha_solicitud
         // Verificar si ya existe un registro con ese id_solicitud y que tenga fecha_solicitud
         $checkQuery = "SELECT id_atencion FROM atenciones WHERE id_solicitud = '$id_solicitud' AND fecha_solicitud IS NOT NULL";
@@ -267,7 +283,7 @@ WHERE id_solicitud = '$id_solicitud'";
             // Ya existe, entonces actualizamos
             $updateQuery = "UPDATE atenciones SET id_usu = '$atendido_por', fecha_solicitud = '$fecha_edit_sol' WHERE id_solicitud = '$id_solicitud'";
             if ($mysqli->query($updateQuery) === TRUE) {
-                echo "Registro actualizado correctamente.";
+                //echo "Registro actualizado correctamente.";
             } else {
                 echo "Error al actualizar en la tabla atenciones: " . $mysqli->error;
             }
@@ -275,7 +291,7 @@ WHERE id_solicitud = '$id_solicitud'";
             // No existe o no tiene fecha_solicitud, entonces insertamos
             $insertQuery = "INSERT INTO atenciones (id_solicitud, id_usu, fecha_solicitud) VALUES ('$id_solicitud', '$atendido_por', '$fecha_edit_sol')";
             if ($mysqli->query($insertQuery) === TRUE) {
-                echo "Registro insertado correctamente.";
+                //echo "Registro insertado correctamente.";
             } else {
                 echo "Error al insertar en la tabla atenciones: " . $mysqli->error;
             }
@@ -308,7 +324,7 @@ WHERE id_solicitud = '$id_solicitud'";
         echo "<script>
         Swal.fire({
             icon: 'success',
-            title: 'Éxito',
+            title: 'Exito',
             text: 'Actualización exitosa',
             confirmButtonText: 'OK'
         }).then((result) => {

@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $mysqli->query("DELETE FROM devoluciones WHERE id_solicitud = '$id_solicitud'");
         $sql_insert = "INSERT INTO aprobaciones (id_solicitud, fecha_aprobacion) VALUES ('$id_solicitud', NOW())";
         if ($mysqli->query($sql_insert)) {
-            redirigir("Solicitud actualizada y aprobación registrada correctamente.", $estado_solicitud);
+            redirigir("Solicitud actualizada y aprobacion registrada correctamente.", $estado_solicitud);
         } else {
             redirigir("Error al registrar la aprobación: " . $mysqli->error, $estado_solicitud);
         }
