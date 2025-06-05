@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 
 session_start();
 
-// Verificar que el usuario está autenticado
+// Verificar que el usuario esté autenticado
 if (!isset($_SESSION['id_usu'])) {
     header("Location: ../../index.php");
     exit();
@@ -38,6 +38,16 @@ if ($result->num_rows == 0) {
 
 $datos_solicitud = $result->fetch_assoc();
 
+// Consultar inmuebles relacionados (usando columnas que existen en la tabla)
+$query_inmuebles = "SELECT tipo, direccion, valor_comercial 
+                    FROM inmuebles WHERE id_solicitud = $id_solicitud";
+$result_inmuebles = $mysqli->query($query_inmuebles);
+
+// Consultar vehículos relacionados (usando columnas que existen en la tabla)
+$query_vehiculos = "SELECT tipo, marca, modelo, placa, valor_comercial 
+                    FROM vehiculos WHERE id_solicitud = $id_solicitud";
+$result_vehiculos = $mysqli->query($query_vehiculos);
+
 // Función para formatear números como moneda
 function formatCurrency($value) {
     if (empty($value) || $value == 0) {
@@ -45,14 +55,6 @@ function formatCurrency($value) {
     }
     return '$' . number_format($value, 0, ',', '.');
 }
-
-// Consultar inmuebles
-$sql_inmuebles = "SELECT * FROM inmuebles WHERE id_solicitud = $id_solicitud";
-$result_inmuebles = $mysqli->query($sql_inmuebles);
-
-// Consultar vehículos
-$sql_vehiculos = "SELECT * FROM vehiculos WHERE id_solicitud = $id_solicitud";
-$result_vehiculos = $mysqli->query($sql_vehiculos);
 
 // Crear una nueva instancia de Spreadsheet
 $spreadsheet = new Spreadsheet();
@@ -292,51 +294,111 @@ foreach ($campos_activos as $campo) {
 $row += 2;
 
 // RELACIÓN INMUEBLES
-if ($result_inmuebles && $result_inmuebles->num_rows > 0) {
-    $sheet->mergeCells("A{$row}:H{$row}");
-    $sheet->setCellValue("A{$row}", 'RELACIÓN INMUEBLES');
-    $sheet->getStyle("A{$row}")->applyFromArray($sectionStyle);
-    $row++;
-    
+$sheet->mergeCells("A{$row}:H{$row}");
+$sheet->setCellValue("A{$row}", 'RELACIÓN INMUEBLES');
+$sheet->getStyle("A{$row}")->applyFromArray($sectionStyle);
+$row++;
+
+// Verificar si hay inmuebles en tablas separadas O en campos de solicitud
+$hay_inmuebles_tabla = ($result_inmuebles && $result_inmuebles->num_rows > 0);
+$hay_inmuebles_solicitud = !empty($datos_solicitud['tipo_inmu_1_sol']) || !empty($datos_solicitud['tipo_inmu_2_sol']);
+
+if ($hay_inmuebles_tabla || $hay_inmuebles_solicitud) {
     // Encabezados de inmuebles
     $sheet->setCellValue("A{$row}", 'Tipo');
     $sheet->setCellValue("B{$row}", 'Dirección');
     $sheet->setCellValue("C{$row}", 'Valor Comercial');
     $sheet->getStyle("A{$row}:C{$row}")->applyFromArray($labelStyle);
     $row++;
-      while ($inmueble = $result_inmuebles->fetch_assoc()) {
-        $sheet->setCellValue("A{$row}", $inmueble['tipo'] ?? '');
-        $sheet->setCellValue("B{$row}", $inmueble['direccion'] ?? '');
-        $sheet->setCellValue("C{$row}", formatCurrency($inmueble['valor_comercial'] ?? ''));
-        $row++;
+    
+    // Mostrar inmuebles de tabla separada
+    if ($hay_inmuebles_tabla) {
+        while ($inmueble = $result_inmuebles->fetch_assoc()) {
+            $sheet->setCellValue("A{$row}", $inmueble['tipo'] ?? '');
+            $sheet->setCellValue("B{$row}", $inmueble['direccion'] ?? '');
+            $sheet->setCellValue("C{$row}", formatCurrency($inmueble['valor_comercial'] ?? ''));
+            $row++;
+        }
+    }
+    
+    // Mostrar inmuebles de campos de solicitud
+    if ($hay_inmuebles_solicitud) {
+        if (!empty($datos_solicitud['tipo_inmu_1_sol'])) {
+            $sheet->setCellValue("A{$row}", $datos_solicitud['tipo_inmu_1_sol']);
+            $sheet->setCellValue("B{$row}", $datos_solicitud['direccion_1_sol'] ?? '');
+            $sheet->setCellValue("C{$row}", formatCurrency($datos_solicitud['valor_comer_1_sol'] ?? ''));
+            $row++;
+        }
+        if (!empty($datos_solicitud['tipo_inmu_2_sol'])) {
+            $sheet->setCellValue("A{$row}", $datos_solicitud['tipo_inmu_2_sol']);
+            $sheet->setCellValue("B{$row}", $datos_solicitud['direccion_2_sol'] ?? '');
+            $sheet->setCellValue("C{$row}", formatCurrency($datos_solicitud['valor_comer_2_sol'] ?? ''));
+            $row++;
+        }
     }
     $row += 2;
+} else {
+    $sheet->setCellValue("A{$row}", 'No se registraron inmuebles');
+    $sheet->getStyle("A{$row}")->applyFromArray($labelStyle);
+    $row += 3;
 }
 
 // RELACIÓN VEHÍCULOS
-if ($result_vehiculos && $result_vehiculos->num_rows > 0) {
-    $sheet->mergeCells("A{$row}:H{$row}");
-    $sheet->setCellValue("A{$row}", 'RELACIÓN VEHÍCULOS');
-    $sheet->getStyle("A{$row}")->applyFromArray($sectionStyle);
-    $row++;
-    
+$sheet->mergeCells("A{$row}:H{$row}");
+$sheet->setCellValue("A{$row}", 'RELACIÓN VEHÍCULOS');
+$sheet->getStyle("A{$row}")->applyFromArray($sectionStyle);
+$row++;
+
+// Verificar si hay vehículos en tablas separadas O en campos de solicitud
+$hay_vehiculos_tabla = ($result_vehiculos && $result_vehiculos->num_rows > 0);
+$hay_vehiculos_solicitud = !empty($datos_solicitud['tipo_vehi_1_sol']) || !empty($datos_solicitud['tipo_vehi_2_sol']);
+
+if ($hay_vehiculos_tabla || $hay_vehiculos_solicitud) {
     // Encabezados de vehículos
     $sheet->setCellValue("A{$row}", 'Tipo');
-    $sheet->setCellValue("B{$row}", 'Modelo');
-    $sheet->setCellValue("C{$row}", 'Marca');
+    $sheet->setCellValue("B{$row}", 'Marca');
+    $sheet->setCellValue("C{$row}", 'Modelo');
     $sheet->setCellValue("D{$row}", 'Placa');
     $sheet->setCellValue("E{$row}", 'Valor Comercial');
     $sheet->getStyle("A{$row}:E{$row}")->applyFromArray($labelStyle);
     $row++;
-      while ($vehiculo = $result_vehiculos->fetch_assoc()) {
-        $sheet->setCellValue("A{$row}", $vehiculo['tipo'] ?? '');
-        $sheet->setCellValue("B{$row}", $vehiculo['modelo'] ?? '');
-        $sheet->setCellValue("C{$row}", $vehiculo['marca'] ?? '');
-        $sheet->setCellValue("D{$row}", $vehiculo['placa'] ?? '');
-        $sheet->setCellValue("E{$row}", formatCurrency($vehiculo['valor_comercial'] ?? ''));
-        $row++;
+    
+    // Mostrar vehículos de tabla separada
+    if ($hay_vehiculos_tabla) {
+        while ($vehiculo = $result_vehiculos->fetch_assoc()) {
+            $sheet->setCellValue("A{$row}", $vehiculo['tipo'] ?? '');
+            $sheet->setCellValue("B{$row}", $vehiculo['marca'] ?? '');
+            $sheet->setCellValue("C{$row}", $vehiculo['modelo'] ?? '');
+            $sheet->setCellValue("D{$row}", $vehiculo['placa'] ?? '');
+            $sheet->setCellValue("E{$row}", formatCurrency($vehiculo['valor_comercial'] ?? ''));
+            $row++;
+        }
+    }
+    
+    // Mostrar vehículos de campos de solicitud
+    if ($hay_vehiculos_solicitud) {
+        if (!empty($datos_solicitud['tipo_vehi_1_sol'])) {
+            $sheet->setCellValue("A{$row}", $datos_solicitud['tipo_vehi_1_sol']);
+            $sheet->setCellValue("B{$row}", $datos_solicitud['marca_1_sol'] ?? '');
+            $sheet->setCellValue("C{$row}", $datos_solicitud['modelo_1_sol'] ?? '');
+            $sheet->setCellValue("D{$row}", $datos_solicitud['placa_1_sol'] ?? '');
+            $sheet->setCellValue("E{$row}", formatCurrency($datos_solicitud['valor_1_sol'] ?? ''));
+            $row++;
+        }
+        if (!empty($datos_solicitud['tipo_vehi_2_sol'])) {
+            $sheet->setCellValue("A{$row}", $datos_solicitud['tipo_vehi_2_sol']);
+            $sheet->setCellValue("B{$row}", $datos_solicitud['marca_2_sol'] ?? '');
+            $sheet->setCellValue("C{$row}", $datos_solicitud['modelo_2_sol'] ?? '');
+            $sheet->setCellValue("D{$row}", $datos_solicitud['placa_2_sol'] ?? '');
+            $sheet->setCellValue("E{$row}", formatCurrency($datos_solicitud['valor_2_sol'] ?? ''));
+            $row++;
+        }
     }
     $row += 2;
+} else {
+    $sheet->setCellValue("A{$row}", 'No se registraron vehículos');
+    $sheet->getStyle("A{$row}")->applyFromArray($labelStyle);
+    $row += 3;
 }
 
 // OTROS ACTIVOS
@@ -412,6 +474,145 @@ foreach ($campos_laborales_conyuge as $campo) {
     $sheet->getStyle("E{$row}")->applyFromArray($labelStyle);
     $row++;
 }
+
+$row += 2;
+
+// REFERENCIAS FAMILIARES
+$sheet->mergeCells("A{$row}:H{$row}");
+$sheet->setCellValue("A{$row}", 'REFERENCIAS FAMILIARES');
+$sheet->getStyle("A{$row}")->applyFromArray($sectionStyle);
+$row++;
+
+// Obtener referencias familiares de los campos de la tabla solicitudes
+$familiares = [];
+if (!empty($datos_solicitud['fami_nombre_1_sol'])) {
+    $familiares[] = [
+        'nombre' => $datos_solicitud['fami_nombre_1_sol'],
+        'parentesco' => $datos_solicitud['fami_parent_1_sol'] ?? '',
+        'celular' => $datos_solicitud['fami_cel_1_sol'] ?? '',
+        'telefono' => $datos_solicitud['fami_tel_1_sol'] ?? ''
+    ];
+}
+if (!empty($datos_solicitud['fami_nombre_2_sol'])) {
+    $familiares[] = [
+        'nombre' => $datos_solicitud['fami_nombre_2_sol'],
+        'parentesco' => $datos_solicitud['fami_parent_2_sol'] ?? '',
+        'celular' => $datos_solicitud['fami_cel_2_sol'] ?? '',
+        'telefono' => $datos_solicitud['fami_tel_2_sol'] ?? ''
+    ];
+}
+
+if (count($familiares) > 0) {
+    // Encabezados
+    $sheet->setCellValue("A{$row}", 'Nombre Completo');
+    $sheet->setCellValue("B{$row}", 'Parentesco');
+    $sheet->setCellValue("C{$row}", 'Celular');
+    $sheet->setCellValue("D{$row}", 'Teléfono');
+    $sheet->getStyle("A{$row}:D{$row}")->applyFromArray($labelStyle);
+    $row++;
+    
+    // Datos de familiares
+    for ($i = 0; $i < 2; $i++) {
+        if (isset($familiares[$i])) {
+            $familiar = $familiares[$i];
+            $sheet->setCellValue("A{$row}", $familiar['nombre'] ?? '');
+            $sheet->setCellValue("B{$row}", $familiar['parentesco'] ?? '');
+            $sheet->setCellValue("C{$row}", $familiar['celular'] ?? '');
+            $sheet->setCellValue("D{$row}", $familiar['telefono'] ?? '');
+        } else {
+            $sheet->setCellValue("A{$row}", '');
+            $sheet->setCellValue("B{$row}", '');
+            $sheet->setCellValue("C{$row}", '');
+            $sheet->setCellValue("D{$row}", '');
+        }
+        $row++;
+    }
+} else {
+    $sheet->setCellValue("A{$row}", 'No se registraron referencias familiares');
+    $sheet->getStyle("A{$row}")->applyFromArray($labelStyle);
+    $row++;
+}
+
+$row += 2;
+
+// REFERENCIAS COMERCIALES/PERSONALES
+$sheet->mergeCells("A{$row}:H{$row}");
+$sheet->setCellValue("A{$row}", 'REFERENCIAS COMERCIALES/PERSONALES');
+$sheet->getStyle("A{$row}")->applyFromArray($sectionStyle);
+$row++;
+
+// Obtener referencias comerciales de los campos de la tabla solicitudes
+$comerciales = [];
+if (!empty($datos_solicitud['refer_nombre_1_sol'])) {
+    $comerciales[] = [
+        'nombre' => $datos_solicitud['refer_nombre_1_sol'],
+        'celular' => $datos_solicitud['refer_cel_1_sol'] ?? '',
+        'telefono' => $datos_solicitud['refer_tel_1_sol'] ?? ''
+    ];
+}
+if (!empty($datos_solicitud['refer_nombre_2_sol'])) {
+    $comerciales[] = [
+        'nombre' => $datos_solicitud['refer_nombre_2_sol'],
+        'celular' => $datos_solicitud['refer_cel_2_sol'] ?? '',
+        'telefono' => $datos_solicitud['refer_tel_2_sol'] ?? ''
+    ];
+}
+
+if (count($comerciales) > 0) {
+    // Encabezados
+    $sheet->setCellValue("A{$row}", 'Nombre Completo');
+    $sheet->setCellValue("B{$row}", 'Celular');
+    $sheet->setCellValue("C{$row}", 'Teléfono');
+    $sheet->getStyle("A{$row}:C{$row}")->applyFromArray($labelStyle);
+    $row++;
+    
+    // Datos de referencias comerciales
+    for ($i = 0; $i < 2; $i++) {
+        if (isset($comerciales[$i])) {
+            $comercial = $comerciales[$i];
+            $sheet->setCellValue("A{$row}", $comercial['nombre'] ?? '');
+            $sheet->setCellValue("B{$row}", $comercial['celular'] ?? '');
+            $sheet->setCellValue("C{$row}", $comercial['telefono'] ?? '');
+        } else {
+            $sheet->setCellValue("A{$row}", '');
+            $sheet->setCellValue("B{$row}", '');
+            $sheet->setCellValue("C{$row}", '');
+        }
+        $row++;
+    }
+} else {
+    $sheet->setCellValue("A{$row}", 'No se registraron referencias comerciales/personales');
+    $sheet->getStyle("A{$row}")->applyFromArray($labelStyle);
+    $row++;
+}
+
+$row += 2;
+
+// INFORMACIÓN ADICIONAL DE ACTIVOS
+$sheet->mergeCells("A{$row}:H{$row}");
+$sheet->setCellValue("A{$row}", 'INFORMACIÓN ADICIONAL DE ACTIVOS');
+$sheet->getStyle("A{$row}")->applyFromArray($sectionStyle);
+$row++;
+
+$campos_activos_adicionales = [
+    ['Valor de ahorros:', formatCurrency($datos_solicitud['valor_ahor_sol'] ?? ''), 'Enseres:', $datos_solicitud['enseres_sol'] ?? ''],
+    ['Valor de enseres:', formatCurrency($datos_solicitud['valor_enser_sol'] ?? ''), '', ''],
+];
+
+foreach ($campos_activos_adicionales as $campo) {
+    $sheet->setCellValue("A{$row}", $campo[0]);
+    $sheet->setCellValue("B{$row}", $campo[1]);
+    $sheet->setCellValue("E{$row}", $campo[2]);
+    $sheet->setCellValue("F{$row}", $campo[3]);
+    
+    $sheet->getStyle("A{$row}")->applyFromArray($labelStyle);
+    if (!empty($campo[2])) {
+        $sheet->getStyle("E{$row}")->applyFromArray($labelStyle);
+    }
+    $row++;
+}
+
+$row += 2;
 
 // Ajustar ancho de columnas automáticamente
 foreach (range('A', 'H') as $columnID) {
