@@ -96,8 +96,8 @@ function deleteMember($id_solicitud)
             <button type="button" class="btn btn-success" onclick="window.location.href='solicitar.php'">
                 <i class="fas fa-plus"></i> Agregar Solicitud
             </button>
-            <button type="button" class="btn btn-success" onclick="window.location.href='excelSolicitud.php'">
-                <i class="fa-solid fa-file"></i> Imprimir Excel
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exportModal">
+                <i class="fa-solid fa-file"></i> Exportar Excel
             </button>
         </div>
 
@@ -175,6 +175,33 @@ function deleteMember($id_solicitud)
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal exportar -->
+    <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="exportForm" action="excelSolicitud.php" method="GET">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exportModalLabel">Exportar Excel</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="fechaInicial" class="form-label">Fecha inicial</label>
+                            <input type="date" class="form-control" id="fechaInicial" name="fechaInicial" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fechaFinal" class="form-label">Fecha final</label>
+                            <input type="date" class="form-control" id="fechaFinal" name="fechaFinal" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Exportar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

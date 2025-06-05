@@ -1,8 +1,14 @@
 <?php
 require '../../vendor/autoload.php';
 
+$fechaInicial = $_GET['fechaInicial'] ?? '';
+$fechaFinal = $_GET['fechaFinal'] ?? '';
+
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+
 session_start();
 include("../../conexion.php");
 date_default_timezone_set("America/Bogota");
@@ -12,9 +18,129 @@ $mysqli->set_charset('utf8');
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
-$sql = "SELECT s.*,a.fecha_solicitud as fecha_atencion , a.id_usu as atendido_por FROM solicitudes as s
-JOIN atenciones as a ON s.id_solicitud = a.id_solicitud
-WHERE a.id_usu = ".$_SESSION['id_usu']." ";
+$sql = "SELECT 
+s.tipo_doc_aso AS tipo_documento_asociado,
+s.cedula_aso AS cedula_asociado,
+s.nombre_aso AS nombre_asociado,
+s.direccion_aso AS direccion_asociado,
+s.fecha_exp_doc_aso AS fecha_expedicion_documento,
+s.pais_exp_cedula_aso AS pais_expedicion_cedula,
+s.dpto_exp_cedula_aso AS departamento_expedicion_cedula,
+s.ciudad_exp_cedula_aso AS ciudad_expedicion_cedula,
+s.fecha_nacimiento_aso AS fecha_nacimiento_asociado,
+s.pais_naci_aso AS pais_nacimiento,
+s.dpto_naci_aso AS departamento_nacimiento,
+s.ciudad_naci_aso AS ciudad_nacimiento,
+s.edad_aso AS edad_asociado,
+s.sexo_aso AS sexo_asociado,
+s.nacionalidad_aso AS nacionalidad_asociado,
+s.estado_civil_aso AS estado_civil_asociado,
+s.per_cargo_aso AS personas_a_cargo,
+s.tip_vivienda_aso AS tipo_vivienda,
+s.barrio_aso AS barrio_asociado,
+s.ciudad_aso AS ciudad_asociado,
+s.departamente_aso AS departamento_asociado,
+s.estrato_aso AS estrato_asociado,
+s.email_aso AS email_asociado,
+s.tel_aso AS telefono_asociado,
+s.cel_aso AS celular_asociado,
+s.nivel_educa_aso AS nivel_educativo,
+s.titulo_obte_aso AS titulo_obtenido,
+s.titulo_pos_aso AS titulo_posgrado,
+s.fecha_sol AS fecha_solicitud,
+s.tipo_deudor_aso AS tipo_deudor,
+s.monto_sol AS monto_solicitado,
+s.plazo_sol AS plazo_solicitado,
+s.otro_plazo_sol AS otro_plazo_solicitado,
+s.linea_cred_aso AS linea_credito,
+s.ocupacion_sol AS ocupacion,
+s.func_estad_sol AS funcionario_estado,
+s.emp_labo_sol AS empresa_laboral,
+s.nit_emp_labo_sol AS nit_empresa_laboral,
+s.act_emp_labo_sol AS actividad_empresa_laboral,
+s.dir_emp_sol AS direccion_empresa,
+s.ciudad_emp_sol AS ciudad_empresa,
+s.depar_emp_sol AS departamento_empresa,
+s.tel_emp_sol AS telefono_empresa,
+s.fecha_ing_emp_sol AS fecha_ingreso_empresa,
+s.anti_emp_sol AS antiguedad_empresa_anios,
+s.anti_emp_mes_sol AS antiguedad_empresa_meses,
+s.cargo_actual_emp_sol AS cargo_actual,
+s.area_trabajo_sol AS area_trabajo,
+s.acti_inde_sol AS actividad_independiente,
+s.num_emple_emp_sol AS numero_empleados_empresa,
+s.salario_sol AS salario,
+GROUP_CONCAT(CONCAT_WS(' - ', v.tipo, v.modelo, v.marca, v.placa, v.valor_comercial) SEPARATOR ' | ') AS vehiculos_info,
+s.ing_arri_sol AS ingresos_arriendos,
+s.honorarios_sol AS honorarios,
+s.pension_sol AS pension,
+s.otros_ing_sol AS otros_ingresos,
+s.cuota_pres_sol AS cuota_prestamo,
+s.cuota_tar_cred_sol AS cuota_tarjeta_credito,
+s.arrendo_sol AS arriendo,
+s.gastos_fam_sol AS gastos_familiares,
+s.otros_gastos_sol AS otros_gastos,
+s.ahorro_banco_sol AS ahorro_banco,
+s.vehiculo_sol AS vehiculo,
+s.bienes_raices_sol AS bienes_raices,
+s.otros_activos_sol AS otros_activos,
+s.presta_total_sol AS total_prestamos,
+s.hipotecas_sol AS hipotecas,
+s.tar_cred_total_sol AS total_tarjetas_credito,
+s.otros_pasivos_sol AS otros_pasivos,
+s.ahorros_sol AS ahorros,
+s.otro_ahorros_sol AS otros_ahorros,
+s.valor_ahor_sol AS valor_ahorros,
+s.enseres_sol AS enseres,
+s.valor_enser_sol AS valor_enseres,
+s.conyu_nombre_sol AS conyuge_nombre,
+s.conyu_cedula_sol AS conyuge_cedula,
+s.conyu_naci_sol AS conyuge_fecha_nacimiento,
+s.conyu_exp_sol AS conyuge_fecha_expedicion,
+s.conyu_ciudadn_sol AS conyuge_ciudad_nacimiento,
+s.conyu_dpton_sol AS conyuge_departamento_nacimiento,
+s.conyu_paism_sol AS conyuge_pais_nacimiento,
+s.conyu_correo_sol AS conyuge_correo,
+s.conyu_ocupacion_sol AS conyuge_ocupacion,
+s.conyu_func_sol AS conyuge_funcionario,
+s.conyu_emp_lab_sol AS conyuge_empresa,
+s.conyu_cargo_sol AS conyuge_cargo,
+s.conyu_salario_sol AS conyuge_salario,
+s.conyu_dir_lab_sol AS conyuge_direccion_laboral,
+s.conyu_tel_lab_sol AS conyuge_telefono_laboral,
+s.conyu_ciudad_lab_sol AS conyuge_ciudad_laboral,
+s.conyu_dpto_lab_sol AS conyuge_departamento_laboral,
+s.fami_nombre_1_sol AS familiar_1_nombre,
+s.fami_cel_1_sol AS familiar_1_celular,
+s.fami_tel_1_sol AS familiar_1_telefono,
+s.fami_parent_1_sol AS familiar_1_parentesco,
+s.fami_nombre_2_sol AS familiar_2_nombre,
+s.fami_cel_2_sol AS familiar_2_celular,
+s.fami_tel_2_sol AS familiar_2_telefono,
+s.fami_parent_2_sol AS familiar_2_parentesco,
+s.refer_nombre_1_sol AS referencia_1_nombre,
+s.refer_cel_1_sol AS referencia_1_celular,
+s.refer_tel_1_sol AS referencia_1_telefono,
+s.refer_nombre_2_sol AS referencia_2_nombre,
+s.refer_cel_2_sol AS referencia_2_celular,
+s.refer_tel_2_sol AS referencia_2_telefono,
+s.fecha_alta_solicitud AS fecha_alta,
+s.fecha_edit_solicitud AS fecha_edicion,
+s.estado_solicitud AS estado,
+s.observacion_solicitud AS observacion,
+s.fecha_observacion AS fecha_observacion,
+s.fecha_devolucion AS fecha_devolucion,
+s.fecha_devolucion_gerencia AS fecha_devolucion_gerencia
+  FROM solicitudes as s
+LEFT JOIN atenciones as a ON s.id_solicitud = a.id_solicitud
+LEFT JOIN aprobaciones as ap ON s.id_solicitud = ap.id_solicitud
+LEFT JOIN gerencia as g ON s.id_solicitud = g.id_solicitud
+LEFT JOIN vehiculos as v on s.id_solicitud = v.id_solicitud
+LEFT JOIN inmuebles as i on i.id_solicitud = s.id_solicitud
+WHERE s.fecha_alta_solicitud BETWEEN '$fechaInicial' AND '$fechaFinal'
+GROUP BY s.id_solicitud
+ORDER BY s.fecha_alta_solicitud DESC
+ ";
 // Ejecutar la consulta
 $res = mysqli_query($mysqli, $sql);
 // Verificar si la consulta se ejecutó correctamente
@@ -40,7 +166,7 @@ function estadoSolcitiud($estado)
 }
 
 // Aplicar color de fondo a las celdas A1 a AL1
-$sheet->getStyle('A1:K1')->applyFromArray([
+$sheet->getStyle('A1:ER1')->applyFromArray([
     'fill' => [
         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
         'startColor' => [
@@ -53,7 +179,7 @@ $sheet->getStyle('A1:K1')->applyFromArray([
 $boldFontStyle = [
     'bold' => true,
 ];
-$sheet->getStyle('A2:K2')->applyFromArray(['font' => $boldFontStyle]);
+$sheet->getStyle('A2:ER2')->applyFromArray(['font' => $boldFontStyle]);
 
 // Establecer estilos para los encabezados
 $styleHeader = [
@@ -72,54 +198,52 @@ $styleHeader = [
 ];
 
 // Aplicar el estilo a las celdas de encabezado
-$sheet->getStyle('A1:K1')->applyFromArray(['font' => $styleHeader, 'fill' => $styleHeader, 'alignment' => $styleHeader]);
+$sheet->getStyle('A1:ER1')->applyFromArray(['font' => $styleHeader, 'fill' => $styleHeader, 'alignment' => $styleHeader]);
 
 // // Definir los encabezados de columna
 
-$sheet->setCellValue('A1', 'TIPO DOCUMENTO');
-$sheet->setCellValue('B1', 'CEDULA');
-$sheet->setCellValue('C1', 'NOMBRE ASOCIADO');
-$sheet->setCellValue('D1', 'DIRECCION');
-$sheet->setCellValue('E1', 'FECHA EXPEDICION');
-$sheet->setCellValue('F1', 'PAIS EXPEDICION');
-$sheet->setCellValue('G1', 'FECHA SOLICITUD');
-$sheet->setCellValue('H1', 'FECHA ATENCION');
-$sheet->setCellValue('I1', 'LINEA CREDITO');
-$sheet->setCellValue('J1', 'MONTO SOLICITADO');
-$sheet->setCellValue('K1', 'ESTADO SOLICITUD');
-
 // Ajustar el ancho de las columna
 
-$sheet->getColumnDimension('A')->setWidth(15);
-$sheet->getColumnDimension('B')->setWidth(25);
-$sheet->getColumnDimension('C')->setWidth(25);
-$sheet->getColumnDimension('D')->setWidth(25);
-$sheet->getColumnDimension('E')->setWidth(25);
-$sheet->getColumnDimension('F')->setWidth(25);
-$sheet->getColumnDimension('G')->setWidth(25);
-$sheet->getColumnDimension('H')->setWidth(25);
-$sheet->getColumnDimension('I')->setWidth(25);
-$sheet->getColumnDimension('J')->setWidth(25);
-$sheet->getColumnDimension('K')->setWidth(25);   
+for ($col = 1; $col <= 140; $col++) {
+    $colLetter = Coordinate::stringFromColumnIndex($col); // Convierte 1 → A, 27 → AA, etc.
+    $sheet->getColumnDimension($colLetter)->setWidth(25);
+}
 
-$sheet->getDefaultRowDimension()->setRowHeight(25);
-$nombreEst = '';
-$rowIndex = 2;
-while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
-    $sheet->setCellValue('A'. $rowIndex, $row['tipo_doc_aso']);
-    $sheet->setCellValue('B'. $rowIndex, $row['cedula_aso']);
-    $sheet->setCellValue('C'. $rowIndex, $row['nombre_aso']);
-    $sheet->setCellValue('D'. $rowIndex, $row['direccion_aso']);
-    $sheet->setCellValue('E'. $rowIndex, $row['fecha_exp_doc_aso']);
-    $sheet->setCellValue('F'. $rowIndex, $row['pais_exp_cedula_aso']);
-    $sheet->setCellValue('G'. $rowIndex, $row['fecha_alta_solicitud']);
-    $sheet->setCellValue('H'. $rowIndex, $row['fecha_atencion']);
-    $sheet->setCellValue('I'. $rowIndex, $row['linea_cred_aso']);
-    $sheet->setCellValue('J'. $rowIndex, $row['monto_sol']);
-    $sheet->setCellValue('K'. $rowIndex, estadoSolcitiud($row['estado_solicitud']));
 
-     $sheet->getStyle('A' .$rowIndex. ':L'.$rowIndex.'')->applyFromArray(['font' => $boldFontStyle]);
-     $rowIndex++;
+
+$rowIndex = 1;
+$colIndex = 1;
+
+// Tomar la primera fila para obtener los encabezados
+$firstRow = mysqli_fetch_assoc($res);
+
+// Si hay datos
+if ($firstRow) {
+    $columns = array_keys($firstRow); // obtenemos los nombres de columnas
+
+    // Escribir encabezados
+    foreach ($columns as $colName) {
+        $columnLetter = Coordinate::stringFromColumnIndex($colIndex);
+        $sheet->setCellValue($columnLetter . $rowIndex, strtoupper($colName));
+        $colIndex++;
+    }
+
+    // Volver a procesar la primera fila + continuar con el resto
+    $dataRows = [$firstRow];
+    while ($row = mysqli_fetch_assoc($res)) {
+        $dataRows[] = $row;
+    }
+
+    $rowIndex = 2; // siguiente fila para datos
+    foreach ($dataRows as $rowData) {
+        $colIndex = 1;
+        foreach ($rowData as $value) {
+            $columnLetter = Coordinate::stringFromColumnIndex($colIndex);
+            $sheet->setCellValue($columnLetter . $rowIndex, $value);
+            $colIndex++;
+        }
+        $rowIndex++;
+    }
 }
 //AÑO y mes actual para el filename
 $anio = date('Y');
