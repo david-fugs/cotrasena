@@ -71,12 +71,26 @@ $mysqli->close();
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <link href="../../css/formulario.css" rel="stylesheet">
-
-    <style>
+    <link href="../../css/formulario.css" rel="stylesheet">    <style>
         .responsive {
             max-width: 100%;
             height: auto;
+        }
+        
+        .btn-excel {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+        
+        .btn-excel:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+            color: white;
+        }
+        
+        .button-group {
+            gap: 10px;
         }
     </style>
 </head>
@@ -86,11 +100,13 @@ $mysqli->close();
             <img src='../../img/img2.jpg' class="logo" alt="Logo COTRASENA">
         </div>
         <h1 class="title">EDITAR SOLICITUD DE CRÉDITO</h1>
-    </header>
-    <div class="">
-        <div class="d-flex justify-content-end mt-3" style="margin-right: 140px;">
-            <button type="button" class="btn btn-success " onclick="window.print()">
-                Imprimir
+    </header>    <div class="">
+        <div class="d-flex justify-content-end mt-3 button-group" style="margin-right: 140px;">
+            <button type="button" class="btn btn-secondary me-2" onclick="window.print()">
+                <i class="fas fa-print"></i> Imprimir
+            </button>
+            <button type="button" class="btn btn-excel" onclick="exportarExcel()">
+                <i class="fas fa-file-excel"></i> Exportar a Excel
             </button>
         </div>
     </div>
@@ -990,9 +1006,7 @@ $mysqli->close();
             clone.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
 
             wrapper.appendChild(clone);
-        }
-
-        function agregarVehiculo() {
+        }        function agregarVehiculo() {
             const wrapper = document.getElementById('vehiculos-wrapper');
             const item = wrapper.querySelector('.vehiculo-item');
             const clone = item.cloneNode(true);
@@ -1002,6 +1016,11 @@ $mysqli->close();
             clone.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
 
             wrapper.appendChild(clone);
+        }
+
+        function exportarExcel() {
+            const idSolicitud = <?php echo $datos_solicitud['id_solicitud']; ?>;
+            window.open('exportSolicitudExcel.php?id_solicitud=' + idSolicitud, '_blank');
         }
     </script>
 
