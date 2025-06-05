@@ -340,19 +340,17 @@ $sheet->getRowDimension(1)->setRowHeight(30);
 // Definir grupos de columnas con sus rangos
 $columnGroups = [
     ['start' => 'A', 'end' => 'I', 'title' => 'INFORMACIÓN GENERAL'],
-    ['start' => 'J', 'end' => 'W', 'title' => 'DATOS PERSONALES'],
-    ['start' => 'X', 'end' => 'AD', 'title' => 'RESIDENCIA Y CONTACTO'],
-    ['start' => 'AE', 'end' => 'AG', 'title' => 'EDUCACIÓN'],
-    ['start' => 'AH', 'end' => 'AM', 'title' => 'INFORMACIÓN CREDITICIA'],
-    ['start' => 'AN', 'end' => 'AZ', 'title' => 'INFORMACIÓN LABORAL'],
-    ['start' => 'BA', 'end' => 'BE', 'title' => 'INGRESOS'],
-    ['start' => 'BF', 'end' => 'BJ', 'title' => 'GASTOS'],
-    ['start' => 'BK', 'end' => 'BS', 'title' => 'ACTIVOS'],
-    ['start' => 'BT', 'end' => 'BW', 'title' => 'PASIVOS'],
-    ['start' => 'BX', 'end' => 'CM', 'title' => 'INFORMACIÓN CÓNYUGE'],
-    ['start' => 'CN', 'end' => 'CU', 'title' => 'REFERENCIAS FAMILIARES'],
-    ['start' => 'CV', 'end' => 'DA', 'title' => 'REFERENCIAS COMERCIALES'],
-    ['start' => 'DB', 'end' => 'DC', 'title' => 'VEHÍCULOS E INMUEBLES']
+    ['start' => 'J', 'end' => 'AK', 'title' => 'DATOS PERSONALES'],
+    ['start' => 'AL', 'end' => 'AP', 'title' => 'INFORMACIÓN CREDITICIA'],
+    ['start' => 'AQ', 'end' => 'BG', 'title' => 'INFORMACIÓN LABORAL'],
+    ['start' => 'BH', 'end' => 'BP', 'title' => 'GASTOS'],
+    ['start' => 'BQ', 'end' => 'BW', 'title' => 'ACTIVOS'],
+    ['start' => 'BX', 'end' => 'CC', 'title' => 'PASIVOS'],
+    ['start' => 'CD', 'end' => 'CT', 'title' => 'INFORMACIÓN CÓNYUGE'],
+    ['start' => 'CU', 'end' => 'DB', 'title' => 'REFERENCIAS FAMILIARES'],
+    ['start' => 'DC', 'end' => 'DH', 'title' => 'REFERENCIAS COMERCIALES'],
+    ['start' => 'DI', 'end' => 'DI', 'title' => 'VEHÍCULOS'],
+    ['start' => 'DJ', 'end' => 'DJ', 'title' => 'INMUEBLES']
 ];
 
 // Aplicar headers de grupo en la fila 2
