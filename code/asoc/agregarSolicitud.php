@@ -3,6 +3,11 @@ session_start();
 header('Content-Type: text/html; charset=UTF-8');
 
 include("../../conexion.php");
+// Desactivar la visualización de errores en pantalla
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Escapar TODOS los inputs
@@ -156,7 +161,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "INSERT INTO inmuebles (id_solicitud, tipo, direccion, valor_comercial)
                 VALUES ($id_solicitud, '$tipo', '$direccion', $valor)";
         if (!$mysqli->query($sql)) {
-            echo "Error inmueble: " . $mysqli->error . "<br>";
+            // Guardar error en log, no mostrar en pantalla
+            error_log("Error inmueble: " . $mysqli->error);
         }
     }
 
@@ -176,7 +182,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "INSERT INTO vehiculos (id_solicitud, tipo, modelo, marca, placa, valor_comercial)
                 VALUES ($id_solicitud, '$tipo', '$modelo', '$marca', '$placa', $valor)";
         if (!$mysqli->query($sql)) {
-            echo "Error vehiculo: " . $mysqli->error . "<br>";
+            // Guardar error en log, no mostrar en pantalla
+            error_log("Error vehiculo: " . $mysqli->error);
         }
     }
 
@@ -202,13 +209,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $newFileName = $cedula_aso . '_' . $originalName;
           $destination = $uploadDir . $newFileName;
 
-          if (move_uploaded_file($tmpName, $destination)) {
-            echo "Archivo guardado: $newFileName<br>";
-          } else {
-            echo "Error al mover: $originalName<br>";
+          if (!move_uploaded_file($tmpName, $destination)) {
+            // Guardar error en log, no mostrar en pantalla
+            error_log("Error al mover: $originalName");
           }
         } else {
-          echo "Error al subir archivo: $fileName<br>";
+          // Guardar error en log, no mostrar en pantalla
+          error_log("Error al subir archivo: $fileName");
         }
       }
     }
@@ -234,6 +241,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </body>
   </html>";
   } else {
+    // Guardar error en log, no mostrar en pantalla
+    error_log("Error SQL: " . $mysqli->error);
     echo "<!DOCTYPE html>
   <html>
   <head>
@@ -245,7 +254,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script>
       Swal.fire({
         title: 'Error',
-        text: 'Error: " . $mysqli->error . "',
+        text: 'Ocurrió un error al guardar la solicitud.',
         icon: 'error',
         confirmButtonText: 'Volver'
       }).then(() => {

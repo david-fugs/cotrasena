@@ -110,7 +110,6 @@ function deleteMember($id_solicitud)
             <table class="data-table" id="salesTable">
                 <thead>
                     <tr>
-                        <th></th>
                         <th>Cedula</th>
                         <th>Nombres</th>
                         <th>Monto Solicitado</th>
@@ -126,7 +125,7 @@ function deleteMember($id_solicitud)
             </table>
         </div>
     </div>
-
+    
     <!-- MODAL OBSERVACION -->
     <div class="modal fade" id="modalObservacion" tabindex="-1" aria-labelledby="modalObservacionLabel" aria-hidden="true">
         <div class="modal-dialog">

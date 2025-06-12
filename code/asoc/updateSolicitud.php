@@ -7,6 +7,12 @@ if (!isset($_SESSION['id_usu'])) {
 }
 $id_usu = $_SESSION['id_usu'];
 include("../../conexion.php");
+
+// Desactivar la visualización de errores en pantalla
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Escapar TODOS los inputs
     $tipo_doc_aso = $mysqli->real_escape_string($_POST['tipo_doc_aso']);
@@ -285,7 +291,7 @@ WHERE id_solicitud = '$id_solicitud'";
             if ($mysqli->query($updateQuery) === TRUE) {
                 //echo "Registro actualizado correctamente.";
             } else {
-                echo "Error al actualizar en la tabla atenciones: " . $mysqli->error;
+                error_log("Error al actualizar en la tabla atenciones: " . $mysqli->error);
             }
         } else {
             // No existe o no tiene fecha_solicitud, entonces insertamos
@@ -293,7 +299,7 @@ WHERE id_solicitud = '$id_solicitud'";
             if ($mysqli->query($insertQuery) === TRUE) {
                 //echo "Registro insertado correctamente.";
             } else {
-                echo "Error al insertar en la tabla atenciones: " . $mysqli->error;
+                error_log("Error al insertar en la tabla atenciones: " . $mysqli->error);
             }
         }
 
@@ -314,39 +320,57 @@ WHERE id_solicitud = '$id_solicitud'";
                 if (move_uploaded_file($tmpName, $destination)) {
                     //   echo "Archivo guardado: $newFileName<br>";
                 } else {
-                    // echo "Error al mover: $originalName<br>";
+                    error_log("Error al mover: $originalName");
                 }
             } else {
-                echo "Error al subir archivo: " . $_FILES['archivos']['name'][$index] . "<br>";
+                error_log("Error al subir archivo: " . $_FILES['archivos']['name'][$index]);
             }
         }
-        echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
-        echo "<script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Exito',
-            text: 'Actualización exitosa',
-            confirmButtonText: 'OK'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = 'seeSolicitud.php';
-            }
-        });
-    </script>";
+        echo "<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset='UTF-8'>
+            <title>Resultado</title>
+            <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        </head>
+        <body>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Exito',
+                    text: 'Actualización exitosa',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'seeSolicitud.php';
+                    }
+                });
+            </script>
+        </body>
+        </html>";
     } else {
-        echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
-        echo "<script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Hubo un problema: " . addslashes($mysqli->error) . "',
-            confirmButtonText: 'OK'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = 'seeSolicitud.php';
-            }
-        });
-    </script>";
+        echo "<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset='UTF-8'>
+            <title>Error</title>
+            <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        </head>
+        <body>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Hubo un problema',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'seeSolicitud.php';
+                    }
+                });
+            </script>
+        </body>
+        </html>";
     }
 
     $mysqli->close();
