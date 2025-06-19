@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+// Configuración de codificación UTF-8
+header('Content-Type: text/html; charset=UTF-8');
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
+
 // Variables de sesión
 $id_usu = $_SESSION['id_usu'];
 $tipo_usu = $_SESSION['tipo_usu'];
@@ -16,7 +21,8 @@ $datos_usuario = [];
 <html lang="es">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SOLICITUD</title>
@@ -915,26 +921,28 @@ $datos_usuario = [];
         `;
             fileList.appendChild(fileDiv);
         });
-    }    function removeFile(index) {
+    }
+
+    function removeFile(index) {
         allFiles.splice(index, 1); // Elimina el archivo de la lista
         renderFileList();
     }
-    
+
     // CRUCIAL: Restaurar archivos al input antes del envío
     document.querySelector('form').addEventListener('submit', function(e) {
         const dataTransfer = new DataTransfer();
-        
+
         // Agregar todos los archivos seleccionados al DataTransfer
         allFiles.forEach(file => {
             dataTransfer.items.add(file);
         });
-        
+
         // Asignar los archivos al input
         fileInput.files = dataTransfer.files;
-        
+
         console.log('Archivos enviándose:', fileInput.files.length);
         for (let i = 0; i < fileInput.files.length; i++) {
-            console.log('Archivo ' + (i+1) + ':', fileInput.files[i].name);
+            console.log('Archivo ' + (i + 1) + ':', fileInput.files[i].name);
         }
     });
     document.addEventListener('DOMContentLoaded', function() {
@@ -945,7 +953,7 @@ $datos_usuario = [];
 
 
         function llenarCampos(data) {
-        console.log(data);
+            console.log(data);
             nombreInput.value = data.nombre_aso || '';
             edadInput.value = data.edad_aso || '';
             direccionInput.value = data.direccion_aso || '';
@@ -1126,35 +1134,70 @@ $datos_usuario = [];
             });
         }
 
-
-
         function llenarCamposDesdeSolicitud(solicitud) {
+            console.log('DEBUG - Datos de solicitud recibidos:', solicitud);
+            console.log('DEBUG - sexo_aso valor:', solicitud.sexo_aso);
+            console.log('DEBUG - tip_vivienda_aso valor:', solicitud.tip_vivienda_aso);
 
-            for (const key in solicitud) { // 1. Recorre todas las propiedades del objeto 'solicitud'
-                if (solicitud.hasOwnProperty(key)) { // 2. Verifica que la propiedad pertenezca directamente a 'solicitud' (no heredada)
-                    const elemento = document.getElementById(key); // 3. Busca en el HTML un elemento con id igual al nombre de la propiedad (key)
-                    if (elemento) { // 4. Si existe ese elemento...
-                        // 5. Si el valor es un string, lo convierte a mayúsculas y lo pone en el input
-                        //    Si no es string (por ejemplo un número), lo pone tal cual
-                        if (typeof solicitud[key] === 'string') {
-                            elemento.value = solicitud[key].toUpperCase();
-                        } else {
-                            elemento.value = solicitud[key];
+            function llenarCamposDesdeSolicitud(solicitud) {
+                console.log('DEBUG - Datos de solicitud recibidos:', solicitud);
+                console.log('DEBUG - sexo_aso valor:', solicitud.sexo_aso);
+                console.log('DEBUG - tip_vivienda_aso valor:', solicitud.tip_vivienda_aso);
+                console.log('DEBUG - estado_civil_aso valor:', solicitud.estado_civil_aso);
+                console.log('DEBUG - nivel_educa_aso valor:', solicitud.nivel_educa_aso);
+
+                for (const key in solicitud) { // 1. Recorre todas las propiedades del objeto 'solicitud'
+                    if (solicitud.hasOwnProperty(key)) { // 2. Verifica que la propiedad pertenezca directamente a 'solicitud' (no heredada)
+                        const elemento = document.getElementById(key); // 3. Busca en el HTML un elemento con id igual al nombre de la propiedad (key)
+                        if (elemento) { // 4. Si existe ese elemento...
+
+                            // Manejo especial para campos select que necesitan valores específicos
+                            if (key === 'sexo_aso') {
+                                // Para sexo, puede venir como 'M', 'F', 'Masculino', 'Femenino'
+                                const valorSexo = solicitud[key];
+                                if (valorSexo === 'M' || valorSexo === 'Masculino') {
+                                    elemento.value = 'Masculino';
+                                } else if (valorSexo === 'F' || valorSexo === 'Femenino') {
+                                    elemento.value = 'Femenino';
+                                } else {
+                                    elemento.value = '';
+                                }
+                            } else if (key === 'tip_vivienda_aso') {
+                                // Para tipo de vivienda, asignar directamente el valor sin modificar
+                                elemento.value = solicitud[key] || '';
+                            } else if (key === 'estado_civil_aso') {
+                                // Para estado civil, convertir a mayúsculas: "soltero" → "SOLTERO"
+                                elemento.value = (solicitud[key] || '').toUpperCase();
+                            } else if (key === 'nivel_educa_aso') {
+                                // Para nivel educativo, convertir a mayúsculas: "tecnologo" → "TECNOLOGO"
+                                elemento.value = (solicitud[key] || '').toUpperCase();
+                            } else if (key === 'nacionalidad_aso') {
+                                // Para nacionalidad, asignar directamente sin convertir a mayúsculas
+                                elemento.value = solicitud[key] || '';
+                            } else {
+                                // 5. Para otros campos: si el valor es un string, lo convierte a mayúsculas y lo pone en el input
+                                //    Si no es string (por ejemplo un número), lo pone tal cual
+                                if (typeof solicitud[key] === 'string') {
+                                    elemento.value = solicitud[key].toUpperCase();
+                                } else {
+                                    elemento.value = solicitud[key];
+                                }
+                            }
                         }
                     }
                 }
             }
-
         }
 
         // Escuchar el evento 'blur' cuando el campo pierde el foco
         cedulaInput.addEventListener('blur', function() {
-            const cedula_aso = cedulaInput.value.trim(); // Obtener la cédula que el usuario está escribiendo
-
-
-            // Crear una solicitud AJAX
+            const cedula_aso = cedulaInput.value.trim(); // Obtener la cédula que el usuario está escribiendo            // Crear una solicitud AJAX
             const xhr = new XMLHttpRequest();
             xhr.open('GET', 'getAsociado.php?cedula_aso=' + encodeURIComponent(cedula_aso), true);
+
+            // Configurar para manejar UTF-8 correctamente
+            xhr.setRequestHeader('Accept', 'application/json; charset=UTF-8');
+            xhr.responseType = 'text';
 
             xhr.onload = function() {
                 if (xhr.status === 200) {

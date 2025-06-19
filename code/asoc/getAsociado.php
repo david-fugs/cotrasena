@@ -1,4 +1,9 @@
 <?php
+// Configuración de codificación UTF-8
+header('Content-Type: application/json; charset=UTF-8');
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
+
 include("../../conexion.php");
 
 if (isset($_GET['cedula_aso']) && !empty($_GET['cedula_aso'])) {
@@ -16,11 +21,10 @@ if (isset($_GET['cedula_aso']) && !empty($_GET['cedula_aso'])) {
             $solicitudes = [];
             while ($row = $result->fetch_assoc()) {
                 $solicitudes[] = $row;
-            }
-            echo json_encode([
+            }            echo json_encode([
                 'from' => 'solicitudes',
                 'data' => $solicitudes
-            ]);
+            ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             $stmt1->close();
             $mysqli->close();
             exit; // Salimos aquí si ya encontramos datos en solicitudes
@@ -101,17 +105,16 @@ if (isset($_GET['cedula_aso']) && !empty($_GET['cedula_aso'])) {
                 'dpto_exp_cedula_aso' => $dpto_exp_cedula_aso,
                 'pais_exp_cedula_aso' => $pais_exp_cedula_aso,
                 'fecha_exp_cedula_aso' => $fecha_exp_cedula_aso,
-                'ciudad_exp_cedula_aso' => $ciudad_exp_cedula_aso
-            ]);
+                'ciudad_exp_cedula_aso' => $ciudad_exp_cedula_aso            ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         } else {
-            echo json_encode(['error' => 'Asociado no encontrado']);
+            echo json_encode(['error' => 'Asociado no encontrado'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
         $stmt2->close();
     } else {
-        echo json_encode(['error' => 'Error en la consulta a asociados.']);
+        echo json_encode(['error' => 'Error en la consulta a asociados.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 } else {
-    echo json_encode(['error' => 'Cédula no proporcionada.']);
+    echo json_encode(['error' => 'Cédula no proporcionada.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 }
 
 $mysqli->close();

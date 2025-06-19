@@ -351,7 +351,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         confirmButtonText: 'OK',
         width: '600px'
       }).then(() => {
-        //window.location.href = 'solicitar.php';
+        window.location.href = 'solicitar.php';
       });
     </script>
   </body>
@@ -374,7 +374,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         icon: 'error',
         confirmButtonText: 'Volver'
       }).then(() => {
-      //window.location.href = 'solicitar.php';
+      window.location.href = 'solicitar.php';
       });
     </script>
   </body>
@@ -385,4 +385,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   echo "Método no permitido.";
 }
 
-//lote finca , moto buseta
