@@ -3,12 +3,24 @@ session_start();
 header('Content-Type: text/html; charset=UTF-8');
 
 include("../../conexion.php");
-// Desactivar la visualización de errores en pantalla
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
-error_reporting(0);
+// Activar errores para depuración de subida de archivos
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+  // DEBUG: Información sobre archivos recibidos
+  error_log("DEBUG - POST recibido. Archivos: " . print_r($_FILES, true));
+  
+  if (isset($_FILES['archivos'])) {
+      error_log("DEBUG - Número de archivos: " . count($_FILES['archivos']['name']));
+      for ($i = 0; $i < count($_FILES['archivos']['name']); $i++) {
+          error_log("DEBUG - Archivo $i: Nombre='" . $_FILES['archivos']['name'][$i] . "', Tamaño=" . $_FILES['archivos']['size'][$i] . ", Error=" . $_FILES['archivos']['error'][$i] . ", Temp='" . $_FILES['archivos']['tmp_name'][$i] . "'");
+      }
+  } else {
+      error_log("DEBUG - No se encontró el campo 'archivos' en FILES");
+  }
 
   // Escapar TODOS los inputs
   $tipo_doc_aso = $mysqli->real_escape_string($_POST['tipo_doc_aso']);
@@ -186,38 +198,142 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log("Error vehiculo: " . $mysqli->error);
         }
     }
-
-
     // Directorio donde se guardarán los archivos
     $uploadDir = __DIR__ . '/documentos/';
+    $erroresArchivos = [];
+    $archivosSubidos = [];
 
-    // Validar si hay al menos un archivo subido correctamente
-    $hayArchivos = false;
-    foreach ($_FILES['archivos']['error'] as $error) {
-      if ($error === UPLOAD_ERR_OK) {
-        $hayArchivos = true;
-        break;
-      }
+    // Verificar que el directorio existe y es escribible
+    if (!is_dir($uploadDir)) {
+        if (!mkdir($uploadDir, 0755, true)) {
+            $erroresArchivos[] = "No se pudo crear el directorio: $uploadDir";
+        }
+    }
+    
+    if (!is_writable($uploadDir)) {
+        $erroresArchivos[] = "El directorio no tiene permisos de escritura: $uploadDir";
     }
 
-    if ($hayArchivos) {
+    // Información de debug sobre límites de PHP
+    $maxFileSize = ini_get('upload_max_filesize');
+    $maxPostSize = ini_get('post_max_size');
+    $maxInputTime = ini_get('max_input_time');
+    $memoryLimit = ini_get('memory_limit');
+    
+    error_log("DEBUG - Límites PHP: upload_max_filesize=$maxFileSize, post_max_size=$maxPostSize, max_input_time=$maxInputTime, memory_limit=$memoryLimit");    // Validar si hay al menos un archivo subido correctamente
+    $hayArchivos = false;
+    if (isset($_FILES['archivos']) && is_array($_FILES['archivos']['error'])) {
+        foreach ($_FILES['archivos']['error'] as $error) {
+            if ($error === UPLOAD_ERR_OK) {
+                $hayArchivos = true;
+                break;
+            }
+        }
+    } else {
+        // Caso cuando no se envían archivos o el campo está vacío
+        if (isset($_FILES['archivos']) && $_FILES['archivos']['error'][0] === UPLOAD_ERR_NO_FILE) {
+            error_log("DEBUG - No se seleccionaron archivos para subir");
+        } else {
+            $erroresArchivos[] = "No se recibieron archivos o la estructura de archivos es incorrecta";
+        }
+    }if ($hayArchivos) {
       foreach ($_FILES['archivos']['name'] as $index => $fileName) {
-        if ($_FILES['archivos']['error'][$index] === UPLOAD_ERR_OK) {
-          $tmpName = $_FILES['archivos']['tmp_name'][$index];
+        $uploadError = $_FILES['archivos']['error'][$index];
+        $fileSize = $_FILES['archivos']['size'][$index];
+        $tmpName = $_FILES['archivos']['tmp_name'][$index];
+        
+        // Función para convertir códigos de error en mensajes legibles
+        function getUploadErrorMessage($errorCode) {
+            switch ($errorCode) {
+                case UPLOAD_ERR_OK:
+                    return 'Sin errores';
+                case UPLOAD_ERR_INI_SIZE:
+                    return 'El archivo excede upload_max_filesize del php.ini';
+                case UPLOAD_ERR_FORM_SIZE:
+                    return 'El archivo excede MAX_FILE_SIZE del formulario';
+                case UPLOAD_ERR_PARTIAL:
+                    return 'El archivo fue subido parcialmente';
+                case UPLOAD_ERR_NO_FILE:
+                    return 'No se subió ningún archivo';
+                case UPLOAD_ERR_NO_TMP_DIR:
+                    return 'Falta la carpeta temporal';
+                case UPLOAD_ERR_CANT_WRITE:
+                    return 'Error al escribir el archivo en disco';
+                case UPLOAD_ERR_EXTENSION:
+                    return 'Una extensión de PHP detuvo la subida';
+                default:
+                    return 'Error desconocido: ' . $errorCode;
+            }
+        }
+        
+        if ($uploadError === UPLOAD_ERR_OK) {
           $originalName = basename($fileName);
           $originalName = preg_replace('/[^a-zA-Z0-9_\.\-]/', '_', $originalName);
           $newFileName = $cedula_aso . '_' . $originalName;
           $destination = $uploadDir . $newFileName;
-
-          if (!move_uploaded_file($tmpName, $destination)) {
-            // Guardar error en log, no mostrar en pantalla
-            error_log("Error al mover: $originalName");
+          
+          // Verificaciones adicionales
+          if (!is_uploaded_file($tmpName)) {
+              $erroresArchivos[] = "Archivo $fileName: No es un archivo subido válido";
+              continue;
+          }
+          
+          if ($fileSize <= 0) {
+              $erroresArchivos[] = "Archivo $fileName: Tamaño de archivo inválido ($fileSize bytes)";
+              continue;
+          }
+          
+          // Verificar espacio en disco
+          $espacioLibre = disk_free_space($uploadDir);
+          if ($espacioLibre !== false && $fileSize > $espacioLibre) {
+              $erroresArchivos[] = "Archivo $fileName: No hay suficiente espacio en disco";
+              continue;
+          }
+          
+          error_log("DEBUG - Intentando mover archivo: $tmpName -> $destination");
+          
+          if (move_uploaded_file($tmpName, $destination)) {
+              $archivosSubidos[] = $fileName;
+              error_log("ÉXITO - Archivo movido: $originalName");
+              
+              // Verificar que el archivo realmente existe
+              if (file_exists($destination)) {
+                  $tamaño = filesize($destination);
+                  error_log("CONFIRMADO - Archivo existe: $destination (Tamaño: $tamaño bytes)");
+              } else {
+                  $erroresArchivos[] = "Archivo $fileName: Se movió pero no existe en destino";
+              }
+          } else {
+              $error = error_get_last();
+              $erroresArchivos[] = "Archivo $fileName: Error al mover - " . ($error['message'] ?? 'Error desconocido');
+              error_log("ERROR - No se pudo mover: $originalName. Error: " . ($error['message'] ?? 'desconocido'));
           }
         } else {
-          // Guardar error en log, no mostrar en pantalla
-          error_log("Error al subir archivo: $fileName");
+          $errorMsg = getUploadErrorMessage($uploadError);
+          $erroresArchivos[] = "Archivo $fileName: $errorMsg";
+          error_log("ERROR - Archivo $fileName: $errorMsg");
+        }      }
+    } else {
+        error_log("INFO - Usuario no subió archivos, continuando sin archivos");
+    }
+
+    // Preparar mensaje de resultado
+    $mensajeArchivos = "";
+    if (!empty($archivosSubidos)) {
+        $mensajeArchivos .= "Archivos subidos exitosamente: " . implode(", ", $archivosSubidos);
+    }
+    if (!empty($erroresArchivos)) {
+        // Filtrar errores que no sean críticos
+        $erroresReales = array_filter($erroresArchivos, function($error) {
+            return !strpos($error, "No se recibieron archivos") && !strpos($error, "No se detectaron archivos");
+        });
+        if (!empty($erroresReales)) {
+            $mensajeArchivos .= ($mensajeArchivos ? "\\n\\n" : "") . "Errores encontrados:\\n" . implode("\\n", $erroresReales);
         }
-      }
+    }
+    
+    if (empty($mensajeArchivos)) {
+        $mensajeArchivos = "Solicitud creada exitosamente (sin archivos adjuntos)";
     }
 
     echo "<!DOCTYPE html>
@@ -228,14 +344,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
   </head>
   <body>
-    <script>
-      Swal.fire({
+    <script>      Swal.fire({
         title: 'Solicitud Enviada',
-        text: 'Creada Correctamente',
-        icon: 'success',
-        confirmButtonText: 'OK'
+        html: 'Solicitud creada correctamente.<br><br><strong>Estado de archivos:</strong><br>" . str_replace("\n", "<br>", addslashes($mensajeArchivos)) . "',
+        icon: '" . (empty($archivosSubidos) && empty(array_filter($erroresArchivos, function($e) { return !strpos($e, "No se recibieron") && !strpos($e, "No se detectaron"); })) ? 'success' : (empty($erroresArchivos) ? 'success' : 'warning')) . "',
+        confirmButtonText: 'OK',
+        width: '600px'
       }).then(() => {
-        window.location.href = 'solicitar.php';
+        //window.location.href = 'solicitar.php';
       });
     </script>
   </body>
@@ -258,7 +374,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         icon: 'error',
         confirmButtonText: 'Volver'
       }).then(() => {
-      window.location.href = 'solicitar.php';
+      //window.location.href = 'solicitar.php';
       });
     </script>
   </body>

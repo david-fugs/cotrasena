@@ -915,12 +915,28 @@ $datos_usuario = [];
         `;
             fileList.appendChild(fileDiv);
         });
-    }
-
-    function removeFile(index) {
+    }    function removeFile(index) {
         allFiles.splice(index, 1); // Elimina el archivo de la lista
         renderFileList();
     }
+    
+    // CRUCIAL: Restaurar archivos al input antes del envío
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const dataTransfer = new DataTransfer();
+        
+        // Agregar todos los archivos seleccionados al DataTransfer
+        allFiles.forEach(file => {
+            dataTransfer.items.add(file);
+        });
+        
+        // Asignar los archivos al input
+        fileInput.files = dataTransfer.files;
+        
+        console.log('Archivos enviándose:', fileInput.files.length);
+        for (let i = 0; i < fileInput.files.length; i++) {
+            console.log('Archivo ' + (i+1) + ':', fileInput.files[i].name);
+        }
+    });
     document.addEventListener('DOMContentLoaded', function() {
         const cedulaInput = document.getElementById('cedula_aso');
         const nombreInput = document.getElementById('nombre_aso');
