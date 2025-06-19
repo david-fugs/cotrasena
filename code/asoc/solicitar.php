@@ -929,6 +929,7 @@ $datos_usuario = [];
 
 
         function llenarCampos(data) {
+        console.log(data);
             nombreInput.value = data.nombre_aso || '';
             edadInput.value = data.edad_aso || '';
             direccionInput.value = data.direccion_aso || '';
@@ -962,7 +963,7 @@ $datos_usuario = [];
             estrato_aso.value = data.estrato_aso || '';
             dpto_exp_cedula_aso.value = data.dpto_exp_cedula_aso || '';
             pais_exp_cedula_aso.value = data.pais_exp_cedula_aso || '';
-            fecha_exp_doc_aso.value = data.fecha_exp_doc_aso || '';
+            fecha_exp_doc_aso.value = data.fecha_exp_cedula_aso || '';
             ciudad_exp_cedula_aso.value = data.ciudad_exp_cedula_aso || '';
         }
 
