@@ -941,18 +941,30 @@ $mysqli->close();
                 <div class="row">
                     <div class="col-12 col-sm-6 mb-3">
                         <label for="fileInput" class="form-label fw-bold">* Subir Archivos</label>
-                        <input type="file" name="archivos[]" id="fileInput" class="form-control mb-2" multiple accept=".jpg,.jpeg,.png,.pdf" />
-                        <div id="fileList" class="mb-3">
-                            <?php foreach ($archivosExistentes as $archivo): ?>
+                        <input type="file" name="archivos[]" id="fileInput" class="form-control mb-2" multiple accept=".jpg,.jpeg,.png,.pdf" />                        <div id="fileList" class="mb-3">
+                            <?php foreach ($archivosExistentes as $archivo): 
+                                // Extraer información del archivo
+                                $partesNombre = explode('_', $archivo, 3);
+                                if (count($partesNombre) >= 3) {
+                                    // Formato: cedula_fecha_nombreoriginal.ext
+                                    $fecha = $partesNombre[1];
+                                    $nombreOriginal = $partesNombre[2];
+                                    $nombreMostrar = $nombreOriginal . " (Fecha: " . $fecha . ")";
+                                } else {
+                                    // Archivo con formato antiguo
+                                    $nombreMostrar = $archivo;
+                                }
+                            ?>
                                 <div class="alert alert-secondary d-flex justify-content-between align-items-center py-2 px-3 mb-2">
-                                    <span><i class="bi bi-file-earmark-text me-2"></i> <?= $archivo ?></span>
-                                    <a href="documentos/<?= $archivo ?>" class="btn btn-sm btn-outline-primary" target="_blank">Ver Documento</a>
-                                    <a href="eliminar_documento.php?archivo=<?= urlencode($archivo) ?>&id_solicitud=<?= urlencode($id_solicitud) ?>"
-                                        class="btn btn-sm btn-outline-danger"
-                                        onclick="return confirm('¿Estás seguro de que deseas eliminar este documento?');">
-                                        Eliminar
-                                    </a>
-
+                                    <span><i class="bi bi-file-earmark-text me-2"></i> <?= htmlspecialchars($nombreMostrar) ?></span>
+                                    <div>
+                                        <a href="documentos/<?= htmlspecialchars($archivo) ?>" class="btn btn-sm btn-outline-primary me-2" target="_blank">Ver Documento</a>
+                                        <a href="eliminar_documento.php?archivo=<?= urlencode($archivo) ?>&id_solicitud=<?= urlencode($id_solicitud) ?>"
+                                            class="btn btn-sm btn-outline-danger"
+                                            onclick="return confirm('¿Estás seguro de que deseas eliminar este documento?');">
+                                            Eliminar
+                                        </a>
+                                    </div>
                                 </div>
                             <?php endforeach; ?>
                         </div>

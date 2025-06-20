@@ -265,11 +265,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     return 'Error desconocido: ' . $errorCode;
             }
         }
-        
-        if ($uploadError === UPLOAD_ERR_OK) {
+          if ($uploadError === UPLOAD_ERR_OK) {
           $originalName = basename($fileName);
           $originalName = preg_replace('/[^a-zA-Z0-9_\.\-]/', '_', $originalName);
-          $newFileName = $cedula_aso . '_' . $originalName;
+          
+          // Obtener la fecha actual en formato YYYY-MM-DD
+          $fechaActual = date('Y-m-d');
+          
+          // Separar nombre y extensión
+          $pathInfo = pathinfo($originalName);
+          $nombreSinExt = $pathInfo['filename'];
+          $extension = isset($pathInfo['extension']) ? '.' . $pathInfo['extension'] : '';
+          
+          // Crear nombre con cédula, fecha y nombre original
+          $newFileName = $cedula_aso . '_' . $fechaActual . '_' . $nombreSinExt . $extension;
           $destination = $uploadDir . $newFileName;
           
           // Verificaciones adicionales
