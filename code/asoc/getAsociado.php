@@ -21,9 +21,42 @@ if (isset($_GET['cedula_aso']) && !empty($_GET['cedula_aso'])) {
             $solicitudes = [];
             while ($row = $result->fetch_assoc()) {
                 $solicitudes[] = $row;
-            }            echo json_encode([
+            }
+            
+            // Obtener el ID de la solicitud más reciente para buscar inmuebles y vehículos
+            $id_solicitud = $solicitudes[0]['id_solicitud'];
+            
+            // Consultar inmuebles relacionados
+            $query_inmuebles = "SELECT tipo, direccion, valor_comercial FROM inmuebles WHERE id_solicitud = ?";
+            $inmuebles = [];
+            if ($stmt_inmuebles = $mysqli->prepare($query_inmuebles)) {
+                $stmt_inmuebles->bind_param("i", $id_solicitud);
+                $stmt_inmuebles->execute();
+                $result_inmuebles = $stmt_inmuebles->get_result();
+                while ($row_inmueble = $result_inmuebles->fetch_assoc()) {
+                    $inmuebles[] = $row_inmueble;
+                }
+                $stmt_inmuebles->close();
+            }
+            
+            // Consultar vehículos relacionados
+            $query_vehiculos = "SELECT tipo, modelo, marca, placa, valor_comercial FROM vehiculos WHERE id_solicitud = ?";
+            $vehiculos = [];
+            if ($stmt_vehiculos = $mysqli->prepare($query_vehiculos)) {
+                $stmt_vehiculos->bind_param("i", $id_solicitud);
+                $stmt_vehiculos->execute();
+                $result_vehiculos = $stmt_vehiculos->get_result();
+                while ($row_vehiculo = $result_vehiculos->fetch_assoc()) {
+                    $vehiculos[] = $row_vehiculo;
+                }
+                $stmt_vehiculos->close();
+            }
+            
+            echo json_encode([
                 'from' => 'solicitudes',
-                'data' => $solicitudes
+                'data' => $solicitudes,
+                'inmuebles' => $inmuebles,
+                'vehiculos' => $vehiculos
             ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             $stmt1->close();
             $mysqli->close();
