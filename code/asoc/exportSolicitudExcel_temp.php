@@ -54,8 +54,12 @@ function cleanPlazoValue($value) {
     if (empty($value)) {
         return '';
     }
-    // Extraer solo los números (esto eliminará MESES, meses, espacios, etc.)
-    $cleaned = preg_replace('/[^0-9]/', '', $value);
+    // Remover "MESES", "meses", "Meses" y cualquier variación, con o sin espacios
+    $cleaned = preg_replace('/\s*meses\s*/i', '', $value);
+    // Remover espacios al inicio y final
+    $cleaned = trim($cleaned);
+    // Extraer solo los números
+    $cleaned = preg_replace('/[^0-9]/', '', $cleaned);
     return $cleaned;
 }
 
