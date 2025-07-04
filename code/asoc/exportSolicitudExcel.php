@@ -62,12 +62,12 @@ $max_vehiculos = max(count($vehiculos), 2); // Mínimo 2 para mantener compatibi
 // Función para limpiar valores numéricos (solo números)
 function cleanNumericValue($value) {
     if (empty($value) || $value == 0) {
-        return '';
+        return '0';
     }
     // Remover caracteres no numéricos excepto punto decimal
     $cleaned = preg_replace('/[^0-9.]/', '', $value);
     // Convertir a número y devolver como string sin formato
-    return $cleaned;
+    return (string)floatval($cleaned);
 }
 
 // Función para limpiar el campo plazo (remover MESES o meses)
@@ -85,7 +85,8 @@ function formatCurrency($value) {
     if (empty($value) || $value == 0) {
         return '0';
     }
-    return number_format($value, 0, ',', '.');
+    // Devolver solo el número sin formato (sin comas ni puntos separadores)
+    return (string)floatval($value);
 }
 
 // Crear una nueva instancia de Spreadsheet
